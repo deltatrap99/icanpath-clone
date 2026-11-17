@@ -24,6 +24,10 @@ Peri là người bạn đồng hành trong các hoạt động. Bộ hình gố
 
 Lời nhắn của Peri cần khích lệ quá trình học, không tiết lộ đáp án và không đưa ra nhận định năng lực khi chưa có dữ liệu. Chuyển động giới thiệu ngắn được tắt khi thiết bị chọn giảm chuyển động.
 
+## Những người đồng hành
+
+Khu vực học sinh, phụ huynh và nhà trường trên trang chủ dùng một khung kết nối chung. Peri và thông điệp đặt học sinh ở trung tâm tạo điểm nhìn chính, ba phần bên cạnh giải thích vai trò và có thao tác tiếp theo rõ ràng. Học sinh được đưa về ô nhập mã, phụ huynh xem báo cáo minh họa, nhà trường và GE mở khu nhân viên. Trên điện thoại, phần minh họa được thu gọn và ba vai trò xếp theo chiều dọc để giữ nội dung dễ đọc. Các biểu tượng quanh Peri chỉ dùng trang trí, không tạo thêm điểm tương tác hay trạng thái dữ liệu.
+
 ## Báo cáo và hành trình học
 
 Phần nhìn lại bốn kỹ năng dùng các thẻ riêng, với hai góc nhìn được trình bày rõ ràng: mức tự đánh giá của học sinh và mức tham chiếu CEFR của bài làm. Hai thang này không được vẽ trên cùng một trục hoặc quy đổi thành phần trăm tương đương. Nhận xét cần khích lệ, đồng thời đưa ra một hành động luyện tập cụ thể. Khi thiếu bài làm hoặc dữ liệu chưa đủ rõ, giao diện cần giải thích rằng nên tìm hiểu thêm, không tự tạo kết quả hay khen một năng lực chưa được ghi nhận.

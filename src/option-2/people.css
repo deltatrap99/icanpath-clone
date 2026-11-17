@@ -1,0 +1,62 @@
+/* A connected community, with the learner and Peri as the focal point. */
+.identity-option2 .people-heading{max-width:760px;margin:0 0 28px}
+.identity-option2 .people-heading h2{font-size:34px;line-height:1.25;margin:0 0 16px;color:var(--ink-strong)}
+.identity-option2 .people-heading p{font-size:15px;line-height:1.85;color:var(--muted);max-width:720px;margin:0}
+.identity-option2 .people-community{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:28px;background:#F3F8FF;border:1px solid var(--line);border-radius:28px;padding:28px}
+.identity-option2 .people-center{display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-width:0;padding:32px 28px 24px;border:1px solid #CDDEF6;border-radius:22px;background:var(--identity-powder) url(/option-2/assets/horizon-waves.svg) center bottom / 150% 130px no-repeat;text-align:center;overflow:hidden}
+.identity-option2 .people-center-copy{position:relative;z-index:1;width:100%}
+.identity-option2 .people-center-label{display:inline-flex;align-items:center;gap:7px;font-size:10px;line-height:1.6;letter-spacing:1px;font-weight:900;color:var(--identity-primary);margin-bottom:16px}
+.identity-option2 .people-center h3{font-size:27px;line-height:1.35;margin:0;color:var(--ink-strong)}
+.identity-option2 .people-peri-scene{width:260px;height:224px;position:relative;flex:none;margin:16px auto 12px}
+.identity-option2 .people-orbit{position:absolute;width:198px;height:178px;left:31px;top:21px;border:1.5px dashed #9ABDEB;border-radius:50%;transform:rotate(-17deg)}
+.identity-option2 .people-peri-ground{position:absolute;bottom:18px;left:76px;width:108px;height:19px;border-radius:50%;background:#BDD6F6}
+.identity-option2 .people-peri{position:absolute;left:73px;bottom:25px;width:114px;height:163px;filter:drop-shadow(0 8px 8px #18477D14)}
+.identity-option2 .people-orbit-node{position:absolute;display:grid;place-items:center;width:43px;height:43px;border:1px solid #D1E1F7;border-radius:14px;background:white;color:var(--identity-ui);box-shadow:0 4px 10px #18477D06}
+.identity-option2 .people-orbit-book{top:35px;left:14px;transform:rotate(-9deg)}
+.identity-option2 .people-orbit-family{top:5px;right:29px;transform:rotate(8deg);color:#A6523C;background:var(--identity-ivory);border-color:#EFDCC3}
+.identity-option2 .people-orbit-school{bottom:25px;right:9px;transform:rotate(7deg)}
+.identity-option2 .people-promise{position:relative;z-index:1;max-width:310px;font-size:14px;line-height:1.85;color:#3D5D85;margin:0}
+.identity-option2 .people-roles{display:grid;gap:16px;align-content:center;position:relative;min-width:0;isolation:isolate}
+.identity-option2 .people-roles::before{content:'';position:absolute;top:60px;bottom:60px;left:44px;border-left:2px dashed #BED2EE;z-index:-1}
+.identity-option2 .people-role{display:grid;grid-template-columns:44px minmax(0,1fr);align-items:start;gap:16px;padding:20px;background:white;border:1px solid #DDE7F5;border-radius:18px;min-width:0}
+.identity-option2 .people-role-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:14px;color:var(--identity-ui);background:#EAF2FF}
+.identity-option2 .people-role-family .people-role-icon{background:#FFF2E8;color:#A6523C}
+.identity-option2 .people-role-school .people-role-icon{background:#EDF4FA;color:var(--identity-primary)}
+.identity-option2 .people-role-content{min-width:0}
+.identity-option2 .people-role h3{font-size:19px;line-height:1.4;color:var(--ink-strong);margin:0 0 8px}
+.identity-option2 .people-role p{font-size:14px;line-height:1.8;color:var(--muted);margin:0 0 8px}
+.identity-option2 .people-role-action{display:inline-flex;align-items:center;justify-content:flex-start;gap:9px;min-height:44px;padding:6px 0;border:0;border-radius:4px;background:transparent;box-shadow:none;font-size:13px;font-weight:850;line-height:1.5;color:var(--identity-primary);text-decoration:none;transition:color .16s}
+.identity-option2 .people-role-action:hover{color:#183DA9;background:transparent;box-shadow:none;filter:none;text-decoration:underline;text-underline-offset:4px}
+.identity-option2 .people-role-action:active{transform:none;box-shadow:none}
+
+@media(max-width:1100px){
+  .identity-option2 .people-community{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);padding:24px;gap:24px}
+  .identity-option2 .people-center{padding:28px 20px 24px}.identity-option2 .people-center h3{font-size:25px}
+  .identity-option2 .people-role{gap:14px;padding:18px}.identity-option2 .people-role h3{font-size:18px}
+  .identity-option2 .people-roles::before{left:40px}
+}
+@media(max-width:800px){
+  .identity-option2 .people-heading h2{font-size:30px}.identity-option2 .people-heading{max-width:640px;margin-bottom:24px}
+  .identity-option2 .people-community{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);padding:20px;gap:20px}
+  .identity-option2 .people-center{padding:28px 16px 24px}.identity-option2 .people-center h3{font-size:23px}.identity-option2 .people-center-label{font-size:9px;letter-spacing:.7px;gap:5px}
+  .identity-option2 .people-peri-scene{width:220px;height:218px;margin:20px -4px}.identity-option2 .people-orbit{width:166px;height:168px;left:27px}.identity-option2 .people-peri{left:58px;width:104px;height:149px}.identity-option2 .people-peri-ground{left:60px;width:100px}.identity-option2 .people-orbit-node{width:37px;height:37px;border-radius:12px}.identity-option2 .people-orbit-book{left:3px;top:38px}.identity-option2 .people-orbit-family{right:12px}.identity-option2 .people-orbit-school{right:0}
+  .identity-option2 .people-promise{font-size:13px;line-height:1.85}
+  .identity-option2 .people-role{grid-template-columns:38px minmax(0,1fr);padding:18px 16px;gap:12px}.identity-option2 .people-role-icon{width:38px;height:38px;border-radius:12px}.identity-option2 .people-role-icon svg{width:23px;height:23px}.identity-option2 .people-role h3{font-size:17px}.identity-option2 .people-role p{font-size:13px;line-height:1.8}.identity-option2 .people-role-action{font-size:12px}.identity-option2 .people-roles::before{left:35px}
+}
+@media(max-width:660px){
+  .identity-option2 .people-heading h2{font-size:28px;line-height:1.3}.identity-option2 .people-heading p{font-size:14px;line-height:1.85}
+  .identity-option2 .people-community{grid-template-columns:1fr;border-radius:24px;padding:16px;gap:20px}
+  .identity-option2 .people-center{display:grid;grid-template-columns:minmax(0,1fr) 126px;gap:16px;align-items:center;text-align:left;padding:24px;border-radius:18px;background-size:140% 110px}
+  .identity-option2 .people-center-copy{grid-column:1;grid-row:1}.identity-option2 .people-center-label{font-size:9px;margin-bottom:12px;gap:6px;letter-spacing:.6px}.identity-option2 .people-center h3{font-size:24px;line-height:1.35}
+  .identity-option2 .people-peri-scene{grid-column:2;grid-row:1;width:126px;height:160px;margin:0}.identity-option2 .people-peri{width:80px;height:114px;left:23px;bottom:17px}.identity-option2 .people-peri-ground{left:28px;bottom:11px;width:72px;height:12px}.identity-option2 .people-orbit{width:119px;height:126px;left:4px;top:12px}.identity-option2 .people-orbit-node{width:28px;height:28px;border-radius:9px}.identity-option2 .people-orbit-node svg{width:16px;height:16px}.identity-option2 .people-orbit-book{left:-3px;top:34px}.identity-option2 .people-orbit-family{right:4px;top:0}.identity-option2 .people-orbit-school{right:-4px;bottom:15px}
+  .identity-option2 .people-promise{grid-column:1/-1;max-width:none;font-size:13px;line-height:1.85}
+  .identity-option2 .people-role{grid-template-columns:40px minmax(0,1fr);gap:14px;padding:20px 16px;border-radius:16px}.identity-option2 .people-role-icon{width:40px;height:40px}.identity-option2 .people-role h3{font-size:18px}.identity-option2 .people-role p{font-size:14px}.identity-option2 .people-role-action{font-size:13px}.identity-option2 .people-roles::before{left:36px}
+}
+@media(max-width:400px){
+  .identity-option2 .people-heading h2{font-size:26px}.identity-option2 .people-heading p{font-size:13px}
+  .identity-option2 .people-community{padding:12px;gap:16px;border-radius:20px}.identity-option2 .people-center{padding:20px 16px;grid-template-columns:minmax(0,1fr) 82px;column-gap:6px;row-gap:16px}
+  .identity-option2 .people-center-label{font-size:9px;letter-spacing:.25px;gap:5px}.identity-option2 .people-center-label svg{width:14px;height:14px}.identity-option2 .people-center h3{font-size:23px}.identity-option2 .people-center h3 br{display:none}
+  .identity-option2 .people-peri-scene{width:82px;height:154px}.identity-option2 .people-peri{left:6px;bottom:21px;width:70px;height:100px}.identity-option2 .people-peri-ground{left:9px;bottom:16px;width:64px}.identity-option2 .people-orbit{left:-4px;top:14px;width:88px;height:119px}.identity-option2 .people-orbit-node{width:24px;height:24px;border-radius:8px}.identity-option2 .people-orbit-node svg{width:14px;height:14px}.identity-option2 .people-orbit-book{display:none}.identity-option2 .people-orbit-family{right:0;top:1px}.identity-option2 .people-orbit-school{right:-7px;bottom:15px}
+  .identity-option2 .people-role{grid-template-columns:34px minmax(0,1fr);gap:10px;padding:18px 14px}.identity-option2 .people-role-icon{width:34px;height:34px;border-radius:10px}.identity-option2 .people-role-icon svg{width:21px;height:21px}.identity-option2 .people-role h3{font-size:17px;line-height:1.4}.identity-option2 .people-role p{font-size:13px;line-height:1.85}.identity-option2 .people-role-action{font-size:12px;gap:7px}.identity-option2 .people-roles::before{left:31px}
+}
+@media print{.identity-option2 .people-center,.identity-option2 .people-role{break-inside:avoid}.identity-option2 .people-role-action{display:none}}

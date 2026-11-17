@@ -67,11 +67,6 @@
       ['S', 'Nói', '7 phút', 'Em ghi âm câu trả lời để thể hiện cách phát âm và diễn đạt của mình.'],
       ['W', 'Viết', '7 phút', 'Em viết một đoạn tiếng Anh ngắn để chia sẻ ý tưởng theo chủ đề.'],
     ];
-    const roles = [
-      ['user', 'Dành cho học sinh', 'Em hiểu rõ những điều mình đã làm tốt và khám phá cách học phù hợp hơn với bản thân.'],
-      ['family', 'Đồng hành cùng phụ huynh', 'Phụ huynh theo dõi kết quả bốn kỹ năng để cùng con lựa chọn mục tiêu và bước học tiếp theo.'],
-      ['school', 'Kết nối với nhà trường', 'Nhà trường và GE tổ chức đánh giá, theo dõi tiến độ và xem báo cáo tổng hợp theo từng lớp.'],
-    ];
     const sampleBars = [['L', 'Nghe', 68], ['S', 'Nói', 49], ['R', 'Đọc', 73], ['W', 'Viết', 61]];
     mount(h('div', { class: 'identity-home', id: 'main-content' },
       h('section', { class: 'identity-hero', 'aria-labelledby': 'identity-title' },
@@ -117,9 +112,7 @@
             h('div', { class: 'identity-sample-bars' }, sampleBars.map(([key, label, value]) => h('div', { class: 'identity-sample-bar' }, icon(skillIcons[key], 21), h('span', {}, label), h('div', { class: 'identity-track', 'aria-hidden': 'true' }, h('i', { style: `width:${value}%;${key === 'S' ? 'background:var(--identity-coral)' : ''}` }))))),
             h('div', { class: 'identity-next-step' }, icon('signpost', 33), h('div', {}, h('b', {}, 'Bước tiếp theo của em'), h('p', {}, 'Em có thể luyện nói thêm qua các chủ đề quen thuộc.')), icon('chevron', 19))),
           h('div', { class: 'identity-sample-caption' }, icon('compass', 19), 'Mỗi kết quả mở ra một hướng đi phù hợp.'))),
-      h('section', { class: 'identity-section identity-people', 'aria-labelledby': 'identity-people-title' },
-        h('div', { class: 'identity-section-heading' }, h('span', { class: 'identity-kicker' }, 'CÙNG EM MỞ THÊM KHẢ NĂNG'), h('h2', { id: 'identity-people-title' }, 'Một hành trình, nhiều người đồng hành'), h('p', {}, 'Khi học sinh, gia đình và nhà trường cùng thấu hiểu, mỗi bước học tập sẽ có thêm sự tin tưởng và định hướng.')),
-        h('div', { class: 'identity-role-grid' }, roles.map(([name, title, desc]) => h('article', { class: 'identity-role' }, h('div', { class: 'identity-icon-box' }, icon(name, 29)), h('h3', {}, title), h('p', {}, desc))))),
+      window.ICanPeople.render(h, { icon, focusCode }),
       h('section', { class: 'identity-cta' },
         h('div', {}, h('span', { class: 'identity-kicker' }, 'CHÂN TRỜI MỚI BẮT ĐẦU TỪ EM'), h('h2', {}, 'Cùng Peri mở thêm những khả năng'), h('p', {}, 'Hãy bắt đầu bằng việc hiểu mình hôm nay, để mỗi bước học tiếng Anh ngày mai đều có một hướng đi rõ ràng hơn.'), h('button', { class: 'btn-lg', onclick: focusCode }, 'Cùng Peri khám phá', arrow())),
         peri.figure(h, 'wink', { class: 'peri-cta-friend' }))));
