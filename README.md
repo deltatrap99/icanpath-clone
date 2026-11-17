@@ -26,6 +26,14 @@ Nhân vật Peri dùng năm tư thế gốc từ bộ hình được cung cấp,
 
 Báo cáo option 2 có bốn thẻ nhìn lại kỹ năng cùng nhận xét khích lệ và gợi ý luyện tập. Hành trình Peri nối các bài học thành từng chặng, cho phép học sinh tự đánh dấu hoàn thành ở cuối bài học và quay lại đúng vị trí trên lộ trình. Tiến độ được lưu riêng theo báo cáo, độc lập với điểm kiểm tra. Các module `reflection.js`, `journey.js` và `journey-state.js` phụ trách giao diện và tiến độ này.
 
+## Không gian nhà trường
+
+Phương án 2 có tab **Nhà trường** tại `/option-2/#/school-portal`. Tài khoản trải nghiệm là `chuyenhungyen`, mật khẩu `demo123`. Bộ dữ liệu minh họa của THPT Chuyên Hưng Yên gồm 288 học sinh thuộc chín lớp của khối 10, 11 và 12. Lớp **10 Lí** có 32 học sinh, **Bồ Quốc Tuấn** dẫn đầu với 96,8 điểm tổng thể. Khối 12 chỉ thuộc bộ dữ liệu báo cáo minh họa, phạm vi bài kiểm tra hiện có vẫn là lớp 3 đến lớp 11.
+
+Các bộ lọc khối, lớp và kỹ năng cập nhật đồng bộ số liệu, phân bố CEFR, phổ điểm và thứ hạng. Người dùng có thể chọn cột CEFR để lọc danh sách, tìm tên không dấu, phân trang và mở kết quả bốn kỹ năng của từng học sinh. Điểm bằng nhau có cùng thứ hạng. Phiên nhà trường lưu riêng trong `sessionStorage`, không thay đổi phiên học sinh hay nhân viên GE. Đây là luồng đăng nhập và dữ liệu minh họa phía trình duyệt, không phải hệ thống xác thực máy chủ cho hồ sơ học sinh thật.
+
+Các module `school-service.js`, `school-charts.js`, `school-rankings.js` và `school-portal.js` quản lý dữ liệu, biểu đồ, bảng xếp hạng và màn hình. `scripts/check-school-portal.mjs` kiểm tra phiên đăng nhập, phạm vi trường, tổng hợp số liệu, tìm kiếm, phân trang và thứ hạng.
+
 ## Dùng thử
 
 | Luồng | Đường dẫn / tài khoản |

@@ -45,7 +45,7 @@ function svg(tag, attrs, ...kids) {
 function mount(...nodes) { $app.replaceChildren(...nodes.flat(Infinity).filter((n) => n != null && n !== false)); window.scrollTo(0, 0); }
 function toast(msg, ms = 3200) { const t = document.getElementById('toast'); t.textContent = copyText(msg); t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), ms); }
 function setBand(band) { document.body.classList.remove('band-35', 'band-68', 'band-911'); if (band) document.body.classList.add('band-' + band.replace('-', '')); }
-function setMode(mode) { document.body.classList.remove('mode-site', 'mode-focus', 'mode-console'); document.body.classList.add('mode-' + mode); }
+function setMode(mode) { document.body.classList.remove('mode-site', 'mode-focus', 'mode-console', 'mode-school'); document.body.classList.add('mode-' + mode); }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const fox = (kind, cls, attrs = {}) => IDENTITY?.mascot ? IDENTITY.mascot(h, kind, { ...attrs, class: cls }) : h('img', { src: `/img/fox-${kind}.webp`, alt: '', width: 402, height: 440, class: cls || null, decoding: 'async', ...attrs });
 const loading = () => h('div', { class: 'loading' }, h('div', { class: 'spinner', role: 'status', 'aria-label': 'Đang tải' }));
@@ -89,9 +89,12 @@ function router() {
   const routes = {
     '': () => home(), join: () => joinPage(parts[1]), test: () => testPage(), r: () => resultPage(parts[1], q),
     learn: () => learnPage(parts[1], q), school: () => schoolPage(parts[1]), staff: () => staffPage(parts[1], parts[2]),
+    'school-portal': () => IDENTITY?.schoolPortal ? IDENTITY.schoolPortal.render({ h, mount, query: q, onRoute: router, registerCleanup: fn => cleanup.push(fn) }) : home(),
     'dieu-khoan': () => legalPage('dieu-khoan'), 'chinh-sach-du-lieu': () => legalPage('chinh-sach-du-lieu'),
   };
-  setMode(parts[0] === 'join' || parts[0] === 'test' ? 'focus' : 'site');
+  setMode(parts[0] === 'join' || parts[0] === 'test' ? 'focus' : parts[0] === 'school-portal' && IDENTITY?.schoolPortal ? 'school' : 'site');
+  const schoolNav = document.querySelector('.identity-school-nav');
+  if (schoolNav) { if (parts[0] === 'school-portal') schoolNav.setAttribute('aria-current', 'page'); else schoolNav.removeAttribute('aria-current'); }
   (routes[parts[0] || ''] || home)();
 }
 window.addEventListener('hashchange', router);

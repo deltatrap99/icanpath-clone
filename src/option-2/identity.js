@@ -125,6 +125,7 @@
     onboardingGuide: peri.onboarding,
     reflection: window.ICanReflection,
     journey: window.ICanJourney,
+    schoolPortal: window.ICanSchoolPortal,
     skillIcons,
     skillColors: { U: '#0057A5', L: '#3155D9', R: '#3155D9', S: '#FF8066', W: '#3155D9' },
     lessonBrand: h => h('div', { class: 'identity-lesson-brand' }, brand(h)),

@@ -1,0 +1,147 @@
+/* School reports use the same ICANPath identity, with clear scopes and readable data. */
+.identity-option2.mode-school{background:#F6F9FE}
+.identity-option2 .identity-ge-short{display:none}
+.identity-option2 .identity-school-nav{border-color:#BDCEF1}
+.identity-option2.mode-school .identity-school-nav{background:var(--identity-powder);color:var(--identity-primary);border-color:#A6C5F4}
+.identity-option2 .school-portal{--school-level-0:#CBD7E8;--school-level-1:#A7C3EA;--school-level-2:#79A5ED;--school-level-3:#4D7CE6;--school-level-4:#3155D9;--school-level-5:#FFAD8C;min-width:0}
+.identity-option2 .school-panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;min-width:0;box-shadow:0 4px 18px #123D7505}
+.identity-option2 .school-data-badge{display:inline-flex;align-items:center;min-height:28px;padding:5px 10px;border:1px solid #E9DDC8;border-radius:999px;background:var(--identity-ivory);color:#805C36;font-size:11px;line-height:1.5;font-weight:800}
+.identity-option2 .school-login-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:64px;align-items:center;padding:20px 0}
+.identity-option2 .school-login-story h1{font-size:42px;line-height:1.22;margin:0 0 24px;color:var(--ink-strong)}
+.identity-option2 .school-login-story > p{font-size:15px;line-height:1.9;color:#546D90;margin:0;max-width:510px}
+.identity-option2 .school-login-visual{display:flex;align-items:center;gap:24px;padding:32px 0;margin:0 0 8px}
+.identity-option2 .school-login-peri{width:126px;height:180px;flex:none;margin:0 8px}
+.identity-option2 .school-login-preview{display:grid;gap:10px;padding:24px;background:#DFEDFF;border:1px solid #C7DCF9;border-radius:20px;min-width:0;max-width:300px;transform:rotate(-2deg);color:var(--identity-primary)}
+.identity-option2 .school-login-preview strong{font-size:18px;line-height:1.4;color:var(--ink-strong)}
+.identity-option2 .school-login-preview > span{font-size:12px;line-height:1.7;color:#4D688E}
+.identity-option2 .school-login-story .school-login-note{font-size:14px;line-height:1.85;max-width:480px}
+.identity-option2 .school-login-form-panel{padding:32px}
+.identity-option2 .school-school-icon{display:grid;place-items:center;width:54px;height:54px;background:#EAF2FF;color:var(--identity-ui);border-radius:16px;margin-bottom:20px}
+.identity-option2 .school-login-form-panel h2{font-size:27px;line-height:1.3;margin:0 0 12px}
+.identity-option2 .school-login-form-panel > p{font-size:14px;line-height:1.85;color:var(--muted);margin:0 0 24px}
+.identity-option2 .school-login-form-panel label{font-size:13px;margin:18px 0 8px}
+.identity-option2 .school-login-form-panel input{width:100%;font-size:15px;min-height:49px}
+.identity-option2 .school-login-submit{width:100%;margin-top:24px;gap:12px}
+.identity-option2 .school-login-error{color:#A62B41;background:#FFF3F4;border:1px solid #F1D5DC;border-radius:12px;padding:12px;font-size:13px;line-height:1.75;margin:16px 0 0}
+.identity-option2 .school-login-error[hidden]{display:none}
+.identity-option2 .school-demo-account{border-top:1px solid #E3EAF5;padding-top:24px;margin-top:28px}
+.identity-option2 .school-demo-account > p{font-size:12px;line-height:1.85;color:#60718D;margin:12px 0}
+.identity-option2 .school-demo-account dl{margin:12px 0 16px;font-size:12px}
+.identity-option2 .school-demo-account dl > div{display:flex;gap:16px;justify-content:space-between;padding:5px 0}
+.identity-option2 .school-demo-account dt{color:#657892}.identity-option2 .school-demo-account dd{margin:0;color:#173F79;font-weight:800}
+.identity-option2 .school-demo-account button{width:100%;font-size:13px;min-height:44px}
+.identity-option2 .school-dashboard-header{display:flex;align-items:center;justify-content:space-between;gap:28px;margin-bottom:20px}
+.identity-option2 .school-dashboard-header h1{font-size:33px;line-height:1.25;margin:0 0 12px}
+.identity-option2 .school-dashboard-header p{font-size:14px;line-height:1.85;color:#60728E;max-width:720px;margin:0}
+.identity-option2 .school-dashboard-account{display:flex;align-items:center;gap:14px;flex:none}
+.identity-option2 .school-dashboard-account button{font-size:12px;min-height:44px;padding:10px 16px}
+.identity-option2 .school-context-line{display:flex;align-items:center;gap:24px;flex-wrap:wrap;font-size:12px;color:#627993;margin:0 0 24px;line-height:1.6}
+.identity-option2 .school-context-line > span,.identity-option2 .school-context-line > a{display:inline-flex;align-items:center;gap:8px}
+.identity-option2 .school-context-line a{font-weight:800;min-height:38px;margin-left:auto;text-decoration:underline;text-underline-offset:4px}
+.identity-option2 .school-filter-panel{display:grid;grid-template-columns:1fr 1fr 1.2fr auto;gap:18px;align-items:end;background:#fff;border:1px solid var(--line);padding:20px 24px;border-radius:18px;margin:0 0 28px}
+.identity-option2 .school-filter-panel > div{min-width:0}.identity-option2 .school-filter-panel label{font-size:12px;margin:0 0 8px;color:#516B8F}
+.identity-option2 .school-filter-panel select{width:100%;font-size:14px;min-height:46px;padding:10px 34px 10px 14px}
+.identity-option2 .school-filter-panel .school-reset{min-height:46px;font-size:12px;padding:12px 16px}
+.identity-option2 .school-scope-heading{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin:0 0 16px}
+.identity-option2 .school-scope-heading h2{font-size:23px;line-height:1.35;margin:0}.identity-option2 .school-scope-heading p{font-size:12px;line-height:1.75;color:#60738F;margin:0}
+.identity-option2 .school-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:24px}
+.identity-option2 .school-metric{position:relative;min-width:0;background:white;border:1px solid #DFE7F4;border-radius:18px;padding:22px}
+.identity-option2 .school-metric-icon{position:absolute;top:18px;right:18px;color:#6385BE}
+.identity-option2 .school-metric-label{display:block;font-size:12px;font-weight:800;line-height:1.6;color:#60738F;padding-right:26px;min-height:38px}
+.identity-option2 .school-metric > strong{display:block;color:var(--ink-strong);font-size:34px;line-height:1.25;letter-spacing:-.025em;margin:8px 0}
+.identity-option2 .school-metric > small{display:block;font-size:11px;line-height:1.7;color:#6A7D96}
+.identity-option2 .school-charts-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;margin-bottom:24px}
+.identity-option2 .school-panel-heading h2,.identity-option2 .school-ranking-heading h2{font-size:21px;line-height:1.35;margin:0 0 9px}
+.identity-option2 .school-panel-heading p,.identity-option2 .school-ranking-heading p{font-size:13px;line-height:1.8;color:#627490;margin:0}
+.identity-option2 .school-level-chart{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;margin:20px -4px 12px}
+.identity-option2 .school-level-axis{display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:#7A8CA5;padding:46px 0 63px;text-align:right}
+.identity-option2 .school-level-bars{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;min-width:0}
+.identity-option2 .school-level-option{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;padding:10px 4px;border:1px solid transparent;border-radius:12px;background:transparent;box-shadow:none;color:#3A5A84;transition:background .16s,border-color .16s}
+.identity-option2 .school-level-option:hover,.identity-option2 .school-level-option.selected{background:#F0F6FF;border-color:#C4D8FA;box-shadow:none;filter:none}
+.identity-option2 .school-level-option:active{transform:none;box-shadow:none}
+.identity-option2 .school-level-count{font-size:22px;line-height:28px;font-weight:900;color:#1C467E}
+.identity-option2 .school-level-track{height:168px;width:100%;max-width:42px;display:flex;align-items:flex-end;border-bottom:1px solid #DCE6F4}
+.identity-option2 .school-level-track i{display:block;width:100%;height:var(--bar-size);background:var(--bar-color);border-radius:6px 6px 0 0}
+.identity-option2 .school-level-name{font-size:12px;font-weight:850;line-height:19px;white-space:nowrap}.identity-option2 .school-level-percent{font-size:10px;line-height:18px;color:#6C7F9B;font-weight:650}
+.identity-option2 .school-chart-help{display:flex;align-items:flex-start;gap:8px;font-size:11px;line-height:1.85;color:#647C9B;margin:12px 0 0}
+.identity-option2 .school-chart-help svg{margin-top:3px;flex:none}
+.identity-option2 .school-score-buckets{list-style:none;padding:0;margin:28px 0 24px;display:grid;gap:12px}
+.identity-option2 .school-score-buckets li{display:grid;grid-template-columns:56px minmax(0,1fr) 28px;align-items:center;gap:10px;min-height:34px;font-size:12px;color:#5A7293}
+.identity-option2 .school-score-buckets strong{text-align:right;font-size:14px;color:#214C86}
+.identity-option2 .school-bucket-track{height:13px;border-radius:4px;overflow:hidden;background:#EDF2FA}
+.identity-option2 .school-bucket-track i{display:block;height:100%;background:#5D86E4;border-radius:4px}
+.identity-option2 .school-ranking-heading{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:22px}
+.identity-option2 .school-search-field{width:250px;flex:none}.identity-option2 .school-search-field label{font-size:12px;margin:0 0 7px;color:#5C7191}
+.identity-option2 .school-search-field input{width:100%;min-height:45px;font-size:14px}
+.identity-option2 .school-ranking-leader{display:flex;align-items:center;gap:20px;padding:18px 22px;background:#FFF9F0;border:1px solid #EEE3D1;border-radius:18px;margin-bottom:22px}
+.identity-option2 .school-ranking-leader > .peri-figure{width:60px;height:83px}.identity-option2 .school-ranking-leader > div{min-width:0;flex:1}
+.identity-option2 .school-ranking-leader > div > span{font-size:11px;color:#8A6541;display:block;line-height:1.7;margin:0 0 4px}.identity-option2 .school-ranking-leader > div > strong{font-size:22px;line-height:1.35;color:#173C76;display:block}.identity-option2 .school-ranking-leader p{font-size:12px;color:#77664F;margin:5px 0 0;line-height:1.7}
+.identity-option2 .school-ranking-leader button{font-size:12px;min-height:44px;padding:10px 16px;border-color:#DAD6CD;flex:none}
+.identity-option2 .school-ranking-leader[hidden]{display:none}
+.identity-option2 .school-ranking-filter:empty{display:none}.identity-option2 .school-ranking-filter{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#EDF4FF;border:1px solid #D5E4FA;border-radius:12px;margin-bottom:18px;padding:10px 14px;font-size:13px;color:#244F89}
+.identity-option2 .school-ranking-filter button{font-size:11px;min-height:40px;padding:8px 12px}
+.identity-option2 .school-rankings{scroll-margin-top:110px}
+.identity-option2 .school-rank-table-wrap{border:1px solid #E2EAF5;border-radius:14px;overflow:hidden}
+.identity-option2 .school-rank-table{border-collapse:collapse;width:100%;text-align:left}
+.identity-option2 .school-rank-table th{padding:13px 16px;background:#F5F8FD;color:#6C7D96;font-size:11px;font-weight:800;letter-spacing:.2px;text-transform:none;border:0;white-space:nowrap}
+.identity-option2 .school-rank-table td{padding:10px 16px;border:0;border-top:1px solid #E6EDF7;font-size:13px;color:#527092;line-height:1.7}
+.identity-option2 .school-rank-table .school-first-place{background:#F5F9FF}
+.identity-option2 .school-rank-position > span{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:#F0F4FA;color:#5173A4;font-size:13px;font-weight:850}
+.identity-option2 .school-first-place .school-rank-position > span{background:#E1ECFF;color:#2156AA}
+.identity-option2 .school-student-name{display:inline-flex;align-items:center;justify-content:flex-start;font-size:14px;font-weight:800;line-height:1.6;color:#1C467E;min-height:44px;border:0;border-radius:5px;background:transparent;box-shadow:none;padding:8px 0;text-align:left}
+.identity-option2 .school-student-name:hover{background:transparent;box-shadow:none;filter:none;text-decoration:underline;text-underline-offset:4px}.identity-option2 .school-student-name:active{box-shadow:none;transform:none}
+.identity-option2 .school-rank-score strong{font-size:16px;color:#214E88;font-weight:900}.identity-option2 .school-rank-score-label,.identity-option2 .school-rank-mobile-meta{display:none}
+.identity-option2 .school-cefr-badge{display:inline-flex;justify-content:center;align-items:center;min-width:42px;padding:5px 10px;background:#EAF2FF;border:1px solid #D7E6FB;border-radius:999px;font-size:12px;font-weight:850;line-height:1.5;color:#21518E;white-space:nowrap}
+.identity-option2 .school-pager{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:18px}.identity-option2 .school-pager > p{font-size:12px;line-height:1.7;color:#71829B;margin:0}.identity-option2 .school-pager > div{display:flex;align-items:center;gap:12px;font-size:12px;color:#6A7F9E}
+.identity-option2 .school-pager button{font-size:12px;min-height:44px;padding:10px 14px}
+.identity-option2 .school-data-note{font-size:12px;color:#6B7F9A;line-height:1.85;margin:20px 0 0;max-width:900px}
+.identity-option2 .school-empty{text-align:center;padding:28px 16px;border-radius:16px;background:#F8FAFE}.identity-option2 .school-empty > .peri-figure{width:70px;height:105px;margin-bottom:16px}.identity-option2 .school-empty h3{font-size:20px;margin:0 0 12px}.identity-option2 .school-empty p{font-size:13px;line-height:1.85;color:#637892;margin:0 auto 20px;max-width:500px}.identity-option2 .school-empty button{font-size:12px;min-height:44px}
+.identity-option2 .school-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.identity-option2 .school-student-dialog{width:min(640px,calc(100% - 32px));max-height:calc(100dvh - 32px);border:1px solid #CEDCF0;border-radius:24px;padding:28px;background:#fff;color:var(--ink);box-shadow:0 18px 70px #0A275B30;overflow:auto}
+.identity-option2 .school-student-dialog::backdrop{background:#102B5866;backdrop-filter:blur(3px)}
+.identity-option2 .school-dialog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:20px}.identity-option2 .school-close{width:44px;height:44px;min-height:44px;padding:0;font-size:26px;line-height:1}
+.identity-option2 .school-student-dialog .identity-kicker{font-size:10px;letter-spacing:1px;margin-bottom:10px}.identity-option2 .school-student-dialog h2{font-size:29px;margin:0 0 8px;line-height:1.3}.identity-option2 .school-student-meta{font-size:13px;line-height:1.8;color:#6B7C94;margin:0 0 22px}
+.identity-option2 .school-student-overall{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 24px;background:#EDF4FF;border-radius:16px;border:1px solid #DDE8F8;margin-bottom:20px}
+.identity-option2 .school-student-overall > div > span{display:block;color:#5E7799;font-size:12px;margin-bottom:6px}.identity-option2 .school-student-overall strong{font-size:38px;line-height:1.2;letter-spacing:-.025em;color:#0D3D80}.identity-option2 .school-student-overall strong small{font-size:14px;font-weight:700;color:#7588A3}.identity-option2 .school-student-overall > b{font-size:21px;padding:8px 16px;background:white}
+.identity-option2 .school-student-skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.identity-option2 .school-student-skills > div{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:18px;border:1px solid #E1E9F5;border-radius:15px}.identity-option2 .school-student-skills > div > span:first-child{display:flex;gap:8px;align-items:center;font-size:13px;color:#4B6D9A;grid-column:1/-1}.identity-option2 .school-student-skills strong{font-size:27px;color:#183E77;font-weight:900;line-height:1.2}.identity-option2 .school-student-skills small{font-size:11px;color:#547299;font-weight:850}
+.identity-option2 .school-skill-track{display:block;grid-column:1/-1;height:6px;border-radius:999px;background:#E8EFF8;overflow:hidden}.identity-option2 .school-skill-track i{display:block;height:100%;background:#4A77DF;border-radius:999px}
+.identity-option2 .school-student-context{font-size:12px;line-height:1.9;color:#6A7C95;margin:20px 0}.identity-option2 .school-dialog-done{width:100%;font-size:13px;min-height:46px}
+@media(max-width:1100px){
+  .identity-option2 .school-login-layout{gap:36px}.identity-option2 .school-login-story h1{font-size:36px}.identity-option2 .school-login-form-panel{padding:28px}.identity-option2 .school-login-visual{gap:16px}.identity-option2 .school-login-peri{width:110px;height:156px;margin:0}.identity-option2 .school-login-preview{padding:20px}
+  .identity-option2 .school-dashboard-header h1{font-size:29px}.identity-option2 .school-dashboard-account{flex-direction:column;align-items:flex-end;gap:10px}
+  .identity-option2 .school-filter-panel{gap:14px;padding:20px}.identity-option2 .school-metric{padding:20px}.identity-option2 .school-metric-icon{right:14px;top:17px}.identity-option2 .school-metric-label{font-size:11px}.identity-option2 .school-metric > strong{font-size:31px}
+  .identity-option2 .school-panel{padding:22px}.identity-option2 .school-panel-heading h2,.identity-option2 .school-ranking-heading h2{font-size:20px}.identity-option2 .school-level-chart{grid-template-columns:20px 1fr;gap:4px;margin-left:-6px;margin-right:-8px}.identity-option2 .school-level-bars{gap:3px}.identity-option2 .school-level-option{padding-left:2px;padding-right:2px}.identity-option2 .school-level-name{font-size:11px}
+}
+@media(max-width:800px){
+  .identity-option2 .school-login-layout{grid-template-columns:1fr;max-width:600px;margin:auto;gap:28px;padding:0}.identity-option2 .school-login-story h1{font-size:36px}.identity-option2 .school-login-visual{display:none}.identity-option2 .school-login-story .school-login-note{display:none}.identity-option2 .school-login-story > p{font-size:14px}
+  .identity-option2 .school-dashboard-header h1{font-size:27px}.identity-option2 .school-dashboard-header p{font-size:13px}.identity-option2 .school-context-line{gap:12px 20px}.identity-option2 .school-context-line a{margin-left:0}
+  .identity-option2 .school-filter-panel{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.identity-option2 .school-filter-panel .school-reset{grid-column:1/-1;justify-self:end;min-height:40px;padding:8px 15px}
+  .identity-option2 .school-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.identity-option2 .school-metric-label{font-size:12px;min-height:20px}
+  .identity-option2 .school-charts-grid{grid-template-columns:1fr}.identity-option2 .school-level-chart{margin-left:0;margin-right:0}.identity-option2 .school-level-track{max-width:48px}.identity-option2 .school-level-name{font-size:12px}.identity-option2 .school-level-bars{gap:10px}.identity-option2 .school-level-percent{font-size:11px}
+  .identity-option2 .school-score-buckets{margin:20px 0;gap:8px}.identity-option2 .school-ranking-heading{align-items:start;gap:20px}.identity-option2 .school-search-field{width:220px}
+  .identity-option2 .school-scope-heading{display:block}.identity-option2 .school-scope-heading p{margin-top:7px}
+}
+@media(max-width:600px){
+  .identity-option2 .topbar-in{gap:10px}.identity-option2 .topnav{gap:6px}.identity-option2 .identity-ge-full{display:none}.identity-option2 .identity-ge-short{display:inline}
+  .identity-option2 .topnav .identity-school-nav{font-size:11px;padding:9px 12px}.identity-option2 .topnav .identity-ge-nav{padding:9px 12px;min-width:38px}
+  .identity-option2 .school-login-story h1{font-size:31px;line-height:1.25;margin-bottom:18px}.identity-option2 .school-login-story > p{font-size:13px;line-height:1.9}.identity-option2 .school-login-form-panel{padding:24px 20px}.identity-option2 .school-login-form-panel h2{font-size:24px}.identity-option2 .school-login-form-panel > p{font-size:13px}.identity-option2 .school-login-form-panel input{font-size:15px}.identity-option2 .school-demo-account dl > div{gap:10px}.identity-option2 .school-demo-account code{font-size:12px}
+  .identity-option2 .school-dashboard-header{align-items:flex-start;gap:14px;margin-bottom:18px}.identity-option2 .school-dashboard-header .identity-kicker{font-size:8px;letter-spacing:1px}.identity-option2 .school-dashboard-header h1{font-size:26px;line-height:1.25;margin-bottom:12px}.identity-option2 .school-dashboard-header p{font-size:12px;line-height:1.85}.identity-option2 .school-dashboard-account{gap:8px}.identity-option2 .school-dashboard-account .school-data-badge{font-size:9px;min-height:25px;padding:4px 7px;white-space:nowrap}.identity-option2 .school-dashboard-account button{font-size:10px;min-height:40px;padding:8px 12px}
+  .identity-option2 .school-context-line{font-size:11px;gap:8px 14px;margin-bottom:18px}.identity-option2 .school-context-line a{flex-basis:100%;min-height:36px}
+  .identity-option2 .school-filter-panel{grid-template-columns:repeat(2,minmax(0,1fr));padding:18px 16px;border-radius:16px;gap:16px 12px;margin-bottom:24px}.identity-option2 .school-filter-panel > div:nth-child(3){grid-column:1/-1}.identity-option2 .school-filter-panel label{font-size:11px;margin-bottom:7px}.identity-option2 .school-filter-panel select{font-size:13px;min-height:45px;padding-left:10px}.identity-option2 .school-filter-panel .school-reset{grid-column:1/-1;justify-self:stretch;min-height:44px;font-size:12px}
+  .identity-option2 .school-scope-heading h2{font-size:22px}.identity-option2 .school-scope-heading p{font-size:11px;line-height:1.8}
+  .identity-option2 .school-metrics{gap:12px;margin-bottom:20px}.identity-option2 .school-metric{padding:18px 16px;border-radius:16px}.identity-option2 .school-metric-icon{right:11px;top:16px}.identity-option2 .school-metric-icon svg{width:18px;height:18px}.identity-option2 .school-metric-label{font-size:10px;padding-right:20px;min-height:32px}.identity-option2 .school-metric > strong{font-size:30px;margin:6px 0}.identity-option2 .school-metric > small{font-size:10px;line-height:1.7}
+  .identity-option2 .school-panel{padding:20px 18px;border-radius:18px}.identity-option2 .school-panel-heading h2,.identity-option2 .school-ranking-heading h2{font-size:20px;line-height:1.35}.identity-option2 .school-panel-heading p,.identity-option2 .school-ranking-heading p{font-size:12px;line-height:1.85}
+  .identity-option2 .school-level-chart{display:block;margin:20px -4px 12px}.identity-option2 .school-level-axis{display:none}.identity-option2 .school-level-bars{grid-template-columns:1fr;gap:5px}.identity-option2 .school-level-option{display:grid;grid-template-columns:46px minmax(0,1fr) 35px;gap:12px;min-height:46px;padding:8px 9px;border-radius:10px;text-align:left}.identity-option2 .school-level-name{grid-column:1;grid-row:1;font-size:12px}.identity-option2 .school-level-track{grid-column:2;grid-row:1;height:22px;max-width:none;width:100%;border:0;align-items:center;justify-content:flex-start}.identity-option2 .school-level-track i{height:100%;width:var(--bar-size);border-radius:4px}.identity-option2 .school-level-count{grid-column:3;grid-row:1;text-align:right;font-size:17px;line-height:24px}.identity-option2 .school-level-percent{display:none}.identity-option2 .school-chart-help{font-size:11px;line-height:1.85}
+  .identity-option2 .school-score-buckets li{grid-template-columns:48px minmax(0,1fr) 26px;gap:10px}.identity-option2 .school-score-buckets{gap:7px}.identity-option2 .school-score-buckets strong{font-size:13px}
+  .identity-option2 .school-ranking-heading{display:block}.identity-option2 .school-search-field{width:100%;margin-top:20px}.identity-option2 .school-search-field input{min-height:45px;font-size:14px}
+  .identity-option2 .school-ranking-leader{position:relative;padding:18px 16px;gap:14px;flex-wrap:wrap;border-radius:15px}.identity-option2 .school-ranking-leader > .peri-figure{width:47px;height:66px}.identity-option2 .school-ranking-leader > div > strong{font-size:21px}.identity-option2 .school-ranking-leader > div > span{font-size:10px}.identity-option2 .school-ranking-leader p{font-size:11px}.identity-option2 .school-ranking-leader button{width:100%;min-height:44px;font-size:12px}
+  .identity-option2 .school-ranking-filter{display:block;font-size:12px;padding:12px}.identity-option2 .school-ranking-filter button{display:flex;margin-top:10px;font-size:11px;min-height:42px}
+  .identity-option2 .school-rank-table,.identity-option2 .school-rank-table tbody{display:block;width:100%}.identity-option2 .school-rank-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.identity-option2 .school-rank-table tr{display:grid;grid-template-columns:27px minmax(0,1fr) 47px;gap:10px;padding:14px 12px;align-items:center;border-top:1px solid #E6EDF7}.identity-option2 .school-rank-table tr:first-child{border-top:0}.identity-option2 .school-rank-table td{padding:0;border:0;display:block}.identity-option2 .school-rank-table .school-rank-class,.identity-option2 .school-rank-table .school-rank-level{display:none}.identity-option2 .school-rank-position > span{width:27px;height:28px;font-size:11px}.identity-option2 .school-student-name{font-size:13px;padding:0;line-height:1.65;min-height:44px;white-space:normal}.identity-option2 .school-rank-mobile-meta{display:block;font-size:10px;line-height:1.7;color:#6B7F9B;margin-top:3px}.identity-option2 .school-rank-score{text-align:right}.identity-option2 .school-rank-score-label{display:block;font-size:9px;color:#7A8CA5;line-height:1.7}.identity-option2 .school-rank-score strong{font-size:17px}
+  .identity-option2 .school-pager{display:block;margin-top:16px}.identity-option2 .school-pager > p{font-size:11px;margin-bottom:14px}.identity-option2 .school-pager > div{justify-content:space-between;gap:8px}.identity-option2 .school-pager button{font-size:11px;padding:10px 12px}.identity-option2 .school-data-note{font-size:11px;line-height:1.9}
+  .identity-option2 .school-student-dialog{padding:22px 18px;border-radius:20px;max-height:calc(100dvh - 24px);width:calc(100% - 24px)}.identity-option2 .school-dialog-top{margin-bottom:18px}.identity-option2 .school-student-dialog h2{font-size:26px}.identity-option2 .school-student-dialog .identity-kicker{font-size:9px;letter-spacing:.8px}.identity-option2 .school-student-meta{font-size:12px}.identity-option2 .school-student-overall{padding:18px}.identity-option2 .school-student-overall strong{font-size:34px}.identity-option2 .school-student-skills{gap:12px}.identity-option2 .school-student-skills > div{padding:15px 13px;gap:9px}.identity-option2 .school-student-skills > div > span:first-child{font-size:12px;gap:7px}.identity-option2 .school-student-skills strong{font-size:25px}.identity-option2 .school-student-context{font-size:11px;line-height:1.9}
+}
+@media(max-width:350px){
+  .identity-option2 .topnav .identity-school-nav{font-size:10px;padding:9px 10px}.identity-option2 .topnav .identity-ge-nav{padding:9px 10px;min-width:34px}
+  .identity-option2 .school-dashboard-header{display:block}.identity-option2 .school-dashboard-account{flex-direction:row;align-items:center;justify-content:space-between;margin-top:16px}.identity-option2 .school-dashboard-account .school-data-badge{font-size:10px}.identity-option2 .school-dashboard-account button{min-height:44px;font-size:11px}.identity-option2 .school-dashboard-header h1{font-size:27px}.identity-option2 .school-metric{padding:17px 13px}.identity-option2 .school-metric > strong{font-size:29px}.identity-option2 .school-metric > small{font-size:9px}.identity-option2 .school-metric-label{font-size:10px}.identity-option2 .school-panel{padding:20px 15px}.identity-option2 .school-rank-table tr{grid-template-columns:24px minmax(0,1fr) 41px;gap:8px;padding:14px 9px}.identity-option2 .school-rank-position > span{width:24px}.identity-option2 .school-student-name{font-size:12px}.identity-option2 .school-rank-score strong{font-size:16px}
+}
+@media print{.identity-option2 .school-dashboard-account,.identity-option2 .school-filter-panel,.identity-option2 .school-search-field,.identity-option2 .school-pager,.identity-option2 .school-context-line a{display:none}.identity-option2 .school-panel,.identity-option2 .school-metric{break-inside:avoid;box-shadow:none}.identity-option2 .school-level-option{border:0;box-shadow:none}.identity-option2 .school-student-dialog{position:static;max-height:none;box-shadow:none}}

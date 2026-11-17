@@ -34,6 +34,14 @@ Lời nhắn của Peri cần khích lệ quá trình học, không tiết lộ 
 
 Khu vực học sinh, phụ huynh và nhà trường trên trang chủ dùng một khung kết nối chung. Peri và thông điệp đặt học sinh ở trung tâm tạo điểm nhìn chính, ba phần bên cạnh giải thích vai trò và có thao tác tiếp theo rõ ràng. Học sinh được đưa về ô nhập mã, phụ huynh xem báo cáo minh họa, nhà trường và GE mở khu nhân viên. Trên điện thoại, phần minh họa được thu gọn và ba vai trò xếp theo chiều dọc để giữ nội dung dễ đọc. Các biểu tượng quanh Peri chỉ dùng trang trí, không tạo thêm điểm tương tác hay trạng thái dữ liệu.
 
+## Không gian dành cho nhà trường
+
+Tab nhà trường có phần đăng nhập riêng, dùng THPT Chuyên Hưng Yên làm ví dụ. Dữ liệu phải được gắn nhãn minh họa, các số liệu và biểu đồ được tính từ cùng một tập học sinh theo khối, lớp và kỹ năng đang chọn. Không được thay bằng các con số trang trí hoặc gợi ý đây là kết quả thực tế của trường. Bộ mẫu gồm chín lớp với 288 học sinh, riêng lớp 10 Lí có 32 học sinh và Bồ Quốc Tuấn đứng đầu theo yêu cầu minh họa của người dùng.
+
+Biểu đồ CEFR hiển thị số lượng và tỷ lệ theo từng mức, có thể chọn mức để xem danh sách tương ứng. Phổ điểm có năm khoảng bằng nhau trên thang 100, tính từ mốc đầu đến trước mốc tiếp theo và gồm điểm 100 ở khoảng cuối. Điểm tổng thể là trung bình bốn kỹ năng trong bộ dữ liệu mẫu. Các ngưỡng tạo nhãn CEFR của dữ liệu minh họa không phải quy tắc chấm điểm cho bài làm thật. Bảng xếp hạng giữ thứ hạng trong phạm vi đang chọn khi tìm kiếm hoặc lọc CEFR, những học sinh bằng điểm có cùng thứ hạng.
+
+Phiên nhà trường được lưu tách biệt trong khóa `ip_school_session_v1` của `sessionStorage`, giới hạn tám giờ và không lưu mật khẩu. Đây là giao diện và dịch vụ minh họa trong trình duyệt, không cung cấp bảo mật máy chủ cho dữ liệu thật. Báo cáo tổng hợp công khai qua token và các khu vực GE hiện có giữ nguyên dữ liệu và phạm vi truy cập. Peri xuất hiện ở màn hình chào và nội dung ghi nhận kết quả, không che biểu đồ, bộ lọc hay danh sách học sinh.
+
 ## Báo cáo và hành trình học
 
 Phần nhìn lại bốn kỹ năng dùng các thẻ riêng, với hai góc nhìn được trình bày rõ ràng: mức tự đánh giá của học sinh và mức tham chiếu CEFR của bài làm. Hai thang này không được vẽ trên cùng một trục hoặc quy đổi thành phần trăm tương đương. Nhận xét cần khích lệ, đồng thời đưa ra một hành động luyện tập cụ thể. Khi thiếu bài làm hoặc dữ liệu chưa đủ rõ, giao diện cần giải thích rằng nên tìm hiểu thêm, không tự tạo kết quả hay khen một năng lực chưa được ghi nhận.
