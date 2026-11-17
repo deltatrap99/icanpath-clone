@@ -2,11 +2,12 @@
 (() => {
   'use strict';
   const service = () => window.ICanSchoolService;
-  function href({ grade = '', class_name = '', skill = 'overall' } = {}) {
+  function href({ grade = '', class_name = '', skill = 'overall', focus = '' } = {}) {
     const query = new URLSearchParams();
     if (grade) query.set('grade', grade);
     if (class_name) query.set('class', class_name);
     if (skill !== 'overall') query.set('skill', skill);
+    if (focus === 'skills') query.set('focus', focus);
     return '#/school-portal' + (query.size ? '?' + query.toString() : '');
   }
   function login(h, mount, onRoute) {
@@ -43,11 +44,17 @@
     const rankings = window.ICanSchoolRankings.create(h, report, { onLevelChange: chart.select, registerCleanup });
     mount(h('div', { class: 'school-portal school-dashboard' },
       h('section', { class: 'school-dashboard-header' }, h('div', {}, h('span', { class: 'identity-kicker' }, 'KHÔNG GIAN NHÀ TRƯỜNG'), h('h1', {}, report.school.name), h('p', {}, 'Thầy cô cùng nhìn rõ bức tranh năng lực tiếng Anh, để đồng hành với từng lớp học.')), h('div', { class: 'school-dashboard-account' }, h('span', { class: 'school-data-badge' }, 'Dữ liệu minh họa'), h('button', { type: 'button', class: 'btn2', onclick: logout }, 'Đăng xuất'))),
-      h('div', { class: 'school-context-line' }, h('span', {}, window.ICanIdentity.icon('calendar', 18), `Năm học ${report.school.year}`), h('span', {}, `Đợt đánh giá ${report.school.date}`), h('a', { href: href({ grade: '10', class_name: '10 Lí' }) }, 'Xem nhanh lớp 10 Lí', window.ICanIdentity.icon('arrow', 17))),
+      h('div', { class: 'school-context-line' }, h('span', {}, window.ICanIdentity.icon('calendar', 18), `Năm học ${report.school.year}`), h('span', {}, `Đợt đánh giá ${report.school.date}`), h('a', { href: href({ ...scope, focus: 'skills' }) }, 'Phân tích từng kỹ năng', window.ICanIdentity.icon('chart', 17)), h('a', { href: href({ grade: '10', class_name: '10 Lí' }) }, 'Xem nhanh lớp 10 Lí', window.ICanIdentity.icon('arrow', 17))),
       h('section', { class: 'school-filter-panel', 'aria-label': 'Chọn phạm vi báo cáo' }, h('div', {}, h('label', { for: grade.id }, 'Khối học'), grade), h('div', {}, h('label', { for: classroom.id }, 'Lớp học'), classroom), h('div', {}, h('label', { for: skill.id }, 'Kết quả hiển thị'), skill), h('a', { class: 'btn btn2 school-reset', href: href() }, 'Về toàn trường')),
       h('div', { class: 'school-scope-heading', 'aria-live': 'polite' }, h('h2', {}, report.scope.label), h('p', {}, `Phạm vi này có ${report.summary.total} học sinh thuộc ${report.summary.classes} lớp, đang xem kết quả ${service().skills[scope.skill].toLowerCase()}.`)),
       window.ICanSchoolCharts.metrics(h, report), h('div', { class: 'school-charts-grid' }, chart.node, window.ICanSchoolCharts.histogram(h, report)),
+      window.ICanSchoolInsights.render(h, report, { onSelect: key => setScope({ skill: key, focus: 'skills' }) }),
       rankings.node, h('p', { class: 'school-data-note' }, 'Điểm tổng thể là trung bình của bốn kỹ năng trong bộ dữ liệu minh họa. Thầy cô có thể chọn tên học sinh để xem kết quả Nghe, Đọc, Nói và Viết.')));
+    if (query.get('focus') === 'skills') {
+      const section = document.getElementById('school-insights');
+      section.scrollIntoView({ block: 'start' });
+      section.querySelector('.school-insight-skill.selected').focus({ preventScroll: true });
+    }
   }
   window.ICanSchoolPortal = { render, href };
 })();

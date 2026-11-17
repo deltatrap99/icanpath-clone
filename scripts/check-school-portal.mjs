@@ -3,6 +3,8 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
 const source = await readFile(new URL('../src/option-2/school-service.js', import.meta.url), 'utf8');
+const evidenceSource = await readFile(new URL('../src/option-2/school-evidence.js', import.meta.url), 'utf8');
+const analysisSource = await readFile(new URL('../src/option-2/school-analysis.js', import.meta.url), 'utf8');
 const storage = new Map([['ip_session', 'existing-assessment-session']]);
 let now = Date.parse('2026-11-17T08:00:00Z'), blockedWrites = false;
 class Clock extends Date { static now() { return now; } }
@@ -11,7 +13,7 @@ const sessionStorage = {
   setItem: (key, value) => { if (blockedWrites) throw new Error('Storage unavailable'); storage.set(key, value); },
   removeItem: key => storage.delete(key),
 };
-function boot() { const context = vm.createContext({ window: {}, sessionStorage, Date: Clock }); vm.runInContext(source, context); return context.window.ICanSchoolService; }
+function boot() { const context = vm.createContext({ window: {}, sessionStorage, Date: Clock }); for (const module of [evidenceSource, analysisSource, source]) vm.runInContext(module, context); return context.window.ICanSchoolService; }
 const service = boot();
 assert.equal(service.session(), null);
 assert.throws(() => service.report(), error => error.code === 'unauthorized');

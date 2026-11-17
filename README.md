@@ -36,6 +36,8 @@ Các bộ lọc khối, lớp và kỹ năng cập nhật đồng bộ số li�
 
 Các module `school-service.js`, `school-charts.js`, `school-rankings.js` và `school-portal.js` quản lý dữ liệu, biểu đồ, bảng xếp hạng và màn hình. `scripts/check-school-portal.mjs` kiểm tra phiên đăng nhập, phạm vi trường, tổng hợp số liệu, tìm kiếm, phân trang và thứ hạng.
 
+Báo cáo kỹ năng có thêm phần so sánh Nghe, Đọc, Nói và Viết, năng lực thành phần, tỷ lệ lỗi, minh chứng mở rộng và gợi ý hoạt động cùng Peri. Bộ lọc khối, lớp và kỹ năng đồng bộ với phổ điểm và thứ hạng. Các module `school-evidence.js`, `school-analysis.js` và `school-insights.js` tách bài làm minh họa, phép tổng hợp và giao diện. Phần lỗi dùng 12 hoạt động mẫu riêng, không suy đoán từ điểm kỹ năng, không thay đổi bài làm hay kết quả đánh giá hiện có. Nghe và Đọc phân loại từ lựa chọn trong câu hỏi mẫu, Nói và Viết dùng phiếu quan sát mẫu. Mẫu số chỉ gồm học sinh có minh chứng hợp lệ ở cùng hoạt động, mỗi học sinh được tính một lần cho mỗi tiêu chí. `scripts/check-school-analysis.mjs` kiểm tra mẫu số, dữ liệu thiếu, lượt trả lời trùng, phạm vi nhóm và tính độc lập với điểm.
+
 ## Dùng thử
 
 | Luồng | Đường dẫn / tài khoản |

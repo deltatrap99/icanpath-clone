@@ -85,3 +85,9 @@ Nội dung cần khích lệ bằng câu đầy đủ, nêu rõ điều học si
 ## Tích hợp và dữ liệu
 
 Phương án 2 ở `/option-2/`, phương án 1 ở `/`. CSS nhận diện được giới hạn trong lớp `identity-option2`, các điểm tích hợp trong ứng dụng chỉ hoạt động khi có `window.ICanIdentity`. Cả hai sử dụng cùng dịch vụ demo cục bộ, không gửi bài làm lên máy chủ. Mã QR và đường dẫn chia sẻ được tạo theo đường dẫn hiện tại để giữ nguyên nhận diện khi mở báo cáo hoặc đợt kiểm tra.
+
+## Báo cáo kỹ năng dành cho nhà trường
+
+Biểu đồ kỹ năng dùng cùng thang 100, tỷ lệ thành phần và tỷ lệ lỗi dùng thang phần trăm cố định. Mỗi tỷ lệ phải có số học sinh gặp biểu hiện và số bài có minh chứng hợp lệ, đồng thời nêu rõ phạm vi toàn trường, khối hoặc lớp đang xem. Minh chứng mẫu và cách hỗ trợ được đặt trong từng mục mở rộng để giữ báo cáo dễ theo dõi. Dữ liệu thiếu không được xem là lỗi, nhận xét lỗi không được suy đoán từ điểm tổng.
+
+Peri xuất hiện bên cạnh phần giới thiệu và gợi ý hoạt động, dùng dáng khác nhau theo kỹ năng. Lời khích lệ cần chỉ ra một bước học cụ thể, ghi nhận điều các em đã làm được và hướng thầy cô đến hoạt động luyện tập tiếp theo. Nền kem dành cho gợi ý giảng dạy, nền xanh nhạt dành cho điểm tựa và phần được chọn. Tỷ lệ lỗi luôn có nhãn và con số đi cùng, không dùng riêng màu sắc để truyền tải mức độ.

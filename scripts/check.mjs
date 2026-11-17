@@ -46,4 +46,4 @@ const sample = (await request('/api/results', 'GET', undefined, { 'x-result-toke
 assert.equal(sample.learning_path.units.length, 4);
 assert.equal(D.csvExport().includes('Minh Anh'), false);
 console.log(`Static assets and combined services passed: ${system.bank_items} bank items, ${Object.keys(D.audio).length} audio clips, populated dashboard, school report, sample result and PII-free CSV.`);
-for (const script of ['check-assessment.mjs', 'check-staff.mjs', 'check-journey.mjs', 'check-school-portal.mjs', 'check-lessons.mjs']) execFileSync(process.execPath, [resolve(root, 'scripts', script)], { stdio: 'inherit', cwd: root });
+for (const script of ['check-assessment.mjs', 'check-staff.mjs', 'check-journey.mjs', 'check-school-portal.mjs', 'check-school-analysis.mjs', 'check-lessons.mjs']) execFileSync(process.execPath, [resolve(root, 'scripts', script)], { stdio: 'inherit', cwd: root });
