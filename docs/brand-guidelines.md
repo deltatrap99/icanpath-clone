@@ -1,12 +1,14 @@
 # ICANPath, Open Horizons
 
-Phương án 2 được triển khai từ bảng nhận diện do người dùng cung cấp ngày 17/11/2026, với tinh thần cởi mở, tích cực và khám phá. Lời hứa thương hiệu là “Hiểu hôm nay, mở ngày mai.”
+Phương án 2 được triển khai từ bảng nhận diện do người dùng cung cấp ngày 17/11/2026, với tinh thần cởi mở, tích cực và khám phá. Lời hứa thương hiệu là “Hiểu hôm nay, mở ngày mai.” Hệ hình ảnh hiện dùng con đường đi lên qua các cột mốc, thể hiện việc chinh phục Learning Path theo từng bước vừa sức.
 
 ## Logo và hình ảnh
 
 Logo chính là `src/option-2/assets/icanpath-logo.svg`, gồm biểu tượng con người, chữ CAN với tam giác ba màu, chữ Path màu xanh và nét cong san hô. Logo dùng đường nét vector độc lập với font trên thiết bị. Giữ đúng tỷ lệ và khoảng trống ít nhất bằng chiều cao chữ i quanh logo, không kéo méo hoặc thêm hiệu ứng lên logo.
 
-Biểu tượng ứng dụng nằm trong `path-mark.svg`. Hình 3D `open-horizon.png` được tạo mới từ tham chiếu để dùng ở trang chủ, không phải ảnh chụp của bảng nhận diện. Dải sóng `horizon-waves.svg` tạo chiều sâu nhẹ cho màn hình đánh giá.
+Biểu tượng ứng dụng nằm trong `learning-path-mark.svg`, dùng một con đường sáng uốn lên cột mốc san hô trên nền xanh thương hiệu. Hình `learning-path-hero.webp` được tạo riêng cho trang chủ, gồm một con đường liên tục qua ba cột mốc giữa những đồi xanh và hướng tới bình minh. Peri được đặt bằng hình gốc ở vùng bên phải của cảnh, không che các cột mốc. Ba nhãn Khởi đầu, Tiến bộ và Vươn xa diễn tả ý tưởng hành trình, không phải trạng thái hoàn thành của học sinh. Prompt và cách tạo hình được lưu trong [learning-path-hero-prompt.md](learning-path-hero-prompt.md).
+
+Biểu tượng `path-destination.svg` dùng đường đi lên và lá cờ ở phần kết lộ trình học. Dải đồi xanh `horizon-waves.svg` tiếp tục tạo chiều sâu nhẹ cho màn hình đánh giá và những khu vực đồng hành. Các hình minh họa cần cho thấy hướng tiến về phía trước, có cột mốc rõ ràng và khoảng trống để Peri đứng cạnh nội dung.
 
 ## Thông tin thương hiệu ở chân trang
 
@@ -74,7 +76,7 @@ Màu san hô, hồng và xanh lá dùng làm điểm nhấn, không dùng chữ 
 
 ## Kiểu chữ và giao diện
 
-Sử dụng Nunito từ các file font cục bộ. Tiêu đề có độ đậm 850 đến 900, nội dung từ 600 đến 700. Nút chính có dạng viên thuốc màu xanh, thẻ và biểu mẫu dùng viền mảnh với bóng nhẹ. Biểu tượng có nét tròn đồng nhất, gồm tai nghe, hội thoại, sách, bút và cánh cửa mở.
+Sử dụng Nunito từ các file font cục bộ. Tiêu đề có độ đậm 850 đến 900, nội dung từ 600 đến 700. Nút chính có dạng viên thuốc màu xanh, thẻ và biểu mẫu dùng viền mảnh với bóng nhẹ. Biểu tượng có nét tròn đồng nhất, gồm tai nghe, hội thoại, sách, bút, con đường và cột mốc học tập.
 
 Trên điện thoại, logo được đặt giữa phần đầu bài đánh giá, thanh tiến độ thu gọn và nút tiếp tục nằm ở cuối màn hình. Các khu vực tương tác phải đủ lớn để thao tác bằng cảm ứng, có trạng thái focus khi dùng bàn phím và tôn trọng cài đặt giảm chuyển động.
 

@@ -82,7 +82,7 @@ body.identity-option2 {
 .identity-option2 .identity-art{object-fit:contain;animation:none;filter:none;max-width:210px}
 .identity-option2 .center.muted > .identity-art,.identity-option2 .card.center > .identity-art{width:160px}
 
-/* Homepage, a quiet blue horizon with a clear entry into the assessment. */
+/* Homepage, an ascending path with three illustrated milestones and Peri as a companion. */
 .identity-home{margin-top:-36px}
 .identity-hero{display:grid;grid-template-columns:1fr 1.08fr;align-items:center;gap:18px;padding:62px 0 46px;position:relative}
 .identity-hero-copy{position:relative;z-index:1;max-width:510px}
@@ -102,10 +102,16 @@ body.identity-option2 {
 .identity-option2 .identity-demo-link{min-height:44px;width:100%;padding:10px 0;background:transparent;color:#52688D;box-shadow:none;font-size:12px;font-weight:700;text-decoration:underline;text-underline-offset:3px;margin:2px 0 0}
 .identity-option2 .identity-demo-link:hover{color:#0057A5;background:transparent;box-shadow:none}
 .identity-resume{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:13px;margin:6px 14px 0 0}
-.identity-hero-art{position:relative;aspect-ratio:1.03;margin:0 -36px 0 -10px;min-width:0;border-radius:45% 45% 28px 28px;overflow:hidden;background:#F5F9FF;isolation:isolate}
-.identity-hero-art > img{display:block;width:100%;height:100%;object-fit:cover;object-position:53% 50%;max-width:none}
-.identity-hero-art figcaption{position:absolute;bottom:29px;left:33px;color:#0F3D89;font-size:14px;line-height:1.55;letter-spacing:-.01em}
-.identity-hero-art figcaption span,.identity-hero-art figcaption strong{display:block}
+.identity-hero-art{position:relative;margin:0;min-width:0;border-radius:28px;overflow:hidden;background:#F5F9FF;border:1px solid #DBE7F7;isolation:isolate;box-shadow:0 12px 32px #174A7C09}
+.identity-path-scene{position:relative;aspect-ratio:1.1;overflow:hidden;background:#DFEDFF}
+.identity-path-scene > img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 54%;max-width:none}
+.identity-path-label{position:absolute;top:20px;left:20px;display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border:1px solid #E1EAF7;border-radius:999px;background:#FFFFFFED;color:#24568F;font-size:11px;font-weight:850;line-height:1.7}
+.identity-hero-art figcaption{position:relative;padding:19px 23px 22px;background:#fff;border-top:1px solid #DAE6F5;color:#0F3D89;font-size:14px;line-height:1.55;letter-spacing:-.01em}
+.identity-hero-art figcaption strong{display:block}
+.identity-path-phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;list-style:none;padding:0;margin:15px 0 0}
+.identity-path-phases li{display:flex;align-items:center;gap:8px;color:#53719A;font-size:11px;font-weight:800;line-height:1.7;min-width:0}
+.identity-path-phases li > span{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:#EAF2FF;color:#3155D9;font-size:9px;flex:none}
+.identity-path-phases li:last-child > span{background:#FFF0E7;color:#A65E3A}
 .identity-hero-art figcaption strong{font-size:21px;font-weight:850}
 .identity-facts{display:flex;justify-content:center;align-items:center;gap:0;border-top:1px solid #E8EFF8;border-bottom:1px solid #E8EFF8;padding:23px 0;color:#5A6F8B;font-size:14px}
 .identity-facts > div{display:flex;align-items:center;justify-content:center;gap:12px;flex:1;min-height:30px;padding:0 22px}
@@ -238,10 +244,10 @@ body.identity-option2 {
 .identity-option2 .secret{border:1px dashed #D9C6AA;background:#FFF9F0;color:#624A2D}
 .identity-option2 #toast{background:#153B75;border-radius:15px;font-size:14px;font-weight:650;box-shadow:0 8px 25px #0B2F7429}
 
-@media(min-width:1600px){.identity-hero-art{margin-right:-65px}}
+@media(min-width:1600px){.identity-hero-art{margin-right:0}}
 @media(max-width:1100px){
   .identity-option2 .topnav{gap:15px}.identity-option2 .topnav a.plain{font-size:12px}
-  .identity-hero h1{font-size:50px}.identity-hero-art{margin-right:-18px;aspect-ratio:.83}
+  .identity-hero h1{font-size:50px}.identity-hero-art{margin-right:0}.identity-path-scene{aspect-ratio:1.05}
   .identity-hero{gap:26px}.identity-stages{gap:10px}.identity-stage{padding:20px 15px}.identity-stage-top{flex-wrap:wrap;gap:12px}
   .identity-report-section{gap:35px;padding:40px 35px}
 }
@@ -259,8 +265,10 @@ body.identity-option2 {
   .identity-eyebrow{font-size:11px;padding:7px 12px;margin-bottom:18px;gap:8px}
   .identity-hero h1{font-size:42px}.identity-lead{font-size:14px;line-height:1.8;margin-bottom:20px}
   .identity-join{padding:17px 17px 5px}.identity-join label{font-size:15px}.identity-join p{font-size:12px}
-  .identity-hero-art{margin:0 -13px 0 5px;aspect-ratio:.66}.identity-hero-art > img{object-position:54% 50%}
-  .identity-hero-art figcaption{left:23px;bottom:28px;font-size:12px}.identity-hero-art figcaption strong{font-size:17px}
+  .identity-hero-art{margin:0 0 0 8px;border-radius:24px}.identity-path-scene{aspect-ratio:1.02}
+  .identity-hero-art figcaption{padding:17px 15px 18px;font-size:12px}.identity-hero-art figcaption strong{font-size:17px}
+  .identity-path-label{top:14px;left:14px;font-size:9px;padding:7px 10px;gap:6px}.identity-path-label .identity-icon{width:17px;height:17px}
+  .identity-path-phases{gap:7px;margin-top:12px}.identity-path-phases li{font-size:9px;gap:5px}.identity-path-phases li > span{width:22px;height:22px;font-size:8px;border-radius:6px}
   .identity-facts{font-size:12px;padding:18px 0}.identity-facts > div{padding:0 10px;gap:9px}.identity-facts .identity-icon{width:21px;height:21px}
   .identity-section{padding-top:54px}.identity-section-heading h2{font-size:27px}.identity-section-heading p{font-size:14px}
   .identity-stages{grid-template-columns:repeat(4,minmax(0,1fr))}.identity-warmup{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.8fr;gap:0 24px;align-items:center}
@@ -283,8 +291,9 @@ body.identity-option2 {
   .identity-eyebrow .identity-icon{width:22px;height:22px}
   .identity-hero h1{font-size:41px;line-height:1.15;letter-spacing:-.04em;margin:0 0 15px;order:1}
   .identity-lead{font-size:14px;line-height:1.8;margin:0;order:2;max-width:440px}
-  .identity-hero-art{order:3;aspect-ratio:1.65;margin:17px -6px 20px;border-radius:35% 35% 22px 22px;background:#F4F9FF}
-  .identity-hero-art > img{object-fit:cover;object-position:50% 43%;height:100%;width:100%}
+  .identity-hero-art{order:3;margin:20px 0;border-radius:22px;background:#F4F9FF}
+  .identity-path-scene{aspect-ratio:1.28}
+  .identity-path-scene > img{object-position:50% 55%}
   .identity-hero-art figcaption{display:none}
   .identity-join{order:4;max-width:none;padding:20px 20px 5px;border-radius:20px}
   .identity-join label{font-size:17px}.identity-join p{font-size:12px;max-width:none}
@@ -332,7 +341,7 @@ body.identity-option2 {
 }
 @media(max-width:350px){
   .identity-option2 .topbar-in{padding:10px 16px}.identity-option2 .brand img{width:140px;height:38px}.identity-option2 .topnav .btn{font-size:10px;padding:9px 12px}
-  .identity-option2 main{padding-left:16px;padding-right:16px}.identity-hero h1{font-size:36px}.identity-hero-art{aspect-ratio:1.5}.identity-join{padding:17px 16px 4px}
+  .identity-option2 main{padding-left:16px;padding-right:16px}.identity-hero h1{font-size:36px}.identity-join{padding:17px 16px 4px}
   .identity-stage{padding:17px 13px}.identity-stage-top{gap:4px}.identity-icon-box{width:37px;height:37px}.identity-stage-time{font-size:9px}.identity-section-heading h2{font-size:24px}
 }
 @media(prefers-reduced-motion:reduce){.identity-option2 *,.identity-option2 *::before,.identity-option2 *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

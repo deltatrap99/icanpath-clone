@@ -16,7 +16,7 @@ Khi triển khai trên Vercel, cấu hình trong `vercel.json` sẽ chạy lện
 
 ## Phương án nhận diện thứ hai
 
-Mở `/option-2/` để xem phương án ICANPath Open Horizons theo bảng nhận diện được cung cấp. Phương án này có logo vector, hình cánh cửa 3D, màu xanh `#0057A5`, màu giao diện `#3155D9`, điểm nhấn san hô và nền xanh nhạt. Trang chủ, khai báo thông tin, bài đánh giá, báo cáo, bài học và khu GE dùng chung bộ nhận diện mới.
+Mở `/option-2/` để xem phương án ICANPath Open Horizons theo bảng nhận diện được cung cấp. Hệ hình ảnh dùng con đường đi lên qua các cột mốc, với đồi xanh, bình minh san hô và Peri đồng hành. Ba giai đoạn định hướng là Khởi đầu, Tiến bộ và Vươn xa. Phương án này có logo vector, màu xanh `#0057A5`, màu giao diện `#3155D9`, điểm nhấn san hô và nền xanh nhạt. Trang chủ, khai báo thông tin, bài đánh giá, báo cáo, bài học và khu GE dùng chung bộ nhận diện mới.
 
 Phương án đầu tiên vẫn ở `/`. Hai phương án dùng chung dịch vụ demo và dữ liệu đã lưu trên cùng trình duyệt. Đường dẫn chia sẻ và mã QR giữ đúng phương án đang sử dụng. Mã học sinh dùng thử là `E8YYZD`, áp dụng cho khối 3 đến khối 11.
 

@@ -35,7 +35,7 @@
     return h('section', { class: 'learning-journey', id: 'learning-journey', 'aria-labelledby': 'journey-title' },
       h('div', { class: 'journey-heading' }, peri.figure(h, state.finished ? 'jump' : 'fly', { class: 'journey-heading-peri', decorative: true }),
         h('div', {}, h('span', { class: 'identity-kicker' }, 'HÀNH TRÌNH CỦA EM VÀ PERI'),
-          h('h2', { id: 'journey-title' }, 'Từng chặng nhỏ, mở thêm một chân trời'),
+          h('h2', { id: 'journey-title' }, 'Chinh phục từng chặng, cùng Peri tiến xa'),
           h('p', {}, 'Bắt đầu từ những điều quen thuộc, em sẽ từng bước có thêm cách diễn đạt và ý tưởng để chia sẻ. Peri sẽ đồng hành cùng em, theo nhịp học vừa sức với chính mình.'),
           h('span', { class: 'journey-focus' }, identity.icon(identity.skillIcons[path.focus_skill] || 'compass', 18), 'Ưu tiên luyện ' + focus))),
       h('div', { class: 'journey-progress-panel' },
@@ -60,8 +60,8 @@
             h('a', { class: 'btn journey-lesson-link' + (current ? '' : ' btn2'), href: lessonHref(token, unit.unit), 'aria-label': `${done ? 'Ôn lại' : 'Khám phá'} chặng ${index + 1}: ${unit.title}` }, done ? 'Ôn lại chặng này' : current ? 'Cùng Peri bắt đầu' : 'Khám phá chặng này', identity.icon('arrow', 18)),
             done ? h('span', { class: 'journey-done-label' }, identity.icon('check', 15), 'Em đã đánh dấu hoàn thành') : null));
       })),
-      h('div', { class: 'journey-destination' }, h('img', { src: '/option-2/assets/portal-orbit.svg', alt: '', width: 112, height: 112, loading: 'lazy' }),
-        h('div', {}, h('h3', {}, state.finished ? 'Một hành trình khép lại, nhiều khả năng mở ra' : 'Chân trời mới đang chờ những bước đi của em'),
+      h('div', { class: 'journey-destination' }, h('img', { src: '/option-2/assets/path-destination.svg', alt: '', width: 112, height: 112, loading: 'lazy' }),
+        h('div', {}, h('h3', {}, state.finished ? 'Em đã chinh phục thêm một hành trình cùng Peri!' : 'Mỗi chặng hôm nay, thêm một bước tiến xa'),
           h('p', {}, state.finished ? 'Em có thể quay lại bất kỳ chặng nào để ôn tập và thử diễn đạt theo một cách mới. Sự kiên trì của em luôn là điều đáng ghi nhận.' : 'Em có thể mở bất kỳ chặng nào, rồi đánh dấu sau khi đã học và luyện tập xong. Mỗi bước nhỏ đều xứng đáng được ghi nhận.'))));
   }
   function lessonFooter(h, { token, unit, path, toast }) {

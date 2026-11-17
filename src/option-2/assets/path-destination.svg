@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <defs><clipPath id="land"><circle cx="120" cy="120" r="110"/></clipPath></defs>
+  <g clip-path="url(#land)">
+    <path fill="#EDF5FF" d="M0 0h240v240H0Z"/>
+    <circle cx="170" cy="77" r="29" fill="#FF9C80"/>
+    <path d="M0 127c49-40 86-10 121-16s75-39 119-16v145H0Z" fill="#BDD9FC"/>
+    <path d="M0 158c48-33 74 7 124-8s76-27 116-2v92H0Z" fill="#79B1F3"/>
+    <path d="M0 211c37-43 90-30 128-32s75-13 112-31v92H0Z" fill="#327CDA"/>
+    <path d="M24 237c76-39 137-51 121-67-11-11-56-15-50-29 6-15 55-22 71-36l9 1c-16 21-51 29-56 37-6 9 40 13 53 28 23 28-43 49-93 73Z" fill="#FFF9F0"/>
+  </g>
+  <path d="M174 107V51" stroke="#0057A5" stroke-width="4" stroke-linecap="round"/>
+  <path d="M176 53c13-12 25 8 40-2v29c-14 10-27-10-40 2Z" fill="#FF8066"/>
+  <path d="M65 168a13 13 0 0 0-13 13c0 10 13 23 13 23s13-13 13-23a13 13 0 0 0-13-13Z" fill="#0057A5"/>
+  <circle cx="65" cy="181" r="4" fill="white"/>
+  <path d="M124 124a8 8 0 0 0-8 8c0 6 8 14 8 14s8-8 8-14a8 8 0 0 0-8-8Z" fill="#3155D9"/>
+  <circle cx="124" cy="132" r="2.5" fill="white"/>
+</svg>
