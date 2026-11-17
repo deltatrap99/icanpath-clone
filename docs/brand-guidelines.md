@@ -34,6 +34,12 @@ Lời nhắn của Peri cần khích lệ quá trình học, không tiết lộ 
 
 Khu vực học sinh, phụ huynh và nhà trường trên trang chủ dùng một khung kết nối chung. Peri và thông điệp đặt học sinh ở trung tâm tạo điểm nhìn chính, ba phần bên cạnh giải thích vai trò và có thao tác tiếp theo rõ ràng. Học sinh được đưa về ô nhập mã, phụ huynh xem báo cáo minh họa, nhà trường và GE mở khu nhân viên. Trên điện thoại, phần minh họa được thu gọn và ba vai trò xếp theo chiều dọc để giữ nội dung dễ đọc. Các biểu tượng quanh Peri chỉ dùng trang trí, không tạo thêm điểm tương tác hay trạng thái dữ liệu.
 
+## Bài học cùng Peri
+
+Phần từ vựng và ngữ pháp của phương án 2 dùng các khung đọc riêng, với Peri vẫy tay, suy nghĩ và khích lệ ở các ngữ cảnh phù hợp. Mỗi từ có phiên âm Anh-Mỹ, loại từ, nghĩa, câu ví dụ tiếng Anh và bản dịch tiếng Việt. Nút nghe từ riêng lẻ được phân biệt với nút nghe câu ví dụ. Các ký tự IPA được hiển thị bằng font hỗ trợ phiên âm để giữ rõ dấu nhấn và âm đặc biệt. Nguồn đối chiếu được ghi tại [vocabulary-sources.md](vocabulary-sources.md), học sinh cũng có thể mở từ tương ứng trên Cambridge qua liên kết Tra từ.
+
+Ngữ pháp được chia thành từng ý, gồm lời giải thích, mẫu câu và các ví dụ hiện có. Peri giúp gợi mở và khích lệ việc thử vận dụng, không diễn đạt như thể học sinh đã thành thạo chỉ vì mở bài học. Khung mục tiêu giữ những điều học sinh có thể thử sau bài học. Bài kiểm tra, cách tính điểm và tiến độ hành trình giữ nguyên, mọi bản ghi âm trong bài được phát từ tài nguyên cục bộ qua bộ điều khiển âm thanh chung.
+
 ## Không gian dành cho nhà trường
 
 Tab nhà trường có phần đăng nhập riêng, dùng THPT Chuyên Hưng Yên làm ví dụ. Dữ liệu phải được gắn nhãn minh họa, các số liệu và biểu đồ được tính từ cùng một tập học sinh theo khối, lớp và kỹ năng đang chọn. Không được thay bằng các con số trang trí hoặc gợi ý đây là kết quả thực tế của trường. Bộ mẫu gồm chín lớp với 288 học sinh, riêng lớp 10 Lí có 32 học sinh và Bồ Quốc Tuấn đứng đầu theo yêu cầu minh họa của người dùng.

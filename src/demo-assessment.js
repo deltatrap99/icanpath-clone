@@ -232,13 +232,17 @@
       lesson: {
         summary_vi: 'Trong bài học này, em sẽ luyện cách nói về thói quen hằng ngày và sắp xếp thời gian học tập, nghỉ ngơi hợp lý.',
         vocab: [
-          { word: 'routine', meaning_vi: 'thói quen hằng ngày', example: 'My morning routine starts at six thirty.' },
-          { word: 'usually', meaning_vi: 'thường xuyên', example: 'I usually walk to school with my friends.' },
-          { word: 'prepare', meaning_vi: 'chuẩn bị', example: 'I prepare my school bag in the evening.' },
-          { word: 'healthy', meaning_vi: 'lành mạnh, tốt cho sức khỏe', example: 'A healthy breakfast helps me study well.' },
+          { word: 'routine', ipa_us: '/ruːˈtiːn/', pos: 'noun', pos_vi: 'Danh từ', meaning_vi: 'thói quen hằng ngày', example: 'My morning routine starts at six thirty.', example_vi: 'Thói quen buổi sáng của mình bắt đầu lúc sáu giờ ba mươi.' },
+          { word: 'usually', ipa_us: '/ˈjuː.ʒu.ə.li/', pos: 'adverb', pos_vi: 'Trạng từ', meaning_vi: 'thường xuyên', example: 'I usually walk to school with my friends.', example_vi: 'Mình thường đi bộ đến trường cùng các bạn.' },
+          { word: 'prepare', ipa_us: '/prɪˈper/', pos: 'verb', pos_vi: 'Động từ', meaning_vi: 'chuẩn bị', example: 'I prepare my school bag in the evening.', example_vi: 'Mình chuẩn bị cặp sách vào buổi tối.' },
+          { word: 'healthy', ipa_us: '/ˈhel.θi/', pos: 'adjective', pos_vi: 'Tính từ', meaning_vi: 'lành mạnh, tốt cho sức khỏe', example: 'A healthy breakfast helps me study well.', example_vi: 'Bữa sáng lành mạnh giúp mình học tốt.' },
         ],
         grammar_vi: 'Em dùng thì hiện tại đơn để nói về những thói quen thường xuyên, đồng thời thêm -s hoặc -es vào động từ khi chủ ngữ là he, she hoặc it. Khi sử dụng động từ thường, em đặt trạng từ tần suất trước động từ để câu diễn đạt đúng ý.',
         grammar_examples: ['I usually get up at six.', 'She walks to school every day.', 'We do not watch TV before school.'],
+        grammar_points: [
+          { title_vi: 'Nói về thói quen hằng ngày', explanation_vi: 'Em dùng thì hiện tại đơn cho những việc diễn ra thường xuyên. Với he, she hoặc it, động từ khẳng định thường thêm -s hoặc -es.', patterns: ['I / You / We / They + động từ nguyên mẫu', 'He / She / It + động từ thêm -s hoặc -es', 'Phủ định: do not / does not + động từ nguyên mẫu'], example_indices: [1, 2] },
+          { title_vi: 'Đặt trạng từ tần suất đúng chỗ', explanation_vi: 'Với động từ thường, em đặt usually, sometimes hoặc never trước động từ. Với động từ be, các trạng từ này thường đứng sau be.', patterns: ['Chủ ngữ + trạng từ tần suất + động từ thường', 'Chủ ngữ + be + trạng từ tần suất'], example_indices: [0] },
+        ],
         can_do_vi: ['Em có thể mô tả một ngày đi học bằng bốn đến năm câu liên kết với nhau.', 'Em có thể dùng usually, sometimes và never đúng vị trí để nói về thói quen của mình.', 'Em có thể đặt câu hỏi để tìm hiểu thói quen hằng ngày của bạn bè.'],
         speaking_practice: ['I usually get up at half past six.', 'My favourite part of the day is the afternoon.', 'I prepare my school bag before I go to bed.'],
       },
@@ -248,13 +252,17 @@
       lesson: {
         summary_vi: 'Trong bài học này, em sẽ luyện kể lại một cuối tuần đáng nhớ và dùng các từ nối để trình bày sự việc theo đúng trình tự.',
         vocab: [
-          { word: 'memorable', meaning_vi: 'đáng nhớ', example: 'We had a memorable weekend by the sea.' },
-          { word: 'explore', meaning_vi: 'khám phá', example: 'We explored the old town on foot.' },
-          { word: 'afterwards', meaning_vi: 'sau đó', example: 'Afterwards, we had lunch in a small café.' },
-          { word: 'experience', meaning_vi: 'trải nghiệm', example: 'It was an exciting experience for everyone.' },
+          { word: 'memorable', ipa_us: '/ˈmem.ər.ə.bəl/', pos: 'adjective', pos_vi: 'Tính từ', meaning_vi: 'đáng nhớ', example: 'We had a memorable weekend by the sea.', example_vi: 'Chúng mình đã có một cuối tuần đáng nhớ bên bờ biển.' },
+          { word: 'explore', ipa_us: '/ɪkˈsplɔːr/', pos: 'verb', pos_vi: 'Động từ', meaning_vi: 'khám phá', example: 'We explored the old town on foot.', example_vi: 'Chúng mình đã đi bộ khám phá khu phố cổ.' },
+          { word: 'afterwards', ipa_us: '/ˈæf.tɚ.wɚdz/', pos: 'adverb', pos_vi: 'Trạng từ', meaning_vi: 'sau đó', example: 'Afterwards, we had lunch in a small café.', example_vi: 'Sau đó, chúng mình ăn trưa tại một quán cà phê nhỏ.' },
+          { word: 'experience', ipa_us: '/ɪkˈspɪr.i.əns/', pos: 'noun', pos_vi: 'Danh từ', meaning_vi: 'trải nghiệm', example: 'It was an exciting experience for everyone.', example_vi: 'Đó là một trải nghiệm thú vị với tất cả mọi người.' },
         ],
         grammar_vi: 'Em dùng thì quá khứ đơn để kể những sự việc đã kết thúc, thêm -ed với động từ có quy tắc và ghi nhớ dạng riêng của động từ bất quy tắc, chẳng hạn go chuyển thành went và see chuyển thành saw.',
         grammar_examples: ['Last Saturday, I visited my grandparents.', 'First, we cooked lunch. Then, we played a game.', 'We went home at five o’clock.'],
+        grammar_points: [
+          { title_vi: 'Kể một việc đã xảy ra', explanation_vi: 'Em dùng thì quá khứ đơn cho sự việc đã kết thúc. Động từ có quy tắc thêm -ed, còn động từ bất quy tắc có dạng riêng mà em cần ghi nhớ.', patterns: ['Động từ có quy tắc + -ed', 'Động từ bất quy tắc: go thành went, see thành saw'], example_indices: [0, 2] },
+          { title_vi: 'Nối các sự việc thành câu chuyện', explanation_vi: 'Em dùng từ nối để người nghe biết điều gì xảy ra trước và điều gì xảy ra sau, nhờ đó câu chuyện sẽ dễ theo dõi hơn.', patterns: ['First, then, after that, finally'], example_indices: [1] },
+        ],
         can_do_vi: ['Em có thể kể lại một trải nghiệm trong quá khứ theo trình tự rõ ràng.', 'Em có thể dùng first, then, after that và finally để nối các sự việc trong câu chuyện.', 'Em có thể nhận biết và sử dụng những động từ quá khứ thường gặp khi kể chuyện.'],
         speaking_practice: ['Last weekend, I visited my grandparents.', 'First, we explored the town. Then, we had lunch.', 'It was a wonderful experience that I will always remember.'],
       },
@@ -264,13 +272,17 @@
       lesson: {
         summary_vi: 'Trong bài học này, em sẽ luyện giới thiệu một món ăn Việt Nam, giải thích cách chế biến và đề xuất những lựa chọn cân bằng dinh dưỡng.',
         vocab: [
-          { word: 'ingredient', meaning_vi: 'nguyên liệu', example: 'Fresh vegetables are an important ingredient in this dish.' },
-          { word: 'nutritious', meaning_vi: 'bổ dưỡng', example: 'A nutritious meal includes different food groups.' },
-          { word: 'steam', meaning_vi: 'hấp', example: 'Steam the vegetables for five minutes.' },
-          { word: 'balanced', meaning_vi: 'cân bằng', example: 'A balanced diet helps us stay healthy.' },
+          { word: 'ingredient', ipa_us: '/ɪnˈɡriː.di.ənt/', pos: 'noun', pos_vi: 'Danh từ', meaning_vi: 'nguyên liệu', example: 'Fresh vegetables are an important ingredient in this dish.', example_vi: 'Rau tươi là một nguyên liệu quan trọng trong món ăn này.' },
+          { word: 'nutritious', ipa_us: '/nuːˈtrɪʃ.əs/', pos: 'adjective', pos_vi: 'Tính từ', meaning_vi: 'bổ dưỡng', example: 'A nutritious meal includes different food groups.', example_vi: 'Một bữa ăn bổ dưỡng gồm nhiều nhóm thực phẩm khác nhau.' },
+          { word: 'steam', ipa_us: '/stiːm/', pos: 'verb', pos_vi: 'Động từ', meaning_vi: 'hấp', example: 'Steam the vegetables for five minutes.', example_vi: 'Hãy hấp rau trong năm phút.' },
+          { word: 'balanced', ipa_us: '/ˈbæl.ənst/', pos: 'adjective', pos_vi: 'Tính từ', meaning_vi: 'cân bằng', example: 'A balanced diet helps us stay healthy.', example_vi: 'Chế độ ăn cân bằng giúp chúng mình khỏe mạnh.' },
         ],
         grammar_vi: 'Em có thể dùng some hoặc a few với danh từ đếm được và a little với danh từ không đếm được để mô tả số lượng nguyên liệu. Khi hướng dẫn nấu ăn, em dùng động từ nguyên mẫu kết hợp với các từ nối để trình bày từng bước rõ ràng.',
         grammar_examples: ['Add a few slices of carrot.', 'Use a little oil and some fresh herbs.', 'First, wash the vegetables. Finally, serve the dish warm.'],
+        grammar_points: [
+          { title_vi: 'Chọn từ chỉ lượng cho nguyên liệu', explanation_vi: 'Em dùng a few với danh từ đếm được số nhiều và a little với danh từ không đếm được. Some có thể đi với cả danh từ số nhiều và danh từ không đếm được.', patterns: ['a few + danh từ đếm được số nhiều', 'a little + danh từ không đếm được', 'some + danh từ số nhiều hoặc không đếm được'], example_indices: [0, 1] },
+          { title_vi: 'Hướng dẫn từng bước thật rõ ràng', explanation_vi: 'Em bắt đầu lời hướng dẫn bằng động từ nguyên mẫu, rồi dùng first, next hoặc finally để người nghe theo được các bước thực hiện.', patterns: ['Từ nối + động từ nguyên mẫu + phần còn lại'], example_indices: [2] },
+        ],
         can_do_vi: ['Em có thể giới thiệu những nguyên liệu cần thiết và giải thích cách nấu một món ăn.', 'Em có thể phân biệt cách dùng a few và a little khi nói về số lượng nguyên liệu.', 'Em có thể viết một đoạn hướng dẫn gồm những bước thực hiện theo trình tự rõ ràng.'],
         speaking_practice: ['My favourite Vietnamese dish is fresh spring rolls.', 'First, prepare the vegetables and cook the noodles.', 'You can make this dish healthier by adding more vegetables.'],
       },
@@ -280,13 +292,17 @@
       lesson: {
         summary_vi: 'Trong bài học này, em sẽ luyện trình bày ý kiến và đề xuất những hành động giúp trường học cùng cộng đồng trở nên xanh hơn.',
         vocab: [
-          { word: 'community', meaning_vi: 'cộng đồng', example: 'Small actions can make our community a better place.' },
-          { word: 'reduce', meaning_vi: 'giảm', example: 'We can reduce waste by reusing bottles.' },
-          { word: 'volunteer', meaning_vi: 'tình nguyện viên; làm tình nguyện', example: 'I volunteer at the local library on Saturdays.' },
-          { word: 'responsibility', meaning_vi: 'trách nhiệm', example: 'Protecting the environment is everyone’s responsibility.' },
+          { word: 'community', ipa_us: '/kəˈmjuː.nə.t̬i/', pos: 'noun', pos_vi: 'Danh từ', meaning_vi: 'cộng đồng', example: 'Small actions can make our community a better place.', example_vi: 'Những hành động nhỏ có thể giúp cộng đồng của chúng mình trở thành một nơi tốt đẹp hơn.' },
+          { word: 'reduce', ipa_us: '/rɪˈduːs/', pos: 'verb', pos_vi: 'Động từ', meaning_vi: 'giảm', example: 'We can reduce waste by reusing bottles.', example_vi: 'Chúng mình có thể giảm rác thải bằng cách tái sử dụng chai.' },
+          { word: 'volunteer', ipa_us: '/ˌvɑː.lənˈtɪr/', pos: 'verb', pos_vi: 'Động từ', meaning_vi: 'làm tình nguyện', note_vi: 'Khi là danh từ, volunteer có nghĩa là tình nguyện viên.', example: 'I volunteer at the local library on Saturdays.', example_vi: 'Mình làm tình nguyện ở thư viện địa phương vào các ngày thứ Bảy.' },
+          { word: 'responsibility', ipa_us: '/rɪˌspɑːn.səˈbɪl.ə.t̬i/', pos: 'noun', pos_vi: 'Danh từ', meaning_vi: 'trách nhiệm', example: 'Protecting the environment is everyone’s responsibility.', example_vi: 'Bảo vệ môi trường là trách nhiệm của tất cả mọi người.' },
         ],
         grammar_vi: 'Em dùng câu điều kiện loại 1 để nói về điều có thể xảy ra, với mệnh đề if ở thì hiện tại đơn và mệnh đề kết quả dùng will cùng động từ nguyên mẫu. Em cũng có thể dùng because, so và in my opinion để giải thích ý kiến của mình.',
         grammar_examples: ['If we recycle more, we will produce less waste.', 'In my opinion, every school should have a green club.', 'I bring a reusable bottle because it reduces plastic waste.'],
+        grammar_points: [
+          { title_vi: 'Nói về điều kiện và kết quả', explanation_vi: 'Mệnh đề bắt đầu bằng if nêu điều kiện có thể xảy ra, mệnh đề còn lại nêu kết quả dự kiến. Khi đặt mệnh đề if ở đầu câu, em dùng dấu phẩy để tách hai vế.', patterns: ['If + hiện tại đơn, will + động từ nguyên mẫu'], example_indices: [0] },
+          { title_vi: 'Chia sẻ ý kiến và giải thích lý do', explanation_vi: 'Em dùng in my opinion để giới thiệu quan điểm và because để giải thích lý do, nhờ đó người nghe hiểu rõ điều em muốn đề xuất.', patterns: ['In my opinion, + ý kiến của em', 'Ý kiến + because + lý do'], example_indices: [1, 2] },
+        ],
         can_do_vi: ['Em có thể đưa ra một đề xuất cụ thể để cải thiện trường học hoặc cộng đồng của mình.', 'Em có thể giải thích lý do của đề xuất và nêu những kết quả có thể xảy ra.', 'Em có thể trình bày trong khoảng một phút về một vấn đề gần gũi với cuộc sống của mình.'],
         speaking_practice: ['In my opinion, small actions can make a big difference.', 'If we work together, we will create a greener school.', 'I would like to volunteer because I enjoy helping other people.'],
       },
@@ -453,7 +469,9 @@
       const code = decodeURIComponent(match[1]);
       const unit = UNITS.find((u) => u.code.toLowerCase() === code.toLowerCase());
       if (!unit) return fail(404, 'Bài học này không có trong bộ nội dung dùng thử.', 'unit_not_found');
-      return response({ unit: { ...copy(unit), audio: D.audio || {} } });
+      const enriched = copy(unit);
+      enriched.lesson.vocab = enriched.lesson.vocab.map(word => ({ ...word, dictionary_url: 'https://dictionary.cambridge.org/us/dictionary/english/' + encodeURIComponent(word.word) }));
+      return response({ unit: { ...enriched, audio: D.audio || {} } });
     }
     if (path === '/api/practice/pronounce' && method === 'POST') {
       const token = header(options.headers, 'x-result-token');

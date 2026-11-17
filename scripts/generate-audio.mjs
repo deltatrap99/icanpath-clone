@@ -34,7 +34,8 @@ const unitCodes = [...new Set(result.learning_path.units.map(unit => unit.unit))
 for (const code of unitCodes) {
   const response = await D.assessmentRequest('/api/units/' + encodeURIComponent(code));
   const lesson = response.data.unit.lesson;
-  for (const vocab of lesson.vocab || []) collect(vocab.example);
+  for (const vocab of lesson.vocab || []) { collect(vocab.word, 140, 'vocabulary'); collect(vocab.example); }
+  for (const example of lesson.grammar_examples || []) collect(example, 155, 'grammar');
   for (const practice of lesson.speaking_practice || []) collect(typeof practice === 'string' ? practice : practice.text);
 }
 if (!entries.size || !listening.length || unitCodes.length !== 4) throw new Error('Demo listening bank or four lessons were not found');

@@ -613,8 +613,8 @@ function playText(text, map, btn) {
   const url = map && map[String(text).trim()];
   if (url && !lessonAudioEl) { lessonAudioEl = h('audio', { class: 'lesson-audio', preload: 'none' }); document.body.append(lessonAudioEl); }
   if (url && !lessonAudioEl.src.endsWith(url)) lessonAudioEl.src = url;
-  if (btn) btn.disabled = true;
-  const reset = () => { if (btn) btn.disabled = false; };
+  if (btn) { btn.disabled = true; btn.setAttribute('aria-busy', 'true'); }
+  const reset = () => { if (btn) { btn.disabled = false; btn.removeAttribute('aria-busy'); } };
   playClip({ audio: url ? lessonAudioEl : null, text, band: '6-8', onEnd: reset, onFail: (why) => { reset(); toast(why, 4500); } });
 }
 function pickVoices() {
@@ -954,9 +954,9 @@ async function learnPage(code, query = new URLSearchParams()) {
   mount(
     h('section', { class: 'card hero page-hero' }, h('div', {}, h('div', { class: 'qmeta' }, `${u.level}, ${u.code}, CEFR ${u.cefr}`), h('h1', { style: 'margin:.2em 0' }, u.title), L.summary_vi ? h('p', {}, L.summary_vi) : null,
       tok ? h('a', { class: 'btn btn2 small', href: '#/r/' + tok }, '← Về báo cáo của em') : null), fox(IDENTITY ? 'wink' : 'study')),
-    h('div', { class: 'grid g2' },
+    IDENTITY?.lessonContent ? IDENTITY.lessonContent.render(h, u, { play: (text, button) => playText(text, u.audio, button) }) : h('div', { class: 'grid g2' },
       h('div', { class: 'card' }, h('h2', {}, '📚 Từ vựng'), h('div', { class: 'vocab' }, (L.vocab || []).map((v) => h('div', { class: 'vocab-item' },
-        h('div', { style: 'min-width:0' }, h('b', { style: 'font-size:18px;color:var(--ink-strong)' }, v.word), h('div', { class: 'small muted' }, v.meaning_vi), h('div', { class: 'small' }, v.example)),
+        h('div', { style: 'min-width:0' }, h('b', { style: 'font-size:18px;color:var(--ink-strong)' }, v.word), v.ipa_us ? h('div', { class: 'small muted' }, v.ipa_us, v.pos_vi ? ', ' + v.pos_vi : '') : null, h('div', { class: 'small muted' }, v.meaning_vi), h('div', { class: 'small' }, v.example)),
         h('button', { class: 'btn-blue small', 'aria-label': 'Nghe ví dụ', style: 'flex:none', onclick: (e) => playText(v.example, u.audio, e.currentTarget) }, '🔊'))))),
       h('div', { class: 'stack' },
         h('div', { class: 'card', style: 'margin:0' }, h('h2', {}, '🧠 Ngữ pháp'), h('p', { class: 'small muted' }, u.grammar), L.grammar_vi ? h('p', {}, L.grammar_vi) : null,
