@@ -7,12 +7,19 @@ import vm from 'node:vm';
 import { webcrypto } from 'node:crypto';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const src = resolve(root, 'src');
-for (const file of await readdir(src)) if (file.endsWith('.js')) execFileSync(process.execPath, ['--check', resolve(src, file)], { stdio: 'inherit' });
-const html = await readFile(resolve(src, 'index.html'), 'utf8');
-assert(!/cloudflareinsights|https:\/\//.test(html), 'HTML must not load external services');
-for (const [, path] of html.matchAll(/(?:src|href)="(\/(?!#)[^"]+)"/g)) assert((await stat(resolve(src, '.' + path))).size > 0, `Missing asset: ${path}`);
-const css = await readFile(resolve(src, 'styles.css'), 'utf8');
-for (const [, path] of css.matchAll(/url\((\/[^)]+)\)/g)) assert((await stat(resolve(src, '.' + path))).size > 0, `Missing CSS asset: ${path}`);
+const sourceFiles = await readdir(src, { recursive: true });
+for (const file of sourceFiles) {
+  if (file.endsWith('.js')) execFileSync(process.execPath, ['--check', resolve(src, file)], { stdio: 'inherit' });
+  if (file.endsWith('.html')) {
+    const html = await readFile(resolve(src, file), 'utf8');
+    assert(!/cloudflareinsights|https:\/\//.test(html), `${file} must not load external services`);
+    for (const [, path] of html.matchAll(/(?:src|href)="(\/(?!#)[^"]+)"/g)) assert((await stat(resolve(src, '.' + path))).size > 0, `Missing asset: ${path}`);
+  }
+  if (file.endsWith('.css')) {
+    const css = await readFile(resolve(src, file), 'utf8');
+    for (const [, , path] of css.matchAll(/url\((["']?)(\/[^"')]+)\1\)/g)) assert((await stat(resolve(src, '.' + path))).size > 0, `Missing CSS asset: ${path}`);
+  }
+}
 const storage = new Map();
 const context = vm.createContext({ window: {}, document: { addEventListener() {} }, localStorage: { getItem: k => storage.get(k) || null, setItem: (k, v) => storage.set(k, String(v)) }, crypto: webcrypto, URL, Date, console, setTimeout, Blob });
 for (const file of ['demo-core.js', 'audio-manifest.js', 'demo-assessment.js', 'demo-staff.js']) vm.runInContext(await readFile(resolve(src, file), 'utf8'), context, { filename: file });

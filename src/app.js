@@ -1,21 +1,23 @@
 /* ICan Path SPA (vanilla JS, SPEC 01/06/07). All dynamic text goes through textContent (no innerHTML with data). */
 'use strict';
 const $app = document.getElementById('app');
+const IDENTITY = window.ICanIdentity;
 const LS = { session: 'ip_session', result: 'ip_result' };
 const SK = {
   U: { vi: 'Khởi động', icon: '🧩', c: 'var(--yellow)', cd: 'var(--yellow-d)' }, L: { vi: 'Nghe', icon: '🎧', c: 'var(--blue)', cd: 'var(--blue-d)' },
   R: { vi: 'Đọc', icon: '📖', c: 'var(--purple)', cd: 'var(--purple-d)' }, S: { vi: 'Nói', icon: '🎤', c: 'var(--orange)', cd: 'var(--orange-d)' },
   W: { vi: 'Viết', icon: '✍️', c: 'var(--green)', cd: 'var(--green-d)' },
 };
+if (IDENTITY) for (const skill of Object.values(SK)) skill.icon = '';
 const SKILL_FULL = { U: 'Từ vựng & Ngữ pháp', L: 'Nghe', R: 'Đọc', S: 'Nói', W: 'Viết' };
 const CEFR = ['Pre-A1', 'A1', 'A2', 'B1', 'B2', 'C1'];
-const COLORS = { L: '#1CB0F6', R: '#CE82FF', S: '#FF9600', W: '#58CC02', U: '#FFC800' };
+const COLORS = IDENTITY?.skillColors || { L: '#1CB0F6', R: '#CE82FF', S: '#FF9600', W: '#58CC02', U: '#FFC800' };
 const PATH_X = [0, 56, 84, 56, 0, -56, -84, -56];
 let cleanup = [];
 
 // Apply the same typography to dynamic content and previously saved reports.
 function copyText(value) {
-  const text = String(value);
+  const text = IDENTITY ? String(value).replace(/ICan Path/g, 'ICANPath') : String(value);
   if (/^\s*\u2014\s*$/.test(text)) return 'Chưa có dữ liệu';
   return text.replace(/\s*[\u2014\u00b7]\s*/g, ', ').replace(/,\s*,/g, ',');
 }
@@ -32,7 +34,7 @@ function h(tag, attrs, ...kids) {
     else el.setAttribute(k, v === true ? '' : ['aria-label', 'title', 'placeholder'].includes(k) ? copyText(v) : v);
   }
   for (const c of kids.flat(Infinity)) if (c != null && c !== false) el.append(c instanceof Node ? c : document.createTextNode(copyText(c)));
-  return el;
+  return IDENTITY ? IDENTITY.decorate(el) : el;
 }
 function svg(tag, attrs, ...kids) {
   const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
@@ -47,8 +49,9 @@ function setMode(mode) { document.body.classList.remove('mode-site', 'mode-focus
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const fox = (kind, cls) => h('img', { src: `/img/fox-${kind}.webp`, alt: '', width: 402, height: 440, class: cls || null, decoding: 'async' });
 const loading = () => h('div', { class: 'loading' }, h('div', { class: 'spinner', role: 'status', 'aria-label': 'Đang tải' }));
-const brandLink = () => h('a', { class: 'brand', href: '#/', 'aria-label': 'ICan Path, trang chủ' }, h('img', { src: '/img/fox-hello.webp', alt: '', width: 40, height: 44 }), h('span', {}, 'ican', h('b', {}, 'path')));
-const skillLabel = (k) => `${SK[k].icon} ${SK[k].vi}`;
+const brandLink = () => IDENTITY ? IDENTITY.brand(h) : h('a', { class: 'brand', href: '#/', 'aria-label': 'ICan Path, trang chủ' }, h('img', { src: '/img/fox-hello.webp', alt: '', width: 40, height: 44 }), h('span', {}, 'ican', h('b', {}, 'path')));
+const skillLabel = (k) => IDENTITY ? h('span', { class: 'row', style: 'gap:6px;flex-wrap:nowrap' }, IDENTITY.icon(IDENTITY.skillIcons[k], 22), SK[k].vi) : `${SK[k].icon} ${SK[k].vi}`;
+const publicLink = (path) => new URL('#' + path, location.href).href;
 /** Responsive table: header labels are copied to data-label so rows stack into cards on phones. */
 function tbl(heads, rows, cls = '') {
   return h('div', { class: 'table-wrap' }, h('table', { class: 'rtable ' + cls },
@@ -101,6 +104,7 @@ function stagePath(items) {
     h(it.href ? 'a' : 'div', { class: 'node-label', href: it.href || null }, h('b', {}, it.title), it.sub ? h('span', { class: 'small muted' }, it.sub) : null, it.extra || null))));
 }
 function home() {
+  if (IDENTITY) return IDENTITY.renderHome({ h, mount, toast, hasSession: !!sessionToken(), lastResult: localStorage.getItem(LS.result) });
   const code = h('input', { type: 'text', class: 'code-input', placeholder: 'VD: K7P2QX', maxlength: 6, 'aria-label': 'Mã tham gia 6 ký tự', autocomplete: 'off', autocapitalize: 'characters', spellcheck: 'false',
     onkeydown: (e) => { if (e.key === 'Enter') start(); } });
   const start = () => { const c = code.value.trim().toUpperCase(); if (c.length !== 6) { code.focus(); return toast('Em hãy nhập đủ 6 ký tự của mã tham gia do thầy cô cung cấp.'); } location.hash = '#/join/' + c; };
@@ -160,7 +164,8 @@ const EXTRA = [['center', 'Trung tâm'], ['tutor', 'Gia sư'], ['online', 'Học
 const bandOf = (g) => (g <= 5 ? '3-5' : g <= 8 ? '6-8' : '9-11');
 
 function chips(options, isOn, onToggle, cls = '') {
-  const wrap = h('div', { class: 'chips ' + cls });
+  const skillGrid = IDENTITY && options.length === 4 && options.every(([key]) => ['L', 'S', 'R', 'W'].includes(key));
+  const wrap = h('div', { class: 'chips ' + cls + (skillGrid ? ' identity-skill-grid' : '') });
   const draw = () => wrap.replaceChildren(...options.map(([k, label]) => h('button', { type: 'button', class: 'chip' + (isOn(k) ? ' on' : ''), 'aria-pressed': isOn(k) ? 'true' : 'false', onclick: () => { onToggle(k); draw(); } }, label)));
   draw();
   return wrap;
@@ -211,6 +216,7 @@ async function joinPage(code) {
         consentBlock(f));
     }
     mount(h('div', { class: 'lesson' },
+      IDENTITY?.lessonBrand(h),
       h('div', { class: 'lesson-top' }, h('a', { class: 'lesson-x', href: '#/', 'aria-label': 'Thoát về trang chủ' }, '✕'),
         h('div', { class: 'steps', style: 'flex:1;margin:0', role: 'progressbar', 'aria-valuemin': 1, 'aria-valuemax': 4, 'aria-valuenow': step + 1 },
           titles.map((t, i) => h('div', { class: 'step' + (i === step ? ' cur' : i < step ? ' done' : '') }, `${i + 1}. ${t}`)))),
@@ -310,6 +316,7 @@ function lessonTop() {
   const cur = v.sections.find((s) => s.key === v.section) || {};
   const pct = cur.max ? Math.min(100, Math.round(((cur.answered || 0) / cur.max) * 100)) : 0;
   return [
+    IDENTITY?.lessonBrand(h),
     h('div', { class: 'lesson-top' },
       h('a', { class: 'lesson-x', href: '#/', 'aria-label': 'Tạm rời bài (bài làm được lưu)', onclick: (e) => { if (!confirm('Em có muốn tạm rời bài kiểm tra không? Tiến độ sẽ được lưu để em tiếp tục trên thiết bị này.')) e.preventDefault(); } }, '✕'),
       h('div', { class: 'progress', role: 'progressbar', 'aria-label': 'Tiến độ phần ' + secName(v.section), 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': pct }, h('span', { style: `width:${Math.max(pct, 3)}%` })),
@@ -796,7 +803,7 @@ function radar(skills) {
   return svg('svg', { viewBox: '0 0 260 260', width: '100%', style: 'max-width:280px;font-family:inherit', role: 'img', 'aria-label': 'Biểu đồ cân bằng kỹ năng' },
     [0.2, 0.4, 0.6, 0.8, 1].map((r) => svg('polygon', { points: keys.map((_, i) => pt(i, r).join(',')).join(' '), fill: r === 1 ? '#F7F7F7' : 'none', stroke: '#E5E5E5', 'stroke-width': 2 })),
     keys.map((k, i) => svg('line', { x1: C, y1: C, x2: pt(i, 1)[0], y2: pt(i, 1)[1], stroke: '#E5E5E5', 'stroke-width': 2 })),
-    svg('polygon', { points: poly, fill: 'rgba(28,176,246,.25)', stroke: '#1CB0F6', 'stroke-width': 3, 'stroke-linejoin': 'round' }),
+    svg('polygon', { points: poly, fill: IDENTITY ? 'rgba(49,85,217,.16)' : 'rgba(28,176,246,.25)', stroke: IDENTITY ? '#3155D9' : '#1CB0F6', 'stroke-width': 3, 'stroke-linejoin': 'round' }),
     keys.map((k, i) => { const [px, py] = pt(i, 1.2); return svg('text', { x: px, y: py + 5, 'text-anchor': 'middle', 'font-size': 14, 'font-weight': 900, fill: COLORS[k] }, SK[k].vi); }));
 }
 function cefrDist(dist) {
@@ -829,7 +836,7 @@ async function resultPage(token) {
   localStorage.setItem(LS.result, token);
   sessionStorage.setItem('ip_result_tok', token);
   setBand(bandOf(r.student.grade));
-  const link = `${location.origin}/#/r/${token}`;
+  const link = publicLink('/r/' + token);
   const sk = r.skills;
   const scored = ['L', 'R', 'S', 'W'].filter((k) => sk[k] && sk[k].theta != null).sort((a, b) => sk[b].theta - sk[a].theta);
   const verdictBadge = (v) => h('span', { class: 'badge ' + (v === 'match' ? 'ok' : v === 'unknown' ? 'gray' : 'warn') }, v === 'match' ? 'Khớp' : v === 'underestimate' ? 'Giỏi hơn em nghĩ' : v === 'overestimate' ? 'Cần luyện thêm' : 'Chưa có dữ liệu');
@@ -992,7 +999,7 @@ async function staffPage(tab, id) {
   setMode('console');
   const items = [['dashboard', '📊', 'Tổng quan'], ['schools', '🏫', 'Trường'], ['campaigns', '🗓', 'Đợt kiểm tra']];
   if (me.role === 'admin') items.push(['admin', '🛡', 'Quản trị']);
-  const nav = () => items.map(([k, ic, l]) => h('a', { class: 'navitem' + (k === tab ? ' on' : ''), href: '#/staff/' + k, 'aria-current': k === tab ? 'page' : null }, h('span', { class: 'ni', 'aria-hidden': 'true' }, ic), h('span', {}, l)));
+  const nav = () => items.map(([k, ic, l]) => h('a', { class: 'navitem' + (k === tab ? ' on' : ''), href: '#/staff/' + k, 'aria-current': k === tab ? 'page' : null }, h('span', { class: 'ni', 'aria-hidden': 'true' }, IDENTITY ? IDENTITY.navIcon(k) : ic), h('span', {}, l)));
   const logout = async () => { await api('/api/staff/logout', { method: 'POST', body: {} }); location.hash = '#/'; };
   const body = h('div', {}, loading());
   const titles = { dashboard: 'Tổng quan', schools: 'Trường học', campaigns: 'Đợt kiểm tra', admin: 'Quản trị hệ thống' };
@@ -1045,7 +1052,7 @@ async function staffSchools(body, me) {
   const reportLink = async (id) => {
     try {
       const r = (await api(`/api/staff/schools/${id}/report-link`, { method: 'POST', body: {} })).data;
-      const link = `${location.origin}/#/school/${r.report_token}`;
+      const link = publicLink('/school/' + r.report_token);
       body.prepend(h('div', { class: 'card tint-green' }, h('b', {}, 'Link báo cáo trường (gửi cho nhà trường; tạo lại sẽ vô hiệu link cũ):'), h('div', { class: 'row', style: 'margin-top:8px' }, qrNode(link), h('input', { type: 'text', readonly: true, value: link, style: 'flex:1 1 220px' }), h('a', { class: 'btn btn2', href: '#/school/' + r.report_token }, 'Mở'))));
       window.scrollTo(0, 0);
     } catch (e) { toast(e.message); }
@@ -1100,11 +1107,11 @@ async function staffCampaigns(body) {
 async function staffCampaign(body, id, me) {
   const { data } = await api('/api/staff/campaigns/' + encodeURIComponent(id));
   const c = data.campaign;
-  const joinLink = `${location.origin}/#/join/${c.join_code}`;
+  const joinLink = publicLink('/join/' + c.join_code);
   const resultLink = async (sid, cell) => {
     try {
       const r = (await api(`/api/staff/sessions/${sid}/result-link`, { method: 'POST', body: {} })).data;
-      const link = `${location.origin}/#/r/${r.result_token}`;
+      const link = publicLink('/r/' + r.result_token);
       cell.replaceChildren(h('div', { class: 'row' }, qrNode(link), h('a', { href: '#/r/' + r.result_token, class: 'small' }, 'Mở báo cáo')));
     } catch (e) { toast(e.message); }
   };

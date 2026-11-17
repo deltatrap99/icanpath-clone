@@ -14,6 +14,14 @@ Mở http://localhost:4173. Đóng gói bản tĩnh bằng `npm run build`, ki�
 
 Khi triển khai trên Vercel, cấu hình trong `vercel.json` sẽ chạy lệnh build và xuất bản thư mục `dist`. Repository GitHub dùng nhánh `main` cho bản production, còn các nhánh khác có thể tạo bản xem trước qua kết nối Git của Vercel.
 
+## Phương án nhận diện thứ hai
+
+Mở `/option-2/` để xem phương án ICANPath Open Horizons theo bảng nhận diện được cung cấp. Phương án này có logo vector, hình cánh cửa 3D, màu xanh `#0057A5`, màu giao diện `#3155D9`, điểm nhấn san hô và nền xanh nhạt. Trang chủ, khai báo thông tin, bài đánh giá, báo cáo, bài học và khu GE dùng chung bộ nhận diện mới.
+
+Phương án đầu tiên vẫn ở `/`. Hai phương án dùng chung dịch vụ demo và dữ liệu đã lưu trên cùng trình duyệt. Đường dẫn chia sẻ và mã QR giữ đúng phương án đang sử dụng. Mã học sinh dùng thử là `E8YYZD`, áp dụng cho khối 3 đến khối 11.
+
+`src/option-2/identity.js` cung cấp giao diện trang chủ và các điểm tích hợp nhận diện, `identity.css` chỉ áp dụng cho body có lớp `identity-option2`. Các tài nguyên nằm trong `src/option-2/assets/`, hướng dẫn sử dụng nhận diện được lưu trong `docs/brand-guidelines.md`.
+
 ## Dùng thử
 
 | Luồng | Đường dẫn / tài khoản |
