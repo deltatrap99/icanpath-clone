@@ -176,11 +176,11 @@
   }
   function auth(admin) {
     const me = db().me;
-    if (!me) return fail(401, 'Vui lòng đăng nhập bằng tài khoản demo.', 'unauthorized');
+    if (!me) return fail(401, 'Bạn cần đăng nhập bằng tài khoản dùng thử để tiếp tục sử dụng chức năng này.', 'unauthorized');
     const user = db().users.find((u) => u.id === me.id);
     if (user && (!user.active || user.role !== me.role)) {
       db().me = null; D.save();
-      return fail(401, 'Phiên đăng nhập demo đã kết thúc. Vui lòng đăng nhập lại.', 'unauthorized');
+      return fail(401, 'Phiên đăng nhập dùng thử của bạn đã kết thúc, bạn hãy đăng nhập lại để tiếp tục.', 'unauthorized');
     }
     if (admin && me.role !== 'admin') return fail(403, 'Chức năng này chỉ dành cho quản trị viên.', 'forbidden');
     return me;
@@ -323,10 +323,10 @@
     return { students: ids.size, sessions, results };
   }
   function confirmId(body, id) {
-    if (text(body.confirm) !== id) return fail(400, 'Nhập đúng mã để xác nhận xóa dữ liệu demo.', 'confirmation_required');
+    if (text(body.confirm) !== id) return fail(400, 'Bạn hãy nhập đúng mã của mục cần xóa để xác nhận thao tác với dữ liệu dùng thử.', 'confirmation_required');
   }
   function validateDemoPassword(value) {
-    if (value != null && value !== '' && value !== 'demo123') return fail(400, 'Bản demo chỉ dùng mật khẩu demo123. Vui lòng không nhập mật khẩu thật.', 'demo_password_only');
+    if (value != null && value !== '' && value !== 'demo123') return fail(400, 'Các tài khoản trong bản dùng thử sử dụng mật khẩu demo123 để bạn thuận tiện kiểm tra các chức năng.', 'demo_password_only');
     return 'demo123';
   }
   function getHeader(options, name) {
@@ -412,7 +412,7 @@
     if (route === '/api/staff/campaigns' && method === 'POST') {
       const school = getSchool(body.school_id);
       const grades = Array.isArray(body.grades) ? [...new Set(body.grades.map(Number))].sort((a, b) => a - b) : [];
-      if (!validDate(text(body.test_date)) || !grades.length || grades.some((g) => !Number.isInteger(g) || g < 3 || g > 11) || text(body.teacher).length > 160 || text(body.name).length > 160) return fail(400, 'Chọn ngày hợp lệ và ít nhất một khối từ lớp 3 đến lớp 11.', 'invalid_campaign');
+      if (!validDate(text(body.test_date)) || !grades.length || grades.some((g) => !Number.isInteger(g) || g < 3 || g > 11) || text(body.teacher).length > 160 || text(body.name).length > 160) return fail(400, 'Bạn hãy chọn ngày kiểm tra hợp lệ và ít nhất một khối lớp trong phạm vi từ lớp 3 đến lớp 11.', 'invalid_campaign');
       const campaign = { id: D.uid('campaign'), school_id: school.id, school_name: school.name, name: text(body.name), test_date: text(body.test_date), teacher: text(body.teacher), ge_staff: me.name, grades, join_code: code6(), status: 'open', created_at: stamp() };
       db().campaigns.push(campaign); audit('campaign_create', campaign.id, { school_id: school.id }); D.save(); return D.ok({ campaign: campaignView(campaign, []) }, 201);
     }
@@ -456,7 +456,7 @@
     if (route === '/api/admin/users' && method === 'GET') return D.ok({ users: db().users.filter((u) => u.username !== 'admin').map(publicUser) });
     if (route === '/api/admin/users' && method === 'POST') {
       const username = text(body.username).toLowerCase(), display_name = text(body.display_name);
-      if (!/^[a-z0-9][a-z0-9._-]{2,63}$/.test(username) || display_name.length < 2 || display_name.length > 100 || !['staff', 'admin'].includes(body.role || 'staff')) return fail(400, 'Tên đăng nhập cần 3–64 chữ/số, dấu chấm, gạch dưới hoặc gạch ngang; nhập tên hiển thị và vai trò hợp lệ.', 'invalid_user');
+      if (!/^[a-z0-9][a-z0-9._-]{2,63}$/.test(username) || display_name.length < 2 || display_name.length > 100 || !['staff', 'admin'].includes(body.role || 'staff')) return fail(400, 'Tên đăng nhập cần có từ 3 đến 64 ký tự, gồm chữ, số, dấu chấm, gạch dưới hoặc gạch ngang. Bạn cũng cần nhập tên hiển thị và chọn vai trò phù hợp cho tài khoản.', 'invalid_user');
       if (['admin', 'staff'].includes(username) || db().users.some((u) => u.username.toLowerCase() === username)) return fail(409, 'Tên đăng nhập đã được sử dụng.', 'user_exists');
       const user = { id: D.uid('user'), username, display_name, role: body.role || 'staff', password: validateDemoPassword(body.password), active: true, created_at: stamp(), last_login_at: null };
       db().users.push(user); audit('user_create', user.id, { username, role: user.role }); D.save(); return D.ok({ user: publicUser(user), password: 'demo123' }, 201);
@@ -465,7 +465,7 @@
     if (parts && method === 'PATCH') {
       const user = db().users.find((u) => u.id === decodeURIComponent(parts[1]));
       if (!user) return fail(404, 'Không tìm thấy tài khoản demo.', 'user_not_found');
-      if (user.username === 'admin' || (user.id === me.id && (body.active === false || body.role === 'staff'))) return fail(409, 'Không thể khóa hoặc hạ quyền tài khoản quản trị đang dùng.', 'admin_protected');
+      if (user.username === 'admin' || (user.id === me.id && (body.active === false || body.role === 'staff'))) return fail(409, 'Bạn không thể khóa hoặc hạ quyền của tài khoản quản trị đang sử dụng để tránh gián đoạn phiên làm việc.', 'admin_protected');
       if (body.role != null && !['staff', 'admin'].includes(body.role)) return fail(400, 'Vai trò không hợp lệ.', 'invalid_role');
       if (body.active != null && typeof body.active !== 'boolean') return fail(400, 'Trạng thái tài khoản không hợp lệ.', 'invalid_active');
       if (body.reset_password != null && typeof body.reset_password !== 'boolean') return fail(400, 'Yêu cầu đặt lại mật khẩu không hợp lệ.', 'invalid_reset');
@@ -497,7 +497,7 @@
       if (method === 'PATCH') {
         const name = text(body.name);
         if (name.length < 2 || name.length > 160) return fail(400, 'Tên trường cần từ 2 đến 160 ký tự.', 'invalid_school_name');
-        if (db().schools.some((s) => s.id !== id && norm(s.name) === norm(name) && s.province_code === school.province_code && norm(s.ward || s.ward_name) === norm(school.ward || school.ward_name))) return fail(409, 'Trường trùng tên tại địa phương này.', 'school_exists');
+        if (db().schools.some((s) => s.id !== id && norm(s.name) === norm(name) && s.province_code === school.province_code && norm(s.ward || s.ward_name) === norm(school.ward || school.ward_name))) return fail(409, 'Địa phương này đã có một trường trùng tên, bạn hãy kiểm tra lại thông tin trước khi tạo mới.', 'school_exists');
         school.name = name;
         db().campaigns.filter((c) => c.school_id === id).forEach((c) => { c.school_name = name; });
         Object.values(db().sessions).filter((s) => (s.school_id || s.student?.school_id) === id).forEach((s) => { s.student.school_name = name; });

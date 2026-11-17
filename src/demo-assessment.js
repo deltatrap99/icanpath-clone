@@ -27,7 +27,7 @@
       ['We play football ___ Sunday.', ['in', 'at', 'on', 'to'], 2, 1.0],
       ['My brother ___ milk every morning.', ['drink', 'drinks', 'drinking', 'is drink'], 1, 1.2],
       ['The elephant is ___ than the mouse.', ['big', 'bigger', 'biggest', 'more big'], 1, 1.3],
-      ['What ___ you doing? — I am reading.', ['am', 'is', 'are', 'be'], 2, 1.4],
+      ['A: What ___ you doing? B: I am reading.', ['am', 'is', 'are', 'be'], 2, 1.4],
       ['Yesterday, we ___ to the park.', ['go', 'goes', 'going', 'went'], 3, 1.6],
       ['There isn’t ___ water in my bottle.', ['some', 'any', 'many', 'a'], 1, 1.7],
       ['You ___ run in the school library.', ['must', 'mustn’t', 'can to', 'are'], 1, 1.8],
@@ -135,14 +135,14 @@
       let payload, correct, difficulty;
       if (section === 'U') {
         const [stem, options, c, diff] = row; correct = c; difficulty = diff;
-        payload = { stem, options, cert_task: band === '9-11' ? 'Cambridge B2 First · Use of English' : band === '6-8' ? 'Cambridge A2 Key · Use of English' : 'Cambridge Young Learners' };
+        payload = { stem, options, cert_task: band === '9-11' ? 'Cambridge B2 First, Use of English' : band === '6-8' ? 'Cambridge A2 Key, Use of English' : 'Cambridge Young Learners' };
       } else if (section === 'L') {
         const [audio_script, stem, options, c, diff] = row; correct = c; difficulty = diff;
-        payload = { audio_script, stem, options, cert_task: band === '9-11' ? 'Cambridge B2 First · Listening' : band === '6-8' ? 'Cambridge A2 Key · Listening' : 'Cambridge Young Learners · Listening' };
+        payload = { audio_script, stem, options, cert_task: band === '9-11' ? 'Cambridge B2 First, Listening' : band === '6-8' ? 'Cambridge A2 Key, Listening' : 'Cambridge Young Learners, Listening' };
         if (D.audio?.[audio_script]) payload.audio_url = D.audio[audio_script];
       } else {
         const [title, passage, stem, options, c, diff] = row; correct = c; difficulty = diff;
-        payload = { title, passage, stem, options, cert_task: band === '9-11' ? 'Cambridge B1 Preliminary · Reading' : band === '6-8' ? 'Cambridge A2 Key · Reading' : 'Cambridge Young Learners · Reading' };
+        payload = { title, passage, stem, options, cert_task: band === '9-11' ? 'Cambridge B1 Preliminary, Reading' : band === '6-8' ? 'Cambridge A2 Key, Reading' : 'Cambridge Young Learners, Reading' };
         if (i === 5 && band !== '3-5') payload.image = { alt: 'Số học sinh sử dụng xe buýt tăng sau khi cải thiện lịch chạy', chart: { type: 'bar', title: 'Students travelling by bus', labels: ['Before', 'After'], series: [{ name: 'Students', values: [40, 80] }] } };
       }
       return { id: `${band}-${section}-${i + 1}`, format: section === 'U' ? 'mcq' : section === 'L' ? 'listening_mcq' : 'reading_mcq', payload, correct, difficulty };
@@ -152,21 +152,21 @@
   const SPEAKING = {
     '3-5': [
       { format: 'read_aloud', payload: { text: 'My favourite animal is a cat. It is small and very friendly.' } },
-      { format: 'speaking', payload: { question: 'Tell us about your favourite animal.', hint_vi: 'Em thích con gì? Nó có màu gì? Nó có thể làm gì?', seconds: 30 } },
+      { format: 'speaking', payload: { question: 'Tell us about your favourite animal.', hint_vi: 'Em hãy giới thiệu con vật mình yêu thích, mô tả màu sắc và kể những việc con vật đó có thể làm.', seconds: 30 } },
     ],
     '6-8': [
       { format: 'read_aloud', payload: { text: 'Learning a new language helps us understand different people and discover the world.' } },
-      { format: 'speaking', payload: { question: 'Describe an activity you enjoy doing after school.', bullets: ['what the activity is', 'when and where you do it', 'who you do it with', 'why you enjoy it'], hint_vi: 'Nói về một hoạt động sau giờ học mà em yêu thích.', seconds: 60, cert_task: 'Cambridge B1 Preliminary · Speaking' } },
+      { format: 'speaking', payload: { question: 'Describe an activity you enjoy doing after school.', bullets: ['Describe the activity you enjoy doing.', 'Explain when and where you do this activity.', 'Tell us who you usually do the activity with.', 'Explain why you enjoy spending time on this activity.'], hint_vi: 'Em hãy giới thiệu một hoạt động mình yêu thích sau giờ học và giải thích vì sao hoạt động đó có ý nghĩa với em.', seconds: 60, cert_task: 'Cambridge B1 Preliminary, Speaking' } },
     ],
     '9-11': [
       { format: 'read_aloud', payload: { text: 'Although technology has transformed the way we communicate, face-to-face conversations remain essential for building meaningful relationships.' } },
-      { format: 'speaking', payload: { question: 'Describe a person who has had a positive influence on your life.', bullets: ['who this person is', 'how you know this person', 'what this person has done', 'and explain why this person has influenced you'], hint_vi: 'Nói về một người có ảnh hưởng tích cực đến cuộc sống của em.', seconds: 60, cert_task: 'IELTS Speaking · Part 2' } },
+      { format: 'speaking', payload: { question: 'Describe a person who has had a positive influence on your life.', bullets: ['Introduce the person you would like to describe.', 'Explain how you know this person.', 'Describe what this person has done to help or inspire you.', 'Explain why this person has had a positive influence on your life.'], hint_vi: 'Em hãy giới thiệu một người có ảnh hưởng tích cực đến cuộc sống của mình và giải thích điều em học được từ người đó.', seconds: 60, cert_task: 'IELTS Speaking, Part 2' } },
     ],
   };
   const WRITING = {
     '3-5': { prompt: 'Write 3–5 sentences about your best friend. Say their name, what they look like and what you like doing together.', prompt_vi: 'Viết 3–5 câu về người bạn thân: tên, ngoại hình và hoạt động hai em thích làm cùng nhau.', min_words: 25, max_words: 50 },
-    '6-8': { prompt: 'Your English friend wants to know about your school. Write an email describing your school, your favourite subject and one activity you enjoy. Write about 60–80 words.', prompt_vi: 'Viết email cho bạn người Anh, giới thiệu trường, môn học yêu thích và một hoạt động em thích ở trường.', min_words: 60, max_words: 80, cert_task: 'Cambridge A2 Key · Writing' },
-    '9-11': { prompt: 'Your school food magazine is looking for articles. Write an article about a Vietnamese dish you enjoy. Explain how to prepare it and how to make it nutritious. Write about 80–120 words.', prompt_vi: 'Viết bài cho tạp chí ẩm thực của trường về một món ăn Việt Nam: cách chế biến và cách làm món ăn bổ dưỡng hơn.', min_words: 80, max_words: 120, cert_task: 'Cambridge B1 Preliminary · Writing Part 2', genre: 'article' },
+    '6-8': { prompt: 'Your English friend wants to know about your school. Write an email describing your school, your favourite subject and one activity you enjoy. Write about 60–80 words.', prompt_vi: 'Viết email cho bạn người Anh, giới thiệu trường, môn học yêu thích và một hoạt động em thích ở trường.', min_words: 60, max_words: 80, cert_task: 'Cambridge A2 Key, Writing' },
+    '9-11': { prompt: 'Your school food magazine is looking for articles. Write an article about a Vietnamese dish you enjoy. Explain how to prepare it and how to make it nutritious. Write about 80–120 words.', prompt_vi: 'Viết bài cho tạp chí ẩm thực của trường về một món ăn Việt Nam: cách chế biến và cách làm món ăn bổ dưỡng hơn.', min_words: 80, max_words: 120, cert_task: 'Cambridge B1 Preliminary, Writing Part 2', genre: 'article' },
   };
 
   function campaignByCode(code) {
@@ -220,7 +220,7 @@
   }
   function ensureCurrent(s, itemId) {
     if (s.status === 'completed') return fail(409, 'Bài làm đã hoàn thành.', 'session_completed');
-    if (s.deadline && s.deadline <= Date.now()) { advance(s); return fail(409, 'Hết thời gian phần này.', 'section_time_over'); }
+    if (s.deadline && s.deadline <= Date.now()) { advance(s); return fail(409, 'Thời gian làm bài của phần này đã kết thúc, hệ thống sẽ chuyển sang phần tiếp theo.', 'section_time_over'); }
     const item = selectItem(s);
     if (!item || item.id !== itemId) return fail(409, 'Câu hỏi đã thay đổi. Em vui lòng thử lại.', 'not_current_item');
     return item;
@@ -228,66 +228,66 @@
 
   const UNITS = [
     {
-      code: 'A2-U01', level: 'ICAN A2', cefr: 'A2', title: 'My daily life', grammar: 'Present simple · Adverbs of frequency',
+      code: 'A2-U01', level: 'ICAN A2', cefr: 'A2', title: 'My daily life', grammar: 'Present simple, Adverbs of frequency',
       lesson: {
-        summary_vi: 'Nói về thói quen hằng ngày và sắp xếp một ngày học tập cân bằng.',
+        summary_vi: 'Trong bài học này, em sẽ luyện cách nói về thói quen hằng ngày và sắp xếp thời gian học tập, nghỉ ngơi hợp lý.',
         vocab: [
           { word: 'routine', meaning_vi: 'thói quen hằng ngày', example: 'My morning routine starts at six thirty.' },
           { word: 'usually', meaning_vi: 'thường xuyên', example: 'I usually walk to school with my friends.' },
           { word: 'prepare', meaning_vi: 'chuẩn bị', example: 'I prepare my school bag in the evening.' },
           { word: 'healthy', meaning_vi: 'lành mạnh, tốt cho sức khỏe', example: 'A healthy breakfast helps me study well.' },
         ],
-        grammar_vi: 'Dùng thì hiện tại đơn để nói về thói quen. Với he/she/it, thêm -s hoặc -es vào động từ. Trạng từ tần suất đứng trước động từ thường.',
+        grammar_vi: 'Em dùng thì hiện tại đơn để nói về những thói quen thường xuyên, đồng thời thêm -s hoặc -es vào động từ khi chủ ngữ là he, she hoặc it. Khi sử dụng động từ thường, em đặt trạng từ tần suất trước động từ để câu diễn đạt đúng ý.',
         grammar_examples: ['I usually get up at six.', 'She walks to school every day.', 'We do not watch TV before school.'],
-        can_do_vi: ['Mô tả một ngày đi học bằng 4–5 câu.', 'Dùng usually, sometimes và never đúng vị trí.', 'Đặt câu hỏi về thói quen của bạn.'],
+        can_do_vi: ['Em có thể mô tả một ngày đi học bằng bốn đến năm câu liên kết với nhau.', 'Em có thể dùng usually, sometimes và never đúng vị trí để nói về thói quen của mình.', 'Em có thể đặt câu hỏi để tìm hiểu thói quen hằng ngày của bạn bè.'],
         speaking_practice: ['I usually get up at half past six.', 'My favourite part of the day is the afternoon.', 'I prepare my school bag before I go to bed.'],
       },
     },
     {
-      code: 'A2-U02', level: 'ICAN A2', cefr: 'A2', title: 'A memorable weekend', grammar: 'Past simple · Sequencing words',
+      code: 'A2-U02', level: 'ICAN A2', cefr: 'A2', title: 'A memorable weekend', grammar: 'Past simple, Sequencing words',
       lesson: {
-        summary_vi: 'Kể lại một cuối tuần đáng nhớ với các từ nối chỉ trình tự.',
+        summary_vi: 'Trong bài học này, em sẽ luyện kể lại một cuối tuần đáng nhớ và dùng các từ nối để trình bày sự việc theo đúng trình tự.',
         vocab: [
           { word: 'memorable', meaning_vi: 'đáng nhớ', example: 'We had a memorable weekend by the sea.' },
           { word: 'explore', meaning_vi: 'khám phá', example: 'We explored the old town on foot.' },
           { word: 'afterwards', meaning_vi: 'sau đó', example: 'Afterwards, we had lunch in a small café.' },
           { word: 'experience', meaning_vi: 'trải nghiệm', example: 'It was an exciting experience for everyone.' },
         ],
-        grammar_vi: 'Dùng quá khứ đơn cho sự việc đã kết thúc. Động từ có quy tắc thêm -ed; động từ bất quy tắc cần học riêng, ví dụ go → went và see → saw.',
+        grammar_vi: 'Em dùng thì quá khứ đơn để kể những sự việc đã kết thúc, thêm -ed với động từ có quy tắc và ghi nhớ dạng riêng của động từ bất quy tắc, chẳng hạn go chuyển thành went và see chuyển thành saw.',
         grammar_examples: ['Last Saturday, I visited my grandparents.', 'First, we cooked lunch. Then, we played a game.', 'We went home at five o’clock.'],
-        can_do_vi: ['Kể lại một trải nghiệm trong quá khứ.', 'Dùng first, then, after that và finally.', 'Nhận biết động từ quá khứ thường gặp.'],
+        can_do_vi: ['Em có thể kể lại một trải nghiệm trong quá khứ theo trình tự rõ ràng.', 'Em có thể dùng first, then, after that và finally để nối các sự việc trong câu chuyện.', 'Em có thể nhận biết và sử dụng những động từ quá khứ thường gặp khi kể chuyện.'],
         speaking_practice: ['Last weekend, I visited my grandparents.', 'First, we explored the town. Then, we had lunch.', 'It was a wonderful experience that I will always remember.'],
       },
     },
     {
-      code: 'B1-U03', level: 'ICAN B1', cefr: 'B1', title: 'Food and healthy choices', grammar: 'Countable nouns · Quantifiers · Giving instructions',
+      code: 'B1-U03', level: 'ICAN B1', cefr: 'B1', title: 'Food and healthy choices', grammar: 'Countable nouns, Quantifiers, Giving instructions',
       lesson: {
-        summary_vi: 'Giới thiệu món ăn Việt Nam và giải thích cách chế biến cân bằng dinh dưỡng.',
+        summary_vi: 'Trong bài học này, em sẽ luyện giới thiệu một món ăn Việt Nam, giải thích cách chế biến và đề xuất những lựa chọn cân bằng dinh dưỡng.',
         vocab: [
           { word: 'ingredient', meaning_vi: 'nguyên liệu', example: 'Fresh vegetables are an important ingredient in this dish.' },
           { word: 'nutritious', meaning_vi: 'bổ dưỡng', example: 'A nutritious meal includes different food groups.' },
           { word: 'steam', meaning_vi: 'hấp', example: 'Steam the vegetables for five minutes.' },
           { word: 'balanced', meaning_vi: 'cân bằng', example: 'A balanced diet helps us stay healthy.' },
         ],
-        grammar_vi: 'Dùng some, a few với danh từ đếm được; a little với danh từ không đếm được. Khi hướng dẫn nấu ăn, dùng động từ nguyên mẫu và các từ nối trình tự.',
+        grammar_vi: 'Em có thể dùng some hoặc a few với danh từ đếm được và a little với danh từ không đếm được để mô tả số lượng nguyên liệu. Khi hướng dẫn nấu ăn, em dùng động từ nguyên mẫu kết hợp với các từ nối để trình bày từng bước rõ ràng.',
         grammar_examples: ['Add a few slices of carrot.', 'Use a little oil and some fresh herbs.', 'First, wash the vegetables. Finally, serve the dish warm.'],
-        can_do_vi: ['Giới thiệu nguyên liệu và cách nấu một món ăn.', 'Phân biệt a few và a little.', 'Viết đoạn hướng dẫn ngắn có trình tự rõ ràng.'],
+        can_do_vi: ['Em có thể giới thiệu những nguyên liệu cần thiết và giải thích cách nấu một món ăn.', 'Em có thể phân biệt cách dùng a few và a little khi nói về số lượng nguyên liệu.', 'Em có thể viết một đoạn hướng dẫn gồm những bước thực hiện theo trình tự rõ ràng.'],
         speaking_practice: ['My favourite Vietnamese dish is fresh spring rolls.', 'First, prepare the vegetables and cook the noodles.', 'You can make this dish healthier by adding more vegetables.'],
       },
     },
     {
-      code: 'B1-U04', level: 'ICAN B1', cefr: 'B1', title: 'Making a difference', grammar: 'First conditional · Giving reasons and opinions',
+      code: 'B1-U04', level: 'ICAN B1', cefr: 'B1', title: 'Making a difference', grammar: 'First conditional, Giving reasons and opinions',
       lesson: {
-        summary_vi: 'Nêu ý kiến và đề xuất hành động giúp trường học, cộng đồng xanh hơn.',
+        summary_vi: 'Trong bài học này, em sẽ luyện trình bày ý kiến và đề xuất những hành động giúp trường học cùng cộng đồng trở nên xanh hơn.',
         vocab: [
           { word: 'community', meaning_vi: 'cộng đồng', example: 'Small actions can make our community a better place.' },
           { word: 'reduce', meaning_vi: 'giảm', example: 'We can reduce waste by reusing bottles.' },
           { word: 'volunteer', meaning_vi: 'tình nguyện viên; làm tình nguyện', example: 'I volunteer at the local library on Saturdays.' },
           { word: 'responsibility', meaning_vi: 'trách nhiệm', example: 'Protecting the environment is everyone’s responsibility.' },
         ],
-        grammar_vi: 'Câu điều kiện loại 1 diễn tả điều có thể xảy ra: If + hiện tại đơn, will + động từ nguyên mẫu. Dùng because, so và in my opinion để giải thích ý kiến.',
+        grammar_vi: 'Em dùng câu điều kiện loại 1 để nói về điều có thể xảy ra, với mệnh đề if ở thì hiện tại đơn và mệnh đề kết quả dùng will cùng động từ nguyên mẫu. Em cũng có thể dùng because, so và in my opinion để giải thích ý kiến của mình.',
         grammar_examples: ['If we recycle more, we will produce less waste.', 'In my opinion, every school should have a green club.', 'I bring a reusable bottle because it reduces plastic waste.'],
-        can_do_vi: ['Đưa ra một đề xuất giúp cộng đồng.', 'Giải thích lý do và kết quả có thể xảy ra.', 'Nói một phút về một vấn đề gần gũi.'],
+        can_do_vi: ['Em có thể đưa ra một đề xuất cụ thể để cải thiện trường học hoặc cộng đồng của mình.', 'Em có thể giải thích lý do của đề xuất và nêu những kết quả có thể xảy ra.', 'Em có thể trình bày trong khoảng một phút về một vấn đề gần gũi với cuộc sống của mình.'],
         speaking_practice: ['In my opinion, small actions can make a big difference.', 'If we work together, we will create a greener school.', 'I would like to volunteer because I enjoy helping other people.'],
       },
     },
@@ -330,37 +330,37 @@
     const totalAnswered = (s.answers || []).filter((a) => a.choice >= 0).length;
     const confidence = fixture ? 'medium' : scored.length < 4 || totalAnswered < 12 ? 'low' : 'medium';
     const labels = { L: 'Nghe thông tin chính', R: 'Đọc hiểu nội dung', S: 'Diễn đạt bằng lời nói', W: 'Trình bày ý bằng văn bản' };
-    const abilities = { L: 'Nhận biết thông tin chính và chi tiết quen thuộc trong hội thoại ngắn.', R: 'Hiểu ý chính của đoạn văn về chủ đề học tập và đời sống.', S: 'Trình bày ý tưởng về một chủ đề gần gũi bằng câu đơn giản.', W: 'Viết đoạn ngắn có ý chính và một số chi tiết hỗ trợ.' };
+    const abilities = { L: 'Em có thể nhận biết thông tin chính và những chi tiết quen thuộc trong một hội thoại ngắn.', R: 'Em có thể hiểu ý chính của những đoạn văn viết về học tập và đời sống hằng ngày.', S: 'Em có thể trình bày ý tưởng về một chủ đề gần gũi bằng những câu tiếng Anh đơn giản.', W: 'Em có thể viết một đoạn ngắn gồm ý chính và một số chi tiết giúp người đọc hiểu rõ nội dung.' };
     const result = {
-      id: s.result_token || 'demo-result', student: copy(s.student),
+      id: s.result_token || 'demo-result', copy_version: 2, student: copy(s.student),
       overall: { theta: overallTheta, cefr: cefr(overallTheta), estimated: true, note_vi: 'BẢN DEMO: dữ liệu được xử lý và lưu riêng trong trình duyệt này. Điểm Nói, Viết và nhận xét phát âm chỉ minh họa giao diện, không được chấm bằng AI. Điểm trắc nghiệm được tính từ câu trả lời trong bộ câu hỏi mẫu. Kết quả không thay thế đánh giá chính thức hay chứng chỉ CEFR.' },
       skills: sk, use_of_english: skillScore(s, 'U', fixture),
       confidence: { level: confidence, score: fixture ? 78 : Math.min(82, Math.round(totalAnswered / 20 * 70) + scored.length * 5) },
       scoring_issues: [],
-      abilities: ['L', 'R', 'S', 'W'].map((skill) => ({ skill, status: sk[skill].theta == null ? 'insufficient' : 'can_do', text_vi: sk[skill].theta == null ? 'Chưa có câu trả lời để nhận xét kỹ năng này. Em có thể luyện tập và làm lại.' : (skill === 'S' || skill === 'W') && !fixture ? 'Đã ghi nhận bài làm trên thiết bị. Nhận xét năng lực trong bản demo chỉ mang tính minh họa.' : abilities[skill] })),
+      abilities: ['L', 'R', 'S', 'W'].map((skill) => ({ skill, status: sk[skill].theta == null ? 'insufficient' : 'can_do', text_vi: sk[skill].theta == null ? 'Hệ thống chưa có câu trả lời để nhận xét kỹ năng này, em hãy luyện tập và hoàn thành lại phần kiểm tra để có thêm dữ liệu.' : (skill === 'S' || skill === 'W') && !fixture ? 'Hệ thống đã ghi nhận bài làm trên thiết bị của em, còn các nhận xét năng lực trong bản dùng thử chỉ mang tính minh họa.' : abilities[skill] })),
       next_steps: [
-        { text_vi: `Luyện ${SKILL[focus].toLowerCase()} 10–15 phút mỗi ngày với chủ đề quen thuộc.` },
-        { text_vi: 'Ghi lại 5 từ mới và sử dụng mỗi từ trong một câu có nghĩa.' },
-        { text_vi: 'Làm lại bài đánh giá đầy đủ và trao đổi với giáo viên để xác nhận trình độ.' },
+        { text_vi: `Em nên dành từ 10 đến 15 phút mỗi ngày để luyện kỹ năng ${SKILL[focus].toLowerCase()} với những chủ đề quen thuộc.` },
+        { text_vi: 'Em hãy ghi lại năm từ mới mỗi ngày và dùng từng từ trong một câu có nghĩa để ghi nhớ cách sử dụng.' },
+        { text_vi: 'Em nên hoàn thành lại đầy đủ các phần đánh giá và trao đổi với giáo viên để xác nhận trình độ của mình.' },
       ],
-      strengths: scored.slice(0, 3).map((skill) => ({ skill, label_vi: labels[skill], evidence_vi: fixture ? `Dữ liệu mẫu minh họa mức ${sk[skill].cefr}.` : ['S', 'W'].includes(skill) ? 'Đã hoàn thành thao tác nộp bài trong bản demo; chưa có chấm AI thực tế.' : `Trả lời đúng ${sk[skill].correct}/${sk[skill].answered} câu đã làm trong bộ mẫu.` })),
-      improvements: [focus, ...['W', 'S', 'R', 'L'].filter((k) => k !== focus)].slice(0, 3).map((skill) => ({ skill, label_vi: `Củng cố kỹ năng ${SKILL[skill].toLowerCase()}`, evidence_vi: sk[skill].theta == null ? 'Cần hoàn thành phần này để có đủ dữ liệu.' : skill === 'W' ? 'Luyện viết đoạn có mở ý, ví dụ và câu kết.' : skill === 'S' ? 'Nghe mẫu và luyện nói rõ từng cụm từ mỗi ngày.' : 'Luyện nhận biết ý chính trước khi tìm thông tin chi tiết.' })),
+      strengths: scored.slice(0, 3).map((skill) => ({ skill, label_vi: labels[skill], evidence_vi: fixture ? `Kết quả mẫu này minh họa khả năng thực hiện các nhiệm vụ ở mức ${sk[skill].cefr}.` : ['S', 'W'].includes(skill) ? 'Em đã hoàn thành thao tác nộp bài trong bản dùng thử, còn phần nhận xét hiện chưa dựa trên kết quả chấm AI thực tế.' : `Em đã trả lời đúng ${sk[skill].correct} trong tổng số ${sk[skill].answered} câu đã làm ở phần kiểm tra này.` })),
+      improvements: [focus, ...['W', 'S', 'R', 'L'].filter((k) => k !== focus)].slice(0, 3).map((skill) => ({ skill, label_vi: `Củng cố kỹ năng ${SKILL[skill].toLowerCase()}`, evidence_vi: sk[skill].theta == null ? 'Em cần hoàn thành phần kiểm tra này để hệ thống có đủ dữ liệu nhận xét năng lực.' : skill === 'W' ? 'Em nên luyện viết đoạn văn có câu mở ý, ví dụ cụ thể và câu kết để nội dung được liên kết rõ ràng.' : skill === 'S' ? 'Em nên nghe câu mẫu và luyện nói rõ từng cụm từ mỗi ngày để cải thiện cách diễn đạt.' : 'Em nên luyện nhận biết ý chính của bài trước khi tìm những thông tin chi tiết trong nội dung.' })),
       self_vs_actual: ['L', 'R', 'S', 'W'].map((skill) => {
         const self = s.profile?.self?.[skill] || (fixture ? 3 : null), actual = sk[skill].theta;
         const delta = actual == null || self == null ? null : actual - self;
         const verdict = delta == null ? 'unknown' : delta > 0.8 ? 'underestimate' : delta < -0.8 ? 'overestimate' : 'match';
         return { skill, skill_vi: SKILL[skill], self_level: self, self_label_vi: self ? ['Mới bắt đầu', 'Có thể làm với trợ giúp', 'Khá tự tin', 'Rất tự tin'][clamp(self - 1, 0, 3)] : '', actual_cefr: sk[skill].cefr, verdict, verdict_vi: verdict === 'unknown' ? 'Chưa đủ dữ liệu để so sánh' : verdict === 'match' ? 'Tự đánh giá khá gần kết quả mẫu' : verdict === 'underestimate' ? 'Em đã làm tốt hơn mức tự đánh giá' : 'Em cần luyện thêm để đạt mức tự tin mong muốn' };
       }),
-      learning_path: { purpose: confidence === 'low' ? 'confirm' : 'practice', focus_skill: focus, focus_skill_vi: SKILL[focus], units: UNITS.map((u, i) => ({ step: i + 1, unit: u.code, title: u.title, level: u.level, cefr: u.cefr, focus_vi: i === 0 ? 'Xây nền từ vựng và câu cơ bản' : i === 1 ? 'Kể chuyện có trình tự' : i === 2 ? 'Luyện viết và diễn đạt rõ ý' : 'Nêu ý kiến và giải thích lý do' })) },
+      learning_path: { purpose: confidence === 'low' ? 'confirm' : 'practice', focus_skill: focus, focus_skill_vi: SKILL[focus], units: UNITS.map((u, i) => ({ step: i + 1, unit: u.code, title: u.title, level: u.level, cefr: u.cefr, focus_vi: i === 0 ? 'Em sẽ củng cố từ vựng và cách viết những câu tiếng Anh cơ bản.' : i === 1 ? 'Em sẽ luyện kể lại các sự việc theo trình tự để người nghe dễ theo dõi.' : i === 2 ? 'Em sẽ luyện viết và diễn đạt các ý một cách rõ ràng, có sự liên kết.' : 'Em sẽ luyện trình bày ý kiến và giải thích lý do cho quan điểm của mình.' })) },
       feedback: { speaking: [], writing: [] },
-      products: [{ name: 'ICAN Practice / AI Tutor', reason: 'Gợi ý minh họa: luyện tập hằng ngày theo chủ đề và kỹ năng cần củng cố.' }, { name: 'EasyPass', reason: 'Gợi ý minh họa: củng cố kiến thức tiếng Anh ở trường và luyện bài có hướng dẫn.' }],
+      products: [{ name: 'ICAN Practice / AI Tutor', reason: 'Em có thể luyện tập hằng ngày theo từng chủ đề và tập trung vào những kỹ năng cần củng cố.' }, { name: 'EasyPass', reason: 'Em có thể củng cố kiến thức tiếng Anh ở trường thông qua các bài luyện có hướng dẫn phù hợp.' }],
       sample: fixture,
     };
     if (fixture || (s.speaking || []).length) {
-      result.feedback.speaking = (fixture ? taskList(s, 'S') : taskList(s, 'S').filter((t) => s.speaking.some((x) => x.item_id === t.id))).map((t) => ({ format: t.format, prompt: t.payload.text || t.payload.question, criteria: { pronunciation: 3, fluency: 2, language: 3 }, weak_words: [], feedback_vi: 'Nhận xét mẫu: luyện ngắt câu theo cụm ý và nhấn trọng âm của từ. Bản demo chưa phân tích chất lượng giọng nói; các điểm hiển thị chỉ để minh họa báo cáo.' }));
+      result.feedback.speaking = (fixture ? taskList(s, 'S') : taskList(s, 'S').filter((t) => s.speaking.some((x) => x.item_id === t.id))).map((t) => ({ format: t.format, prompt: t.payload.text || t.payload.question, criteria: { pronunciation: 3, fluency: 2, language: 3 }, weak_words: [], feedback_vi: 'Em có thể luyện ngắt câu theo cụm ý và nhấn trọng âm để lời nói rõ ràng hơn. Những điểm số trong báo cáo này chỉ mang tính minh họa, vì bản dùng thử chưa phân tích chất lượng giọng nói của em.' }));
     }
     if (fixture || countWords(s.writing?.text)) {
-      result.feedback.writing = [{ word_count: fixture ? 92 : countWords(s.writing.text), criteria: { task: 3, organisation: 3, vocabulary: 2, grammar: 2 }, feedback_vi: 'Nhận xét minh họa: sử dụng câu chủ đề rõ ràng, thêm ví dụ và kiểm tra thì động từ. Bản demo đếm số từ nhưng không chấm chất lượng bài viết bằng AI.', improvements_vi: ['Sắp xếp ý theo mở đoạn, nội dung chính và kết đoạn.', 'Thêm từ nối như first, because, however và finally.', 'Đọc lại để kiểm tra chính tả, chủ ngữ và động từ.'], corrected_sample: '' }];
+      result.feedback.writing = [{ word_count: fixture ? 92 : countWords(s.writing.text), criteria: { task: 3, organisation: 3, vocabulary: 2, grammar: 2 }, feedback_vi: 'Em có thể làm bài viết rõ ý hơn bằng cách sử dụng câu chủ đề, bổ sung ví dụ và kiểm tra thì của động từ. Bản dùng thử chỉ đếm số từ và hiển thị nhận xét minh họa, chưa chấm chất lượng bài viết bằng AI.', improvements_vi: ['Em nên sắp xếp bài viết theo phần mở đoạn, nội dung chính và kết đoạn để người đọc dễ theo dõi.', 'Em có thể dùng các từ nối như first, because, however và finally để liên kết những ý trong bài viết.', 'Em hãy đọc lại toàn bộ bài viết để kiểm tra chính tả và sự phù hợp giữa chủ ngữ với động từ.'], corrected_sample: '' }];
     }
     return result;
   };
@@ -415,7 +415,7 @@
       const s = getSession(options);
       if (!taskList(s, 'S').some((t) => t.id === b.item_id)) return fail(400, 'Không tìm thấy phần nói này.', 'invalid_task');
       if (s.status === 'completed') return fail(409, 'Bài làm đã hoàn thành.', 'session_completed');
-      if (Number(b.duration_ms) < 1200 || !b.audio_base64) return fail(400, 'Bản ghi quá ngắn. Em hãy thử nói ít nhất 2 giây.', 'audio_too_short');
+      if (Number(b.duration_ms) < 1200 || !b.audio_base64) return fail(400, 'Bản ghi chưa đủ dài để tiếp nhận, em hãy ghi âm lại và nói trong ít nhất hai giây.', 'audio_too_short');
       // Audio is intentionally not kept in localStorage; even demo recordings can
       // be large. Only submission metadata remains on this device.
       s.speaking = s.speaking.filter((x) => x.item_id !== b.item_id);
@@ -433,6 +433,15 @@
     if (path === '/api/results' && method === 'GET') {
       const token = header(options.headers, 'x-result-token');
       let result = D.db.results[token];
+      if (result && result.copy_version !== 2) {
+        const session = Object.values(D.db.sessions).find((s) => s.result_token === token);
+        if (session) {
+          const updatedCopy = D.makeResult(session);
+          result = { ...result, ...updatedCopy, overall: { ...result.overall, note_vi: updatedCopy.overall.note_vi }, skills: result.skills, use_of_english: result.use_of_english, confidence: result.confidence };
+          D.db.results[token] = result;
+          D.save();
+        }
+      }
       if (!result) {
         const s = Object.values(D.db.sessions).find((x) => x.result_token === token || (token === 'demo-result' && x.token === 'session-demo'));
         if (s) { result = D.makeResult(s); D.db.results[token] = result; D.save(); }
@@ -449,7 +458,7 @@
     if (path === '/api/practice/pronounce' && method === 'POST') {
       const token = header(options.headers, 'x-result-token');
       if (!token || (!D.db.results[token] && !Object.values(D.db.sessions).some((s) => s.result_token === token))) return fail(401, 'Em cần mở bài học từ báo cáo của mình.', 'unauthorized');
-      if (!b.audio_base64) return fail(400, 'Chưa nhận được bản ghi âm.', 'missing_audio');
+      if (!b.audio_base64) return fail(400, 'Hệ thống hiện chưa nhận được bản ghi âm, em hãy thử ghi âm và gửi lại.', 'missing_audio');
       const words = String(b.text || '').split(/\s+/).filter(Boolean).map((word) => ({ word, score: 80 }));
       return response({ result: { overall: 80, words, weak_phonemes: [], illustrative: true, note_vi: 'Điểm 80/100 là dữ liệu minh họa, chưa phân tích phát âm bằng AI.' } });
     }

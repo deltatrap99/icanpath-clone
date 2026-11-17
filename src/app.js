@@ -13,6 +13,13 @@ const COLORS = { L: '#1CB0F6', R: '#CE82FF', S: '#FF9600', W: '#58CC02', U: '#FF
 const PATH_X = [0, 56, 84, 56, 0, -56, -84, -56];
 let cleanup = [];
 
+// Apply the same typography to dynamic content and previously saved reports.
+function copyText(value) {
+  const text = String(value);
+  if (/^\s*\u2014\s*$/.test(text)) return 'Chưa có dữ liệu';
+  return text.replace(/\s*[\u2014\u00b7]\s*/g, ', ').replace(/,\s*,/g, ',');
+}
+
 function h(tag, attrs, ...kids) {
   const el = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs || {})) {
@@ -22,25 +29,25 @@ function h(tag, attrs, ...kids) {
     else if (k === 'style') el.setAttribute('style', v);
     else if (k === 'value') el.value = v;
     else if (k === 'checked' || k === 'disabled' || k === 'selected') el[k] = !!v;
-    else el.setAttribute(k, v === true ? '' : v);
+    else el.setAttribute(k, v === true ? '' : ['aria-label', 'title', 'placeholder'].includes(k) ? copyText(v) : v);
   }
-  for (const c of kids.flat(Infinity)) if (c != null && c !== false) el.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  for (const c of kids.flat(Infinity)) if (c != null && c !== false) el.append(c instanceof Node ? c : document.createTextNode(copyText(c)));
   return el;
 }
 function svg(tag, attrs, ...kids) {
   const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
   for (const [k, v] of Object.entries(attrs || {})) if (v != null) el.setAttribute(k, v);
-  for (const c of kids.flat(Infinity)) if (c != null) el.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  for (const c of kids.flat(Infinity)) if (c != null) el.append(c instanceof Node ? c : document.createTextNode(copyText(c)));
   return el;
 }
 function mount(...nodes) { $app.replaceChildren(...nodes.flat(Infinity).filter((n) => n != null && n !== false)); window.scrollTo(0, 0); }
-function toast(msg, ms = 3200) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), ms); }
+function toast(msg, ms = 3200) { const t = document.getElementById('toast'); t.textContent = copyText(msg); t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), ms); }
 function setBand(band) { document.body.classList.remove('band-35', 'band-68', 'band-911'); if (band) document.body.classList.add('band-' + band.replace('-', '')); }
 function setMode(mode) { document.body.classList.remove('mode-site', 'mode-focus', 'mode-console'); document.body.classList.add('mode-' + mode); }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const fox = (kind, cls) => h('img', { src: `/img/fox-${kind}.webp`, alt: '', width: 402, height: 440, class: cls || null, decoding: 'async' });
 const loading = () => h('div', { class: 'loading' }, h('div', { class: 'spinner', role: 'status', 'aria-label': 'Đang tải' }));
-const brandLink = () => h('a', { class: 'brand', href: '#/', 'aria-label': 'ICan Path – trang chủ' }, h('img', { src: '/img/fox-hello.webp', alt: '', width: 40, height: 44 }), h('span', {}, 'ican', h('b', {}, 'path')));
+const brandLink = () => h('a', { class: 'brand', href: '#/', 'aria-label': 'ICan Path, trang chủ' }, h('img', { src: '/img/fox-hello.webp', alt: '', width: 40, height: 44 }), h('span', {}, 'ican', h('b', {}, 'path')));
 const skillLabel = (k) => `${SK[k].icon} ${SK[k].vi}`;
 /** Responsive table: header labels are copied to data-label so rows stack into cards on phones. */
 function tbl(heads, rows, cls = '') {
@@ -96,19 +103,19 @@ function stagePath(items) {
 function home() {
   const code = h('input', { type: 'text', class: 'code-input', placeholder: 'VD: K7P2QX', maxlength: 6, 'aria-label': 'Mã tham gia 6 ký tự', autocomplete: 'off', autocapitalize: 'characters', spellcheck: 'false',
     onkeydown: (e) => { if (e.key === 'Enter') start(); } });
-  const start = () => { const c = code.value.trim().toUpperCase(); if (c.length !== 6) { code.focus(); return toast('Mã tham gia gồm 6 ký tự'); } location.hash = '#/join/' + c; };
+  const start = () => { const c = code.value.trim().toUpperCase(); if (c.length !== 6) { code.focus(); return toast('Em hãy nhập đủ 6 ký tự của mã tham gia do thầy cô cung cấp.'); } location.hash = '#/join/' + c; };
   const lastResult = localStorage.getItem(LS.result);
   const roles = [
-    ['👩‍🎓', 'Học sinh', 'Nhập mã tham gia, làm bài 30 phút như chơi game và nhận ngay trình độ của mình.', 'var(--blue-l)', 'var(--blue-b)'],
-    ['👨‍👩‍👧', 'Phụ huynh', 'Mở link/QR kết quả của con: biểu đồ 4 kỹ năng, điểm mạnh, việc cần luyện — đọc trong 1–2 phút.', 'var(--green-l)', '#B8F28B'],
-    ['🏫', 'Nhà trường & GE', 'Thiết lập trường, đợt kiểm tra và xem báo cáo tổng hợp theo khối, lớp, kỹ năng.', 'var(--purple-l)', '#E3B8FF'],
+    ['👩‍🎓', 'Học sinh', 'Em nhập mã tham gia, hoàn thành bài kiểm tra trong khoảng 30 phút và nhận báo cáo để hiểu rõ năng lực tiếng Anh của mình.', 'var(--blue-l)', 'var(--blue-b)'],
+    ['👨‍👩‍👧', 'Phụ huynh', 'Phụ huynh mở đường dẫn hoặc quét mã QR để xem kết quả của con, gồm biểu đồ bốn kỹ năng, điểm mạnh và những nội dung cần luyện thêm.', 'var(--green-l)', '#B8F28B'],
+    ['🏫', 'Nhà trường & GE', 'Nhà trường và nhân viên GE có thể thiết lập thông tin trường, tổ chức các đợt kiểm tra và theo dõi báo cáo tổng hợp theo khối, lớp và kỹ năng.', 'var(--purple-l)', '#E3B8FF'],
   ];
   mount(
     h('section', { class: 'home-hero hero' },
       h('div', { class: 'art' }, fox('hello')),
       h('div', {},
-        h('h1', {}, 'Khám phá trình độ tiếng Anh của em — ', h('em', {}, 'vui, nhanh và chính xác!')),
-        h('p', { class: 'muted', style: 'font-size:19px' }, '30 phút · Nghe · Nói · Đọc · Viết. Câu hỏi tự điều chỉnh độ khó theo câu trả lời của em — dành cho học sinh lớp 3–11.'),
+        h('h1', {}, 'Cùng khám phá trình độ tiếng Anh của em, ', h('em', {}, 'thật vui và vừa sức!')),
+        h('p', { class: 'muted', style: 'font-size:19px' }, 'Bài kiểm tra kéo dài khoảng 30 phút, gồm các kỹ năng nghe, nói, đọc và viết, dành cho học sinh từ lớp 3 đến lớp 11. Độ khó của câu hỏi được điều chỉnh theo câu trả lời để phù hợp với năng lực của từng em.'),
         sessionToken() ? h('a', { class: 'btn btn-lg btn-block', href: '#/test' }, '▶ Tiếp tục bài đang làm') : null,
         h('div', { class: 'join-box' }, h('label', { style: 'margin-top:0' }, 'Nhập mã tham gia do thầy cô cung cấp'),
           h('div', { class: 'row' }, code, h('button', { class: 'btn-lg', onclick: start }, 'Bắt đầu'))),
@@ -116,37 +123,37 @@ function home() {
           lastResult ? h('a', { class: 'btn btn2', href: '#/r/' + lastResult }, 'Xem kết quả gần nhất') : null,
           h('a', { class: 'btn btn2', href: '#/staff' }, 'Tôi là nhân viên GE')))),
     h('h2', { class: 'section-title' }, 'Bài kiểm tra gồm 5 chặng'),
-    h('p', { class: 'section-sub' }, 'Mỗi chặng ngắn gọn và có đồng hồ riêng. Cứ làm hết sức mình nhé — không có điểm trừ!'),
-    stagePath([['U', '3 phút', 'Xác định mức khởi đầu'], ['L', '7 phút', 'Nghe hội thoại, chọn đáp án'], ['R', '6 phút', 'Đọc hiểu đoạn văn'], ['S', '7 phút', 'Ghi âm câu trả lời'], ['W', '7 phút', 'Viết đoạn ngắn']]
-      .map(([k, t, d]) => ({ icon: SK[k].icon, c: SK[k].c, cd: SK[k].cd, title: `${SKILL_FULL[k]} · ${t}`, sub: d }))),
+    h('p', { class: 'section-sub' }, 'Mỗi chặng có thời gian làm bài riêng để em dễ theo dõi tiến độ. Em hãy trả lời theo khả năng của mình, vì những câu trả lời chưa đúng sẽ không bị trừ điểm.'),
+    stagePath([['U', '3 phút', 'Em trả lời các câu hỏi từ vựng và ngữ pháp để xác định mức khởi đầu.'], ['L', '7 phút', 'Em nghe hội thoại rồi chọn đáp án phù hợp với nội dung đã nghe.'], ['R', '6 phút', 'Em đọc đoạn văn rồi trả lời câu hỏi để thể hiện khả năng đọc hiểu.'], ['S', '7 phút', 'Em ghi âm câu trả lời để thể hiện khả năng diễn đạt bằng tiếng Anh.'], ['W', '7 phút', 'Em viết một đoạn ngắn theo chủ đề và yêu cầu của bài kiểm tra.']]
+      .map(([k, t, d]) => ({ icon: SK[k].icon, c: SK[k].c, cd: SK[k].cd, title: `${SKILL_FULL[k]}, ${t}`, sub: d }))),
     h('h2', { class: 'section-title' }, 'Dành cho mọi người'),
     h('div', { class: 'grid g3' }, roles.map(([ic, t, d, l, b]) => h('div', { class: 'card tile' }, h('div', { class: 'icon-tile', style: `--c-l:${l};--c-b:${b}` }, ic), h('div', {}, h('h3', { style: 'margin:0 0 4px' }, t), h('p', { class: 'small muted', style: 'margin:0' }, d))))),
     h('div', { class: 'feature', style: 'margin-top:36px' }, fox('study'),
-      h('div', {}, h('h2', {}, 'Thích ứng theo từng em'), h('p', {}, 'Trả lời tốt, câu hỏi khó dần; gặp khó khăn, hệ thống điều chỉnh về mức phù hợp. Mỗi em một bài kiểm tra vừa sức.'))),
+      h('div', {}, h('h2', {}, 'Độ khó phù hợp với năng lực của từng em'), h('p', {}, 'Khi em trả lời tốt, hệ thống sẽ tăng dần độ khó để tìm hiểu thêm khả năng của em. Khi em gặp khó khăn, câu hỏi sẽ được điều chỉnh về mức phù hợp để em tiếp tục làm bài vừa sức.'))),
     h('div', { class: 'feature flip' }, fox('cheer'),
-      h('div', {}, h('h2', {}, 'Báo cáo dễ hiểu, lộ trình rõ ràng'), h('p', {}, 'Trình độ tổng thể, 4 kỹ năng, 3 điểm mạnh và 3 việc cần cải thiện — kèm lộ trình học và luyện phát âm với AI.'))),
-    h('div', { class: 'cta-band' }, h('h2', {}, 'Sẵn sàng khám phá chưa?'), h('p', {}, 'Lấy mã tham gia từ thầy cô và bắt đầu ngay.'),
+      h('div', {}, h('h2', {}, 'Báo cáo giúp em biết mình nên luyện gì tiếp theo'), h('p', {}, 'Báo cáo cho em biết trình độ tổng thể, kết quả từng kỹ năng, những điểm mạnh và nội dung cần cải thiện. Em cũng nhận được lộ trình học gợi ý cùng các bài luyện từ vựng, ngữ pháp và phát âm phù hợp.'))),
+    h('div', { class: 'cta-band' }, h('h2', {}, 'Em đã sẵn sàng khám phá năng lực tiếng Anh của mình chưa?'), h('p', {}, 'Em hãy lấy mã tham gia từ thầy cô rồi nhập mã để bắt đầu bài kiểm tra.'),
       h('button', { class: 'btn-white btn-lg', onclick: () => { window.scrollTo(0, 0); code.focus(); } }, 'Nhập mã tham gia')),
   );
 }
 
 // ---------------- join wizard ----------------
 const SELF_DESC = {
-  '3-5': { L: ['Em chưa hiểu khi nghe tiếng Anh', 'Em hiểu vài từ quen thuộc', 'Em hiểu câu ngắn khi nói chậm', 'Em hiểu thầy cô, bạn bè nói về chủ đề quen thuộc'],
-    S: ['Em chưa nói được câu tiếng Anh', 'Em nói được vài từ, câu chào', 'Em giới thiệu bản thân bằng câu ngắn', 'Em tự tin hỏi – đáp về trường, gia đình, sở thích'],
-    R: ['Em chưa đọc được từ tiếng Anh', 'Em đọc được từ và câu rất ngắn', 'Em đọc hiểu đoạn ngắn có tranh', 'Em đọc hiểu truyện ngắn phù hợp lứa tuổi'],
-    W: ['Em chưa viết được từ tiếng Anh', 'Em viết được từ đơn giản', 'Em tự viết được câu ngắn', 'Em viết được đoạn ngắn về bản thân'] },
-  '6-8': { L: ['Hầu như chưa hiểu', 'Hiểu ý chính khi người nói chậm, rõ', 'Hiểu hội thoại hằng ngày quen thuộc', 'Hiểu bài nghe dài hơn, tốc độ tự nhiên'],
-    S: ['Chưa tự nói được', 'Trả lời được câu hỏi đơn giản', 'Nói về bản thân, trường học, sở thích', 'Trao đổi, nêu ý kiến khá tự tin'],
-    R: ['Chưa đọc hiểu được', 'Đọc hiểu câu, tin nhắn ngắn', 'Đọc hiểu đoạn văn chủ đề quen thuộc', 'Đọc hiểu bài dài, nắm ý chính và chi tiết'],
-    W: ['Chưa viết được câu', 'Viết được câu đơn giản', 'Viết đoạn văn ngắn có liên kết', 'Viết bài rõ ý, ít lỗi ngữ pháp'] },
-  '9-11': { L: ['Khó theo kịp bài nghe', 'Hiểu ý chính bài nghe ngắn, rõ', 'Hiểu phần lớn hội thoại, bài nói thông thường', 'Hiểu bài giảng, thảo luận chủ đề học thuật'],
-    S: ['Ngại nói, khó diễn đạt', 'Giao tiếp được tình huống đơn giản', 'Trình bày ý kiến về chủ đề quen thuộc', 'Thảo luận, tranh luận khá trôi chảy'],
-    R: ['Khó hiểu văn bản tiếng Anh', 'Hiểu văn bản ngắn, đơn giản', 'Hiểu bài báo, đoạn văn phổ thông', 'Hiểu văn bản học thuật, suy luận ý tác giả'],
-    W: ['Khó viết câu hoàn chỉnh', 'Viết đoạn ngắn đơn giản', 'Viết bài luận ngắn có bố cục', 'Viết luận rõ lập luận, đa dạng cấu trúc'] },
+  '3-5': { L: ['Em chưa hiểu nội dung khi nghe người khác nói tiếng Anh.', 'Em nhận ra một số từ tiếng Anh quen thuộc khi nghe.', 'Em hiểu những câu ngắn khi người nói phát âm chậm và rõ.', 'Em hiểu thầy cô và bạn bè nói về những chủ đề quen thuộc.'],
+    S: ['Em chưa tự nói được một câu hoàn chỉnh bằng tiếng Anh.', 'Em nói được một số từ quen thuộc và những câu chào đơn giản.', 'Em có thể giới thiệu bản thân bằng những câu ngắn.', 'Em tự tin hỏi và trả lời về trường học, gia đình và sở thích.'],
+    R: ['Em chưa đọc và hiểu được những từ tiếng Anh quen thuộc.', 'Em đọc hiểu được một số từ và câu rất ngắn.', 'Em đọc hiểu được đoạn văn ngắn có tranh minh họa.', 'Em đọc hiểu được truyện ngắn phù hợp với lứa tuổi.'],
+    W: ['Em chưa tự viết được những từ tiếng Anh quen thuộc.', 'Em viết được một số từ đơn giản đã học trên lớp.', 'Em tự viết được những câu ngắn để diễn đạt ý của mình.', 'Em viết được một đoạn ngắn để giới thiệu về bản thân.'] },
+  '6-8': { L: ['Em chưa hiểu được phần lớn nội dung khi nghe tiếng Anh.', 'Em hiểu ý chính khi người nói phát âm chậm và rõ.', 'Em hiểu được những hội thoại quen thuộc trong đời sống hằng ngày.', 'Em hiểu được bài nghe dài hơn khi người nói sử dụng tốc độ tự nhiên.'],
+    S: ['Em chưa tự diễn đạt được ý của mình bằng tiếng Anh.', 'Em có thể trả lời những câu hỏi đơn giản bằng tiếng Anh.', 'Em nói được về bản thân, trường học và những sở thích của mình.', 'Em khá tự tin khi trao đổi và nêu ý kiến bằng tiếng Anh.'],
+    R: ['Em chưa đọc hiểu được những đoạn văn tiếng Anh phù hợp với lứa tuổi.', 'Em đọc hiểu được những câu và tin nhắn ngắn bằng tiếng Anh.', 'Em đọc hiểu được đoạn văn viết về những chủ đề quen thuộc.', 'Em nắm được ý chính và chi tiết khi đọc bài viết dài hơn.'],
+    W: ['Em chưa tự viết được một câu hoàn chỉnh bằng tiếng Anh.', 'Em viết được những câu đơn giản để diễn đạt ý của mình.', 'Em viết được đoạn văn ngắn có sự liên kết giữa các ý.', 'Em viết được bài rõ ý và ít mắc lỗi ngữ pháp cơ bản.'] },
+  '9-11': { L: ['Em còn gặp khó khăn khi theo kịp nội dung của bài nghe.', 'Em hiểu ý chính của bài nghe ngắn khi người nói phát âm rõ.', 'Em hiểu được phần lớn hội thoại và bài nói về những chủ đề thông thường.', 'Em hiểu được bài giảng và thảo luận về các chủ đề học thuật.'],
+    S: ['Em còn ngại nói và gặp khó khăn khi diễn đạt ý bằng tiếng Anh.', 'Em giao tiếp được trong những tình huống đơn giản và quen thuộc.', 'Em trình bày được ý kiến về những chủ đề quen thuộc.', 'Em có thể thảo luận và tranh luận bằng tiếng Anh khá trôi chảy.'],
+    R: ['Em còn gặp khó khăn khi đọc hiểu văn bản tiếng Anh.', 'Em hiểu được những văn bản ngắn có nội dung đơn giản.', 'Em đọc hiểu được bài báo và đoạn văn về các chủ đề phổ thông.', 'Em hiểu văn bản học thuật và có thể suy luận ý của tác giả.'],
+    W: ['Em còn gặp khó khăn khi viết câu tiếng Anh hoàn chỉnh.', 'Em viết được đoạn văn ngắn về những chủ đề đơn giản.', 'Em viết được bài luận ngắn có bố cục và các ý liên kết với nhau.', 'Em viết được bài luận có lập luận rõ ràng và sử dụng nhiều cấu trúc câu.'] },
 };
 const SELF_Q = { L: 'Listening: Em có thể hiểu người khác nói tiếng Anh đến mức nào?', S: 'Speaking: Em có thể tự nói về bản thân, trường học và các chủ đề quen thuộc không?', R: 'Reading: Em có thể đọc hiểu một đoạn tiếng Anh phù hợp với lứa tuổi không?', W: 'Writing: Em có thể tự viết câu hoặc đoạn văn tiếng Anh không?' };
-const GOALS = [['school', 'Học tốt tiếng Anh ở trường và cải thiện điểm số'], ['communication', 'Giao tiếp, nghe và nói tiếng Anh tự tin'], ['literacy', 'Đọc hiểu, viết tiếng Anh tốt hơn'], ['exam', 'Chuẩn bị thi chứng chỉ quốc tế hoặc kỳ thi chuyển cấp'], ['study_abroad', 'Sử dụng tiếng Anh phục vụ học tập, du học trong tương lai']];
+const GOALS = [['school', 'Em muốn học tốt tiếng Anh ở trường và cải thiện điểm số.'], ['communication', 'Em muốn tự tin nghe, nói và giao tiếp bằng tiếng Anh.'], ['literacy', 'Em muốn cải thiện khả năng đọc hiểu và viết tiếng Anh.'], ['exam', 'Em muốn chuẩn bị cho kỳ thi chứng chỉ quốc tế hoặc kỳ thi chuyển cấp.'], ['study_abroad', 'Em muốn sử dụng tiếng Anh để học tập và chuẩn bị du học trong tương lai.']];
 const PROGRAMS = [['standard', 'Chuẩn'], ['enhanced', 'Tăng cường'], ['bilingual', 'Song ngữ'], ['international', 'Quốc tế']];
 const HOURS = [['0', 'Không học thêm'], ['1-2', '1–2 giờ'], ['3-5', '3–5 giờ'], ['6+', 'Trên 5 giờ']];
 const EXTRA = [['center', 'Trung tâm'], ['tutor', 'Gia sư'], ['online', 'Học online'], ['self', 'Tự học'], ['none', 'Không học thêm']];
@@ -177,7 +184,7 @@ async function joinPage(code) {
     const body = [];
     if (step === 0) {
       body.push(h('div', { class: 'listen-row' }, h('img', { src: '/img/fox-hello.webp', alt: '', width: 90, height: 98, style: 'width:90px;flex:none' }),
-        h('div', { class: 'bubble' }, `Chào em! Chào mừng đến với ICan Path tại ${info.school_name}. Mất khoảng 2 phút để điền thông tin nhé.`)),
+        h('div', { class: 'bubble' }, `Chào em, chào mừng em đến với ICan Path tại ${info.school_name}. Em hãy dành khoảng 2 phút để điền thông tin trước khi bắt đầu bài kiểm tra.`)),
         h('label', {}, 'Họ và tên'), h('input', { type: 'text', value: f.full_name, maxlength: 80, oninput: (e) => (f.full_name = e.target.value), autocomplete: 'off', placeholder: 'VD: Nguyễn Văn An' }),
         h('label', {}, 'Lớp (khối)'), chips(info.grades.map((g) => [g, 'Lớp ' + g]), (g) => f.grade === g, (g) => { f.grade = g; render(); }),
         h('label', {}, 'Tên lớp (VD: 6A2)'), h('input', { type: 'text', value: f.class_name, maxlength: 20, oninput: (e) => (f.class_name = e.target.value), placeholder: 'VD: 6A2' }));
@@ -199,8 +206,8 @@ async function joinPage(code) {
         body.push(h('label', {}, SELF_Q[k]), chips(SELF_DESC[band][k].map((d, i) => [i + 1, `${'⭐'.repeat(i + 1)}  ${d}`]), (v) => f.self[k] === v, (v) => (f.self[k] = v), 'col'));
       }
     } else {
-      body.push(h('label', {}, 'Mục tiêu học tiếng Anh của em (tối đa 2)'), chips(GOALS, (k) => f.goals.includes(k), (k) => { if (f.goals.includes(k)) f.goals = f.goals.filter((x) => x !== k); else if (f.goals.length < 2) f.goals = [...f.goals, k]; else toast('Chỉ chọn tối đa 2 mục tiêu'); }, 'col'),
-        h('p', { class: 'muted small' }, '🎧 Bài kiểm tra 30 phút: em cần tai nghe/loa và micro. Hãy ngồi nơi yên tĩnh.'),
+      body.push(h('label', {}, 'Mục tiêu học tiếng Anh của em (tối đa 2)'), chips(GOALS, (k) => f.goals.includes(k), (k) => { if (f.goals.includes(k)) f.goals = f.goals.filter((x) => x !== k); else if (f.goals.length < 2) f.goals = [...f.goals, k]; else toast('Em có thể chọn tối đa hai mục tiêu phù hợp với nhu cầu học tập của mình.'); }, 'col'),
+        h('p', { class: 'muted small' }, '🎧 Em hãy chuẩn bị tai nghe hoặc loa cùng micro, rồi chọn một nơi yên tĩnh để làm bài kiểm tra trong khoảng 30 phút.'),
         consentBlock(f));
     }
     mount(h('div', { class: 'lesson' },
@@ -208,15 +215,15 @@ async function joinPage(code) {
         h('div', { class: 'steps', style: 'flex:1;margin:0', role: 'progressbar', 'aria-valuemin': 1, 'aria-valuemax': 4, 'aria-valuenow': step + 1 },
           titles.map((t, i) => h('div', { class: 'step' + (i === step ? ' cur' : i < step ? ' done' : '') }, `${i + 1}. ${t}`)))),
       h('div', { class: 'lesson-body slide-in' },
-        h('div', { class: 'qmeta' }, `${info.school_name} · Ngày ${info.test_date} · Bước ${step + 1}/4`),
+        h('div', { class: 'qmeta' }, `${info.school_name}, Ngày ${info.test_date}, Bước ${step + 1}/4`),
         h('h1', { class: 'instr' }, titles[step]), ...body),
       footBar(step > 0 ? h('button', { class: 'btn2', onclick: () => { step--; render(); } }, '← Quay lại') : null,
         step < 3 ? h('button', { class: 'btn-lg btn-block', onclick: next }, 'Tiếp tục') : h('button', { class: 'btn-lg btn-block', id: 'start-assessment', onclick: submit }, 'Bắt đầu đánh giá'))));
   };
   const next = () => {
-    if (step === 0) { if (f.full_name.trim().length < 2) return toast('Em hãy nhập họ và tên'); if (!f.grade) return toast('Em hãy chọn lớp'); }
-    if (step === 1) { if (!f.no_score && f.score !== '' && (Number(f.score) < 0 || Number(f.score) > 10)) return toast('Điểm phải trong khoảng 0–10'); if (!f.no_score && f.score === '') return toast('Nhập điểm hoặc chọn "Chưa có điểm"'); if (!f.hours_out) return toast('Chọn thời gian học thêm mỗi tuần'); }
-    if (step === 2 && ['L', 'S', 'R', 'W'].some((k) => !f.self[k])) return toast('Em hãy tự đánh giá đủ 4 kỹ năng');
+    if (step === 0) { if (f.full_name.trim().length < 2) return toast('Em hãy nhập đầy đủ họ và tên để tiếp tục.'); if (!f.grade) return toast('Em hãy chọn khối lớp đang học để tiếp tục.'); }
+    if (step === 1) { if (!f.no_score && f.score !== '' && (Number(f.score) < 0 || Number(f.score) > 10)) return toast('Em hãy nhập điểm tiếng Anh trong khoảng từ 0 đến 10.'); if (!f.no_score && f.score === '') return toast('Em hãy nhập điểm tiếng Anh gần nhất hoặc chọn "Chưa có điểm" để tiếp tục.'); if (!f.hours_out) return toast('Em hãy chọn thời gian học thêm hoặc tự học tiếng Anh mỗi tuần.'); }
+    if (step === 2 && ['L', 'S', 'R', 'W'].some((k) => !f.self[k])) return toast('Em hãy chọn mức tự đánh giá phù hợp cho cả bốn kỹ năng trước khi tiếp tục.');
     step++; render();
   };
   const submit = async (ev) => {
@@ -236,7 +243,7 @@ async function joinPage(code) {
 const T = { view: null, offset: 0, pending: new Map(), introSeen: new Set(), celebrated: new Set(), stars: 0, busy: false, advancing: false, plays: {}, recorder: null, select: null, check: null };
 
 async function testPage() {
-  if (!sessionToken()) { toast('Chưa có bài làm trên máy này'); location.hash = '#/'; return; }
+  if (!sessionToken()) { toast('Thiết bị này chưa lưu bài làm của em, em hãy nhập mã tham gia để bắt đầu.'); location.hash = '#/'; return; }
   T.pending = new Map(); T.introSeen = new Set(); T.celebrated = new Set(); T.busy = false; T.advancing = false; T.select = null; T.check = null;
   mount(h('div', { class: 'lesson' }, loading()));
   const iv = setInterval(tick, 500);
@@ -269,7 +276,7 @@ function handleTestError(e) {
     mount(h('div', { class: 'card center', style: 'max-width:520px;margin:30px auto' }, fox('study'), h('h2', {}, 'Phiên làm bài không còn hiệu lực'), h('a', { class: 'btn', href: '#/' }, 'Về trang chủ')));
     return;
   }
-  if (e.code === 'section_time_over' || e.code === 'not_current_item') { toast('Hết thời gian phần này, chuyển sang phần tiếp theo'); return refresh(); }
+  if (e.code === 'section_time_over' || e.code === 'not_current_item') { toast('Thời gian của phần này đã kết thúc, hệ thống sẽ chuyển em sang phần tiếp theo.'); return refresh(); }
   if (e.code === 'session_completed') return finishing();
   toast(e.message);
 }
@@ -304,7 +311,7 @@ function lessonTop() {
   const pct = cur.max ? Math.min(100, Math.round(((cur.answered || 0) / cur.max) * 100)) : 0;
   return [
     h('div', { class: 'lesson-top' },
-      h('a', { class: 'lesson-x', href: '#/', 'aria-label': 'Tạm rời bài (bài làm được lưu)', onclick: (e) => { if (!confirm('Tạm rời bài? Bài làm được lưu, em có thể tiếp tục trên máy này.')) e.preventDefault(); } }, '✕'),
+      h('a', { class: 'lesson-x', href: '#/', 'aria-label': 'Tạm rời bài (bài làm được lưu)', onclick: (e) => { if (!confirm('Em có muốn tạm rời bài kiểm tra không? Tiến độ sẽ được lưu để em tiếp tục trên thiết bị này.')) e.preventDefault(); } }, '✕'),
       h('div', { class: 'progress', role: 'progressbar', 'aria-label': 'Tiến độ phần ' + secName(v.section), 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': pct }, h('span', { style: `width:${Math.max(pct, 3)}%` })),
       v.band === '3-5' ? h('span', { id: 'stars', class: 'stars', title: 'Sao chăm chỉ' }, '⭐ ' + T.stars) : null,
       v.band === '3-5' ? h('button', { class: 'mute', 'aria-label': sfxMuted() ? 'Bật âm thanh trò chơi' : 'Tắt âm thanh trò chơi', 'aria-pressed': sfxMuted() ? 'true' : 'false',
@@ -316,19 +323,19 @@ function lessonTop() {
 }
 function lesson(body, foot, wide) { return h('div', { class: 'lesson' }, lessonTop(), h('div', { class: 'lesson-body slide-in' + (wide ? ' wide' : '') }, body), foot); }
 const INTRO = {
-  U: ['Khởi động', 'Một vài câu hỏi ngắn về từ vựng và ngữ pháp để hệ thống chọn mức câu hỏi phù hợp với em.', 'hello'],
-  L: ['Nghe hiểu', 'Bấm loa để nghe đoạn hội thoại (tối đa 2 lần) rồi chọn đáp án đúng. Câu hỏi sẽ khó hơn nếu em trả lời tốt.', 'study'],
-  R: ['Đọc hiểu', 'Đọc đoạn văn và chọn đáp án đúng nhất.', 'study'],
-  S: ['Nói', 'Em sẽ ghi âm 2 phần: đọc to một câu và trả lời một câu hỏi. Hãy cho phép trình duyệt dùng micro, nói to và rõ.', 'hello'],
-  W: ['Viết', 'Viết câu trả lời bằng tiếng Anh theo yêu cầu. Chú ý số từ gợi ý. Bấm "Nộp bài" khi xong.', 'study'],
+  U: ['Khởi động', 'Em sẽ trả lời một số câu hỏi về từ vựng và ngữ pháp để hệ thống xác định mức khởi đầu phù hợp với năng lực của mình.', 'hello'],
+  L: ['Nghe hiểu', 'Em hãy bấm vào loa để nghe hội thoại tối đa hai lần rồi chọn đáp án phù hợp với nội dung đã nghe. Nếu em trả lời tốt, câu hỏi tiếp theo sẽ có độ khó cao hơn.', 'study'],
+  R: ['Đọc hiểu', 'Em hãy đọc đoạn văn để nắm ý chính và những chi tiết cần thiết, sau đó chọn đáp án phù hợp nhất cho câu hỏi.', 'study'],
+  S: ['Nói', 'Em sẽ thực hiện hai lượt ghi âm, gồm đọc to một câu và trả lời một câu hỏi theo chủ đề. Em hãy cho phép trình duyệt sử dụng micro rồi nói rõ ràng để bản ghi được tiếp nhận đầy đủ.', 'hello'],
+  W: ['Viết', 'Em hãy viết câu trả lời bằng tiếng Anh theo yêu cầu và số từ gợi ý của đề bài, sau đó chọn "Nộp bài" khi đã kiểm tra lại nội dung.', 'study'],
 };
 // SPEC 09: grade-band wording (3–5 picture game, 9–11 certificate-style tasks).
 const INTRO_KIDS = {
-  U: ['Trò chơi tranh', 'Nhìn tranh và chọn đáp án đúng. Mỗi câu trả lời được 1 ⭐!', 'hello'],
-  L: ['Nghe và chọn tranh', 'Bấm loa để nghe (tối đa 2 lần) rồi chạm vào bức tranh đúng.', 'study'],
-  R: ['Đọc truyện ngắn', 'Đọc đoạn văn ngắn rồi chọn đáp án hoặc bức tranh đúng.', 'study'],
-  S: ['Nói', 'Em ghi âm 2 lượt: đọc to một câu và nói 2–3 câu về bức tranh. Nhớ cho phép dùng micro nhé!', 'hello'],
-  W: ['Viết', 'Nhìn tranh và viết 2–3 câu bằng tiếng Anh.', 'study'],
+  U: ['Khởi động cùng tiếng Anh', 'Em hãy quan sát nội dung câu hỏi rồi chọn đáp án phù hợp, mỗi câu trả lời hoàn thành sẽ giúp em nhận thêm một ngôi sao.', 'hello'],
+  L: ['Nghe hiểu tiếng Anh', 'Em hãy bấm vào loa để nghe tối đa hai lần, sau đó chọn đáp án phù hợp với nội dung vừa nghe.', 'study'],
+  R: ['Đọc hiểu đoạn văn ngắn', 'Em hãy đọc đoạn văn ngắn để tìm hiểu nội dung câu chuyện, sau đó chọn đáp án phù hợp cho câu hỏi.', 'study'],
+  S: ['Nói', 'Em sẽ thực hiện hai lượt ghi âm, gồm đọc to một câu và nói một vài câu về chủ đề được giao. Em hãy cho phép trình duyệt sử dụng micro để bắt đầu ghi âm nhé.', 'hello'],
+  W: ['Viết', 'Em hãy đọc yêu cầu của đề bài rồi viết một vài câu tiếng Anh để trình bày những ý của mình theo chủ đề.', 'study'],
 };
 const CERT_NOTE = 'Câu hỏi mô phỏng dạng bài chứng chỉ quốc tế (Cambridge, IELTS).';
 function renderTest() {
@@ -340,10 +347,10 @@ function renderTest() {
     const party = kids && idx > 0;
     if (party && !T.celebrated.has(v.section)) { T.celebrated.add(v.section); sfx('section'); }
     return mount(h('div', { class: 'lesson' }, lessonTop(),
-      h('div', { class: 'lesson-body intro slide-in' }, party ? confetti() : null, fox(party ? 'cheer' : img), party ? h('p', { class: 'party' }, `Giỏi lắm! Em đã có ⭐ ${T.stars} sao`) : null,
+      h('div', { class: 'lesson-body intro slide-in' }, party ? confetti() : null, fox(party ? 'cheer' : img), party ? h('p', { class: 'party' }, `Em đã hoàn thành thêm một chặng và nhận được tổng cộng ⭐ ${T.stars} sao.`) : null,
         h('div', { class: 'qmeta', style: 'justify-content:center' }, `${SK[v.section].icon} Phần ${idx + 1}/${v.sections.length}`),
         h('h2', {}, title), h('p', {}, desc), v.band === '9-11' ? h('p', { class: 'small muted' }, '🎓 ' + CERT_NOTE) : null,
-        footBar(h('span', { class: 'muted small' }, sec.max ? `Tối đa ${sec.max} câu · có đồng hồ riêng` : 'Có đồng hồ riêng'),
+        footBar(h('span', { class: 'muted small' }, sec.max ? `Phần này có tối đa ${sec.max} câu hỏi và đồng hồ riêng để em theo dõi thời gian.` : 'Em có thể theo dõi thời gian làm bài bằng đồng hồ của phần này.'),
           h('button', { class: 'btn-lg btn-block', onclick: () => { T.introSeen.add(v.section); renderTest(); } }, 'Bắt đầu phần này')))));
   }
   if (['U', 'L', 'R'].includes(v.section)) return renderMcq();
@@ -363,10 +370,10 @@ function renderMcq() {
     : h('button', { class: 'opt', 'data-opt': i, 'aria-pressed': 'false', onclick: () => select(i) }, h('span', { class: 'k' }, String(i + 1)), h('span', {}, o))));
   const select = (i) => { if (T.busy) return; sel = i; optBtns.forEach((b, j) => { b.classList.toggle('sel', j === i); b.setAttribute('aria-pressed', j === i ? 'true' : 'false'); }); check.disabled = false; if (kids) sfx('tap'); };
   T.select = select; T.check = () => { if (!check.disabled) check.click(); };
-  const instr = icons ? (it.format === 'reading_mcq' ? 'Đọc rồi chạm vào bức tranh đúng' : 'Nghe và chạm vào bức tranh đúng')
-    : p.variant === 'picture' ? 'Nhìn tranh và chọn đáp án đúng' : p.variant === 'situation' ? 'Em sẽ nói gì trong tình huống này?'
-    : { listening_mcq: 'Nghe và chọn đáp án đúng', reading_mcq: 'Đọc và trả lời câu hỏi' }[it.format] || 'Chọn đáp án đúng';
-  const body = [h('div', { class: 'qmeta' }, `${SK[v.section].icon} ${SKILL_FULL[v.section]} · Câu ${(s.answered || 0) + 1} (tối đa ${s.max})`), ctxChips(p), h('div', { class: 'instr' }, instr)];
+  const instr = icons ? (it.format === 'reading_mcq' ? 'Em hãy đọc nội dung rồi chọn bức tranh phù hợp nhất.' : 'Em hãy nghe nội dung rồi chọn bức tranh phù hợp nhất.')
+    : p.variant === 'picture' ? 'Em hãy quan sát bức tranh rồi chọn đáp án phù hợp nhất.' : p.variant === 'situation' ? 'Em hãy chọn câu trả lời phù hợp với tình huống được mô tả.'
+    : { listening_mcq: 'Em hãy nghe nội dung rồi chọn đáp án phù hợp nhất.', reading_mcq: 'Em hãy đọc đoạn văn rồi trả lời câu hỏi bên dưới.' }[it.format] || 'Em hãy chọn đáp án phù hợp nhất cho câu hỏi bên dưới.';
+  const body = [h('div', { class: 'qmeta' }, `${SK[v.section].icon} ${SKILL_FULL[v.section]}, Câu ${(s.answered || 0) + 1} (tối đa ${s.max})`), ctxChips(p), h('div', { class: 'instr' }, instr)];
   if (it.format === 'listening_mcq') {
     // SPEC 08: recorded MP3 (works on every device); a play is counted only when sound actually starts.
     T.plays[it.id] ??= 0;
@@ -383,23 +390,23 @@ function renderMcq() {
       if (state !== 'idle' || left() <= 0) return;
       state = 'loading'; btn.disabled = true; msg.hidden = true; label('Đang tải…'); fill.style.width = '0%';
       playClip({ audio, text: p.audio_script, band: v.band,
-        onStart: () => { state = 'playing'; T.plays[it.id]++; label(`Đang phát · còn ${left()} lượt`); },
+        onStart: () => { state = 'playing'; T.plays[it.id]++; label(`Đang phát, còn ${left()} lượt`); },
         onProgress: (f) => { fill.style.width = Math.round(f * 100) + '%'; },
         onEnd: () => { fill.style.width = '100%'; idle(); },
         onFail: (why) => { msg.textContent = why; msg.hidden = false; idle(); } });
     };
     label();
-    if (!audio && !window.speechSynthesis) { btn.disabled = true; msg.textContent = 'Thiết bị không phát được âm thanh. Em báo thầy cô hoặc bấm "Bỏ qua phần Nghe".'; msg.hidden = false; }
-    body.push(h('div', { class: 'listen-row' }, btn, h('div', { class: 'listen-side' }, h('div', { class: 'bubble' }, icons ? 'Bấm loa để nghe (tối đa 2 lần), rồi chạm vào bức tranh đúng nhé!' : 'Bấm loa để nghe (tối đa 2 lần), nghe xong rồi chọn đáp án nhé!'), prog)), msg, audio,
+    if (!audio && !window.speechSynthesis) { btn.disabled = true; msg.textContent = 'Thiết bị hiện chưa phát được âm thanh, em hãy báo thầy cô để được hỗ trợ hoặc chọn "Bỏ qua phần Nghe".'; msg.hidden = false; }
+    body.push(h('div', { class: 'listen-row' }, btn, h('div', { class: 'listen-side' }, h('div', { class: 'bubble' }, icons ? 'Em hãy bấm vào loa để nghe tối đa hai lần, rồi chọn bức tranh phù hợp với nội dung đã nghe.' : 'Em hãy bấm vào loa để nghe tối đa hai lần, sau đó chọn đáp án phù hợp với nội dung đã nghe.'), prog)), msg, audio,
       icons ? null : picture(p.image, 'sm'));
   }
   if (it.format === 'reading_mcq') body.push(p.title ? h('h3', {}, p.title) : null, picture(p.image, 'sm'), h('div', { class: 'passage', tabindex: 0 }, p.passage));
   if (it.format === 'mcq') body.push(picture(p.image, p.variant === 'picture' ? 'big' : 'sm'));
   body.push(h('div', { class: 'q-stem' }, p.stem || p.question), h('div', { class: 'opts' + (icons ? ' pics' : '') }, optBtns),
-    kids ? null : h('p', { class: 'small muted center', style: 'margin-top:14px' }, 'Mẹo: phím 1–4 để chọn, Enter để trả lời'));
+    kids ? null : h('p', { class: 'small muted center', style: 'margin-top:14px' }, 'Em có thể nhấn phím từ 1 đến 4 để chọn đáp án, rồi nhấn Enter để gửi câu trả lời.'));
   mount(lesson(body, footBar([
     h('button', { class: 'btn-text small', onclick: () => answerMcq(it.id, -1) }, 'Em không biết'),
-    h('button', { class: 'btn-ghost small', onclick: () => { if (confirm('Kết thúc phần này và chuyển sang phần tiếp theo?')) advanceSection(); } }, `Bỏ qua phần ${secName(v.section)}`)], check)));
+    h('button', { class: 'btn-ghost small', onclick: () => { if (confirm('Em có muốn kết thúc phần hiện tại và chuyển sang phần tiếp theo của bài kiểm tra không?')) advanceSection(); } }, `Bỏ qua phần ${secName(v.section)}`)], check)));
   tick();
 }
 /** SPEC 12: pressing "Bắt đầu đánh giá" is the confirmation; marketing opt-in is separate and unchecked by default. */
@@ -413,29 +420,29 @@ function consentBlock(f) {
     h('h3', {}, 'Nhận thông tin từ GE/ICAN'),
     h('label', { class: 'check' }, h('input', { type: 'checkbox', id: 'consent-marketing', checked: f.consent_marketing === true, onchange: (e) => (f.consent_marketing = e.target.checked) }),
       h('span', {}, 'Tôi đồng ý nhận thông tin về các chương trình học tập, sản phẩm mới và ưu đãi từ GE/ICAN qua email hoặc số điện thoại đã đăng ký.')),
-    h('p', { class: 'small muted' }, h('em', {}, 'Không bắt buộc. Việc không đồng ý không ảnh hưởng đến quyền tham gia đánh giá hoặc nhận kết quả.')));
+    h('p', { class: 'small muted' }, h('em', {}, 'Việc nhận thông tin là lựa chọn không bắt buộc, em vẫn có thể tham gia đánh giá và nhận kết quả khi không chọn mục này.')));
 }
-const LEGAL_NOTE = 'Bản dùng trong giai đoạn thử nghiệm, mô tả đúng cách hệ thống ICan Path đang xử lý dữ liệu. Văn bản pháp lý chính thức do GE/ICAN ban hành sẽ thay thế bản này.';
+const LEGAL_NOTE = 'Nội dung này mô tả cách bản dùng thử ICan Path hoạt động và xử lý thông tin trên thiết bị của bạn, giúp bạn hiểu rõ phạm vi sử dụng trước khi tham gia.';
 const LEGAL = {
   'dieu-khoan': ['Điều khoản sử dụng', [
     ['Dịch vụ', 'ICan Path là bài đánh giá tiếng Anh khoảng 30 phút (Khởi động, Nghe, Đọc, Nói, Viết) do GE/ICAN tổ chức cùng nhà trường, kèm báo cáo năng lực và gợi ý lộ trình luyện tập.'],
     ['Kết quả mang tính tham chiếu', 'Mức CEFR trong báo cáo là tham chiếu từ một bài kiểm tra ngắn, ngân hàng câu hỏi chưa được hiệu chuẩn; không thay thế chứng chỉ hay điểm số chính thức của nhà trường. Khi bài làm chưa đủ dữ liệu tin cậy, hệ thống không kết luận trình độ và đề nghị làm bổ sung.'],
-    ['Chấm điểm tự động', 'Phần Nói và Viết được chấm tự động bằng dịch vụ nhận dạng giọng nói và mô hình AI theo tiêu chí công bố trong báo cáo; nhận xét có thể chưa hoàn toàn chính xác.'],
+    ['Chấm điểm tự động', 'Trong bản dùng thử, phần Nói và Viết hiển thị điểm cùng nhận xét minh họa để giới thiệu cách trình bày báo cáo, chưa sử dụng dịch vụ chấm AI thực tế.'],
     ['Trách nhiệm của người làm bài', 'Em tự làm bài, không nhờ người khác làm thay, không sao chép hay phát tán đề. Link kết quả là link cá nhân, chỉ chia sẻ cho phụ huynh/người được phép.'],
-    ['Liên hệ', 'Mọi yêu cầu về kết quả, cấp lại link hay xóa dữ liệu: liên hệ thầy cô phụ trách hoặc nhân viên GE của đợt kiểm tra.']]],
+    ['Liên hệ', 'Bạn có thể liên hệ thầy cô phụ trách hoặc nhân viên GE của đợt kiểm tra để được hướng dẫn tra cứu kết quả, cấp lại đường dẫn hoặc xử lý yêu cầu về dữ liệu.']]],
   'chinh-sach-du-lieu': ['Chính sách xử lý dữ liệu cá nhân', [
-    ['Dữ liệu thu thập', 'Họ tên, lớp, trường; điểm tiếng Anh gần nhất, chương trình học, thời gian học thêm; tự đánh giá 4 kỹ năng và mục tiêu học tập; câu trả lời, bản ghi âm phần Nói, bài Viết và thời gian làm từng câu.'],
-    ['Mục đích', 'Chấm bài, lập báo cáo năng lực, gợi ý lộ trình luyện tập cho học sinh; báo cáo tổng hợp (không có họ tên) cho nhà trường; cải thiện chất lượng bài đánh giá.'],
-    ['Chấm Nói/Viết bằng dịch vụ bên ngoài', 'Bản ghi âm và bài viết được gửi tới dịch vụ chấm phát âm và mô hình AI chỉ để chấm điểm, không kèm họ tên học sinh.'],
-    ['Ai được xem', 'Học sinh/phụ huynh có link kết quả; nhân viên GE được phân quyền; nhà trường chỉ xem số liệu tổng hợp không có họ tên.'],
-    ['Nhận thông tin quảng bá', 'Chỉ khi em/phụ huynh đánh dấu đồng ý (không bắt buộc). Việc không đồng ý không ảnh hưởng đến bài đánh giá hay kết quả.'],
-    ['Quyền của học sinh và phụ huynh', 'Yêu cầu xem, cấp lại link, chỉnh sửa hoặc xóa toàn bộ dữ liệu bài làm qua thầy cô phụ trách hoặc nhân viên GE; quản trị viên có chức năng xóa dữ liệu học sinh.'],
+    ['Dữ liệu thu thập', 'Thông tin của bài làm gồm họ tên, lớp, trường, quá trình học tiếng Anh, mức tự đánh giá bốn kỹ năng và mục tiêu học tập của học sinh. Bản dùng thử lưu câu trả lời, bài viết và thông tin về lượt ghi âm trong trình duyệt, còn nội dung âm thanh chỉ được xử lý trên thiết bị.'],
+    ['Mục đích', 'Thông tin được sử dụng để tính kết quả trắc nghiệm, trình bày báo cáo năng lực và gợi ý lộ trình luyện tập cho học sinh. Các báo cáo dành cho nhà trường chỉ hiển thị số liệu tổng hợp và không hiển thị họ tên cá nhân.'],
+    ['Chấm Nói/Viết bằng dịch vụ bên ngoài', 'Bản dùng thử xử lý bản ghi âm và bài viết trên thiết bị, không gửi nội dung tới dịch vụ chấm phát âm hoặc mô hình AI bên ngoài. Điểm số và nhận xét ở những phần này chỉ được dùng để minh họa giao diện báo cáo.'],
+    ['Ai được xem', 'Học sinh và phụ huynh có thể mở đường dẫn kết quả trên trình duyệt đang lưu bài làm, còn nhân viên dùng tài khoản demo để xem các màn hình quản lý. Báo cáo nhà trường chỉ trình bày số liệu tổng hợp và không hiển thị họ tên học sinh.'],
+    ['Nhận thông tin quảng bá', 'Học sinh hoặc phụ huynh có thể chủ động chọn đồng ý nhận thông tin khi có nhu cầu. Đây là lựa chọn không bắt buộc và không ảnh hưởng đến quyền tham gia đánh giá hay nhận kết quả.'],
+    ['Quyền của học sinh và phụ huynh', 'Học sinh và phụ huynh có thể nhờ thầy cô hoặc nhân viên GE hướng dẫn việc xem, chỉnh sửa, cấp lại đường dẫn hoặc xóa dữ liệu bài làm. Trong bản dùng thử, quản trị viên có thể xóa những dữ liệu đang lưu trong trình duyệt.'],
     ['Đồng ý của phụ huynh/người giám hộ', 'Với học sinh chưa đủ tuổi theo quy định, việc tham gia cần có sự đồng ý hợp lệ của phụ huynh/người giám hộ (thường được nhà trường thu thập khi tổ chức đợt kiểm tra).']]],
 };
 function legalPage(key) {
   const [title, items] = LEGAL[key];
   mount(h('section', { class: 'card legal', style: 'max-width:760px;margin:16px auto' },
-    h('div', { class: 'qmeta' }, 'GE/ICAN · ICan Path'), h('h1', {}, title),
+    h('div', { class: 'qmeta' }, 'GE/ICAN, ICan Path'), h('h1', {}, title),
     h('p', { class: 'small muted' }, h('em', {}, LEGAL_NOTE)),
     ...items.map(([t, d]) => h('div', {}, h('h2', {}, t), h('p', {}, d))),
     h('p', { class: 'small muted' }, 'Phiên bản lời xác nhận: 2026-10-30.'),
@@ -558,8 +565,8 @@ const confetti = () => h('div', { class: 'confetti', 'aria-hidden': 'true' }, Ar
 // Recorded MP3 clips are the primary path (browser speech synthesis is silent on many phones, in-app browsers and
 // with the iOS silent switch). Browser TTS is only a fallback for text without a clip. Every play attempt ends in
 // exactly one of onEnd / onFail (watchdogs), so the button can never stay locked.
-const MSG_AUDIO = 'Chưa phát được âm thanh. Em kiểm tra loa/tai nghe, tăng âm lượng rồi bấm Nghe lại nhé (lần này chưa bị tính).';
-const MSG_SLOW = 'Mạng chậm nên âm thanh chưa tải xong. Em bấm Nghe lại nhé (lần này chưa bị tính).';
+const MSG_AUDIO = 'Âm thanh hiện chưa phát được, em hãy kiểm tra loa hoặc tai nghe, tăng âm lượng rồi thử nghe lại. Lượt nghe này chưa được tính vào giới hạn của em.';
+const MSG_SLOW = 'Âm thanh chưa tải xong do kết nối mạng chậm, em hãy thử nghe lại khi mạng ổn định hơn. Lượt nghe này chưa được tính vào giới hạn của em.';
 let activeClip = null;
 let lessonAudioEl = null;
 function stopAudio() {
@@ -648,37 +655,37 @@ function renderSpeaking() {
     const p = t.payload, kids = v.band === '3-5';
     const maxS = t.format === 'read_aloud' ? 25 : (p.seconds || 60);
     const openLabel = kids ? 'Nhìn tranh và nói' : p.bullets && p.bullets.length ? 'Thẻ chủ đề (cue card)' : p.situation ? 'Đóng vai tình huống' : 'Trả lời câu hỏi';
-    const status = { open: null, sending: h('span', { class: 'badge warn' }, '⏳ Đang gửi & chấm…'), done: h('span', { class: 'badge ok' }, '✔ Đã ghi nhận'), error: h('span', { class: 'badge bad' }, '⚠ Chưa chấm được – em ghi âm lại nhé') }[st];
+    const status = { open: null, sending: h('span', { class: 'badge warn' }, '⏳ Đang gửi & chấm…'), done: h('span', { class: 'badge ok' }, '✔ Đã ghi nhận'), error: h('span', { class: 'badge bad' }, '⚠ Chưa chấm được, em ghi âm lại nhé') }[st];
     const rec = h('button', { class: 'rec', title: 'Ghi âm', 'aria-label': 'Ghi âm phần ' + (idx + 1), disabled: st === 'sending' || st === 'done' }, '🎙');
-    const timeEl = h('span', { class: 'muted', style: 'font-weight:700' }, st === 'open' || st === 'error' ? `Bấm để ghi âm (tối đa ${maxS} giây)` : '');
+    const timeEl = h('span', { class: 'muted', style: 'font-weight:700' }, st === 'open' || st === 'error' ? `Em bấm vào micro để ghi âm câu trả lời trong tối đa ${maxS} giây.` : '');
     rec.onclick = () => toggleRecord(t, rec, timeEl, maxS);
     return h('div', { class: 'task' + (st === 'done' ? ' done' : '') }, h('div', { class: 'row spread' }, h('div', { class: 'qmeta' }, `Phần ${idx + 1}: ${t.format === 'read_aloud' ? 'Đọc to câu sau' : openLabel}`), status),
       ctxChips(p), picture(p.image, 'sm'),
       t.format === 'read_aloud' ? h('div', { class: 'q-stem', style: 'font-size:24px' }, '“' + p.text + '”') : [h('div', { class: 'q-stem' }, p.question),
         p.bullets && p.bullets.length ? [h('div', { class: 'small', style: 'font-weight:800' }, 'You should say:'), h('ul', { class: 'cue' }, p.bullets.map((b) => h('li', {}, b)))] : null,
-        p.hint_vi ? h('p', { class: 'muted' }, '💡 ' + p.hint_vi) : null, h('p', { class: 'small muted' }, kids ? `Nói 2–3 câu (khoảng ${maxS} giây).` : `Hãy nói khoảng ${Math.round(maxS * 0.6)}–${maxS} giây.`)],
+        p.hint_vi ? h('p', { class: 'muted' }, '💡 ' + p.hint_vi) : null, h('p', { class: 'small muted' }, kids ? `Em hãy nói từ hai đến ba câu theo chủ đề trong khoảng ${maxS} giây.` : `Em hãy trình bày câu trả lời trong khoảng từ ${Math.round(maxS * 0.6)} đến ${maxS} giây.`)],
       h('div', { class: 'row', style: 'gap:16px' }, rec, timeEl));
   });
   if (!pickMime() || !navigator.mediaDevices) cards.unshift(h('div', { class: 'card tint-red' }, h('span', { class: 'badge bad' }, 'Trình duyệt không hỗ trợ ghi âm. Em hãy dùng Chrome/Safari bản mới hoặc bấm "Sang phần Viết".')));
   mount(lesson([h('div', { class: 'qmeta' }, '🎤 Nói'), h('div', { class: 'instr' }, 'Ghi âm câu trả lời của em'), ...cards],
-    footBar(h('span', { class: 'muted small' }, 'Bản dùng thử: ghi âm trên thiết bị, nhận xét minh họa.'),
+    footBar(h('span', { class: 'muted small' }, 'Bản ghi âm được xử lý trên thiết bị của em, còn các nhận xét trong bản dùng thử chỉ mang tính minh họa.'),
       h('button', { class: 'btn-lg btn-block', onclick: () => { stopRecorder(false); advanceSection(); } }, 'Sang phần Viết →'))));
   tick();
 }
 async function toggleRecord(task, btn, timeEl, maxS) {
   if (T.recorder && T.recorder.state === 'recording') { stopRecorder(false); return; }
   let stream;
-  try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }); } catch { toast('Không dùng được micro. Em hãy cho phép trình duyệt truy cập micro.'); return; }
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }); } catch { toast('Trình duyệt hiện chưa truy cập được micro, em hãy cấp quyền sử dụng micro rồi thử ghi âm lại.'); return; }
   const mime = pickMime();
   const rec = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
   const chunks = [];
   const t0 = Date.now();
   rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
-  const iv = setInterval(() => { const s = Math.floor((Date.now() - t0) / 1000); timeEl.textContent = `● Đang ghi ${s}s / ${maxS}s — bấm lần nữa để dừng`; if (s >= maxS) stopRecorder(false); }, 250);
+  const iv = setInterval(() => { const s = Math.floor((Date.now() - t0) / 1000); timeEl.textContent = `● Đang ghi ${s}s / ${maxS}s, bấm lần nữa để dừng`; if (s >= maxS) stopRecorder(false); }, 250);
   rec.onstop = async () => {
     clearInterval(iv); stream.getTracks().forEach((tr) => tr.stop()); btn.classList.remove('on'); T.recorder = null;
     if (rec._discard) return;
-    if (Date.now() - t0 < 1200) { toast('Bản ghi quá ngắn, em thử lại nhé'); return; }
+    if (Date.now() - t0 < 1200) { toast('Bản ghi âm chưa đủ dài để tiếp nhận, em hãy ghi âm lại và nói rõ câu trả lời của mình.'); return; }
     const blob = new Blob(chunks, { type: rec.mimeType || mime });
     uploadSpeaking(task.id, blob, fmtOf(rec.mimeType || mime), Date.now() - t0);
     if (T.view.section === 'S') renderSpeaking();
@@ -705,14 +712,14 @@ function uploadSpeaking(itemId, blob, format, durationMs) {
 // ----- writing -----
 function renderWriting() {
   const v = T.view, t = (v.tasks || [])[0];
-  if (!t) return mount(lesson(h('p', {}, 'Không có nhiệm vụ viết.'), footBar(null, h('button', { class: 'btn-lg btn-block', onclick: advanceSection }, 'Hoàn thành'))));
+  if (!t) return mount(lesson(h('p', {}, 'Phần này hiện chưa có bài viết được giao, em có thể chọn hoàn thành để tiếp tục.'), footBar(null, h('button', { class: 'btn-lg btn-block', onclick: advanceSection }, 'Hoàn thành'))));
   const saved = sessionStorage.getItem('ip_w_' + t.id) || '';
   const count = h('span', { class: 'badge' });
   const ta = h('textarea', { id: 'wtext', spellcheck: 'false', autocapitalize: 'sentences', placeholder: 'Write here…', 'aria-label': 'Bài viết' });
   ta.value = saved;
   const upd = () => { const n = (ta.value.match(/[A-Za-z'’-]+/g) || []).length; count.textContent = `${n} từ (gợi ý ${t.payload.min_words}–${t.payload.max_words})`; count.className = 'badge ' + (n >= t.payload.min_words ? 'ok' : 'warn'); sessionStorage.setItem('ip_w_' + t.id, ta.value); };
   ta.oninput = upd; upd();
-  const btn = h('button', { class: 'btn-lg btn-block', onclick: () => { if (!ta.value.trim() && !confirm('Em chưa viết gì. Vẫn nộp bài?')) return; submitWriting(ta.value, false, btn); } }, t.status === 'error' ? '↻ Thử chấm lại' : '📨 Nộp bài viết');
+  const btn = h('button', { class: 'btn-lg btn-block', onclick: () => { if (!ta.value.trim() && !confirm('Em chưa nhập nội dung cho bài viết, em có muốn tiếp tục nộp bài không?')) return; submitWriting(ta.value, false, btn); } }, t.status === 'error' ? '↻ Thử chấm lại' : '📨 Nộp bài viết');
   mount(lesson([h('div', { class: 'qmeta' }, '✍️ Viết'), ctxChips(t.payload), h('div', { class: 'instr' }, t.payload.genre === 'story' && t.payload.image ? 'Nhìn 3 tranh và kể lại câu chuyện' : t.payload.image ? 'Nhìn tranh và viết' : 'Viết bằng tiếng Anh'), h('div', { class: 'q-stem' }, t.payload.prompt), picture(t.payload.image, t.payload.genre === 'story' ? 'sm story' : 'sm'),
     t.payload.prompt_vi ? h('div', { class: 'listen-row' }, h('img', { src: '/img/fox-study.webp', alt: '', width: 70, height: 77, style: 'width:70px;flex:none' }), h('div', { class: 'bubble' }, '🇻🇳 ' + t.payload.prompt_vi)) : null, ta],
   footBar(count, btn), true));
@@ -725,7 +732,7 @@ async function submitWriting(text, auto, btn) {
   try {
     const r = await api('/api/session/answer', { method: 'POST', body: { item_id: t.id, text }, headers: authH() });
     if (r.data.scoring_status === 'error') {
-      toast('Chưa chấm được bài viết, em bấm "Thử chấm lại" nhé');
+      toast('Bài viết hiện chưa xử lý được, em hãy chọn "Thử chấm lại" để gửi lại bài làm.');
       if (auto) { applyView((await api('/api/session/advance', { method: 'POST', body: { section: 'W' }, headers: authH() })).data); return; }
     }
     applyView(r.data);
@@ -739,7 +746,7 @@ async function submitWriting(text, auto, btn) {
 async function finishing() {
   setBand(T.view && T.view.band);
   mount(h('div', { class: 'lesson' }, h('div', { class: 'lesson-body intro slide-in', style: 'padding-top:40px' }, fox('cheer'), h('h2', {}, 'Em đã hoàn thành bài kiểm tra!'),
-    h('p', {}, 'Tuyệt vời! Hệ thống đang tổng hợp kết quả và chấm phần Nói, Viết…'), h('div', { class: 'progress', style: 'max-width:360px;margin:18px auto' }, h('span', { style: 'width:85%' })), h('div', { class: 'spinner' }))));
+    h('p', {}, 'Em đã hoàn thành các phần kiểm tra, hệ thống đang tổng hợp câu trả lời để chuẩn bị báo cáo kết quả cho em.'), h('div', { class: 'progress', style: 'max-width:360px;margin:18px auto' }, h('span', { style: 'width:85%' })), h('div', { class: 'spinner' }))));
   const waits = [...T.pending.values()].map((e) => e.promise);
   await Promise.race([Promise.allSettled(waits), sleep(120000)]);
   for (let i = 0; i < 60; i++) {
@@ -756,13 +763,13 @@ async function finishing() {
       await sleep(3000);
     }
   }
-  toast('Chưa tổng hợp được kết quả, vui lòng tải lại trang.');
+  toast('Hệ thống hiện chưa tổng hợp được kết quả, em hãy tải lại trang để tiếp tục xử lý bài làm.');
 }
 
 // ---------------- charts ----------------
 // Same bands as worker/engine.js cefrLabel: Pre-A1 <0.5, A1 <1.5, A2 <2.5, B1 <3.5, B2 <4.5, C1.
 const CEFR_CUTS = [0.5, 1.5, 2.5, 3.5, 4.5];
-function cefrOf(t) { if (t == null || Number.isNaN(t)) return '—'; return CEFR[CEFR_CUTS.filter((c) => t >= c).length]; }
+function cefrOf(t) { if (t == null || Number.isNaN(t)) return 'Chưa có dữ liệu'; return CEFR[CEFR_CUTS.filter((c) => t >= c).length]; }
 function skillBars(skills) {
   const keys = ['L', 'R', 'S', 'W'];
   const W = 640, rowH = 52, left = 96, right = 16, top = 28;
@@ -825,25 +832,25 @@ async function resultPage(token) {
   const link = `${location.origin}/#/r/${token}`;
   const sk = r.skills;
   const scored = ['L', 'R', 'S', 'W'].filter((k) => sk[k] && sk[k].theta != null).sort((a, b) => sk[b].theta - sk[a].theta);
-  const verdictBadge = (v) => h('span', { class: 'badge ' + (v === 'match' ? 'ok' : v === 'unknown' ? 'gray' : 'warn') }, v === 'match' ? 'Khớp' : v === 'underestimate' ? 'Giỏi hơn em nghĩ' : v === 'overestimate' ? 'Cần luyện thêm' : '—');
+  const verdictBadge = (v) => h('span', { class: 'badge ' + (v === 'match' ? 'ok' : v === 'unknown' ? 'gray' : 'warn') }, v === 'match' ? 'Khớp' : v === 'underestimate' ? 'Giỏi hơn em nghĩ' : v === 'overestimate' ? 'Cần luyện thêm' : 'Chưa có dữ liệu');
   // SPEC 14: this page is the parent share link -> no "Độ tin cậy của kết quả" block; the level only drives neutral labels (staff pages show confidence)
   const conf = r.confidence || { level: null };
   const low = conf.level === 'low';
   const stepsCard = h('div', { class: 'card', style: '--c:var(--blue)', id: 'next-steps' }, h('h2', {}, '🚀 Mục tiêu tiếp theo'),
     h('ul', { class: 'list' }, (r.next_steps || []).map((x) => h('li', {}, x.text_vi))));
   const ability = (a) => h('li', { class: 'ability ' + a.status }, h('b', {}, `${SK[a.skill].icon} ${SK[a.skill].vi}: `), h('span', { class: a.status === 'insufficient' ? 'muted' : '' }, a.text_vi));
-  const listOrNote = (xs) => xs.length ? h('ul', { class: 'list' }, xs.map((s) => h('li', {}, h('b', {}, s.label_vi), h('span', { class: 'muted small' }, ` — ${s.evidence_vi}`)))) : h('p', { class: 'muted small' }, 'Chưa đủ dữ liệu để nhận xét.');
+  const listOrNote = (xs) => xs.length ? h('ul', { class: 'list' }, xs.map((s) => h('li', {}, h('b', {}, s.label_vi), h('span', { class: 'muted small' }, `, ${s.evidence_vi}`)))) : h('p', { class: 'muted small' }, 'Hệ thống hiện chưa có đủ dữ liệu để đưa ra nhận xét cho phần này.');
   const estimated = r.overall.estimated || conf.level == null;
   // SPEC 13: low confidence shows every section too, labelled "tham khảo" (reference only), never hidden
-  const hedge = () => conf.level !== 'high' ? h('p', { class: 'small muted', style: 'margin:-.3em 0 .6em' }, low ? 'Kết quả tham khảo, nhận xét theo kỹ năng – cần xác nhận thêm.' : 'Nhận xét theo kỹ năng – cần xác nhận thêm.') : null;
-  const levelSub = !r.overall.cefr ? 'Chưa có phần nào được chấm' : low ? 'CEFR tham chiếu – kết quả tham khảo, cần xác nhận thêm' : estimated ? 'CEFR tham chiếu, ước lượng – chưa hiệu chuẩn' : 'CEFR tham chiếu – chưa hiệu chuẩn';
-  const share = h('div', { class: 'card noprint' }, h('h3', {}, 'Chia sẻ báo cáo'), h('p', { class: 'small muted' }, 'Link cá nhân – chỉ chia sẻ cho phụ huynh/người được phép.'),
+  const hedge = () => conf.level !== 'high' ? h('p', { class: 'small muted', style: 'margin:-.3em 0 .6em' }, low ? 'Kết quả và nhận xét theo từng kỹ năng chỉ mang tính tham khảo, em cần hoàn thành thêm bài luyện để xác nhận năng lực.' : 'Những nhận xét theo từng kỹ năng cần được đối chiếu thêm với bài luyện và đánh giá của giáo viên.') : null;
+  const levelSub = !r.overall.cefr ? 'Hệ thống chưa có phần làm bài được chấm để xác định trình độ.' : low ? 'Trình độ CEFR này chỉ mang tính tham khảo và cần được xác nhận thêm.' : estimated ? 'Trình độ CEFR này là mức ước lượng từ bài làm, hiện chưa được hiệu chuẩn.' : 'Trình độ CEFR này được dùng để tham chiếu và hiện chưa được hiệu chuẩn.';
+  const share = h('div', { class: 'card noprint' }, h('h3', {}, 'Chia sẻ báo cáo'), h('p', { class: 'small muted' }, 'Đây là đường dẫn báo cáo cá nhân của em, em chỉ nên chia sẻ cho phụ huynh hoặc những người được phép xem kết quả.'),
     h('div', { class: 'row' }, h('input', { type: 'text', value: link, readonly: true, style: 'flex:1 1 240px', 'aria-label': 'Link báo cáo' }),
-      h('button', { class: 'btn-blue', onclick: () => navigator.clipboard.writeText(link).then(() => toast('Đã sao chép link')) }, 'Sao chép'),
+      h('button', { class: 'btn-blue', onclick: () => navigator.clipboard.writeText(link).then(() => toast('Đường dẫn báo cáo đã được sao chép để bạn có thể chia sẻ khi cần.')) }, 'Sao chép'),
       h('button', { class: 'btn2', onclick: () => window.print() }, 'In / Lưu PDF')));
   const hero = h('section', { class: 'card hero result-hero' },
     fox(low ? 'study' : 'cheer', 'fox'),
-    h('div', {}, h('div', { class: 'qmeta' }, `${r.student.school_name} · Lớp ${r.student.class_name || r.student.grade} · ${r.student.test_date}`),
+    h('div', {}, h('div', { class: 'qmeta' }, `${r.student.school_name}, Lớp ${r.student.class_name || r.student.grade}, ${r.student.test_date}`),
       h('h1', { style: 'margin:.2em 0' }, `Kết quả của ${r.student.full_name}`),
       h('div', { class: 'row', style: 'gap:16px' }, h('div', { class: 'big-level' + (r.overall.cefr ? '' : ' pending') }, r.overall.cefr || 'Chưa có dữ liệu'),
         h('div', {}, h('b', {}, 'Trình độ tổng thể'), low && r.overall.cefr ? h('span', { class: 'badge warn', style: 'margin-left:6px' }, 'Tham khảo') : null, h('div', { class: 'small muted' }, levelSub)))),
@@ -852,13 +859,13 @@ async function resultPage(token) {
   mount(
     hero,
     h('div', { class: 'grid g3' },
-      statTile('Tổng thể', r.overall.cefr || '—', 'var(--green)', low ? 'CEFR tham chiếu (tham khảo)' : estimated ? 'CEFR tham chiếu (ước lượng)' : 'CEFR tham chiếu'),
-      statTile('Mạnh nhất', scored[0] ? skillLabel(scored[0]) : '—', 'var(--blue)', scored[0] ? sk[scored[0]].cefr : ''),
-      statTile('Cần luyện', scored.length > 1 ? skillLabel(scored[scored.length - 1]) : '—', 'var(--orange)', scored.length > 1 ? sk[scored[scored.length - 1]].cefr : '')),
+      statTile('Tổng thể', r.overall.cefr || 'Chưa có dữ liệu', 'var(--green)', low ? 'CEFR tham chiếu (tham khảo)' : estimated ? 'CEFR tham chiếu (ước lượng)' : 'CEFR tham chiếu'),
+      statTile('Mạnh nhất', scored[0] ? skillLabel(scored[0]) : 'Chưa có dữ liệu', 'var(--blue)', scored[0] ? sk[scored[0]].cefr : ''),
+      statTile('Cần luyện', scored.length > 1 ? skillLabel(scored[scored.length - 1]) : 'Chưa có dữ liệu', 'var(--orange)', scored.length > 1 ? sk[scored[scored.length - 1]].cefr : '')),
     (r.scoring_issues || []).length ? h('div', { class: 'card tint-red' }, h('b', {}, '⚠ Lưu ý: '), `Phần ${r.scoring_issues.map((k) => SK[k].vi).join(', ')} chưa chấm được do sự cố kỹ thuật; kết quả tổng thể dựa trên các kỹ năng còn lại.`) : null,
     h('div', { class: 'grid g2', style: 'margin-top:16px' },
       h('div', { class: 'card' }, h('h2', {}, 'Năng lực 4 kỹ năng'), skillBars(sk),
-        h('p', { class: 'small muted' }, `Từ vựng & Ngữ pháp (khởi động): ${(r.use_of_english && r.use_of_english.cefr) || '—'}`)),
+        h('p', { class: 'small muted' }, `Trình độ từ vựng và ngữ pháp trong phần khởi động: ${(r.use_of_english && r.use_of_english.cefr) || 'Chưa có dữ liệu'}`)),
       h('div', { class: 'card center' }, h('h2', {}, 'Cân bằng kỹ năng'), radar(sk))),
     h('div', { class: 'grid g2' },
       h('div', { class: 'card', style: '--c:var(--green)', id: 'abilities' }, h('h2', {}, '✅ Em đã làm được'), h('ul', { class: 'list' }, (r.abilities || []).map(ability))),
@@ -867,12 +874,12 @@ async function resultPage(token) {
       h('div', { class: 'card pill-s' }, h('h2', {}, '🌟 Điểm mạnh'), hedge(), listOrNote(r.strengths)),
       h('div', { class: 'card pill-w' }, h('h2', {}, '🎯 Năng lực cần cải thiện'), hedge(), listOrNote(r.improvements))),
     h('div', { class: 'card', id: 'self-vs-actual' }, h('h2', {}, 'Em tự đánh giá vs. kết quả thực tế'),
-      low ? h('p', { class: 'small muted', style: 'margin:-.3em 0 .6em' }, 'So sánh mang tính tham khảo, cần xác nhận thêm.') : null,
-      tbl(['Kỹ năng', 'Em tự đánh giá', 'Kết quả', 'Nhận xét'], r.self_vs_actual.map((x) => [h('b', {}, `${SK[x.skill].icon} ${x.skill_vi}`), x.self_level ? `${'⭐'.repeat(x.self_level)} ${x.self_label_vi || ''}` : '—', h('b', {}, x.actual_cefr || '—'), h('span', {}, verdictBadge(x.verdict), ' ', h('span', { class: 'small muted' }, x.verdict_vi))]))),
-    path && path.units.length ? h('div', { class: 'card' }, h('h2', { class: 'center' }, path.purpose === 'confirm' ? `🗺 Lộ trình gợi ý — luyện tập để xác nhận năng lực, tập trung ${path.focus_skill_vi}` : `🗺 Lộ trình học gợi ý — tập trung ${path.focus_skill_vi}`),
-      h('p', { class: 'center muted small' }, 'Bấm vào từng chặng để học từ vựng, ngữ pháp và luyện nói.'),
+      low ? h('p', { class: 'small muted', style: 'margin:-.3em 0 .6em' }, 'Phần so sánh này chỉ mang tính tham khảo, em cần hoàn thành thêm bài luyện để xác nhận mức độ phù hợp với kết quả.') : null,
+      tbl(['Kỹ năng', 'Em tự đánh giá', 'Kết quả', 'Nhận xét'], r.self_vs_actual.map((x) => [h('b', {}, `${SK[x.skill].icon} ${x.skill_vi}`), x.self_level ? `${'⭐'.repeat(x.self_level)} ${x.self_label_vi || ''}` : 'Chưa có dữ liệu', h('b', {}, x.actual_cefr || 'Chưa có dữ liệu'), h('span', {}, verdictBadge(x.verdict), ' ', h('span', { class: 'small muted' }, x.verdict_vi))]))),
+    path && path.units.length ? h('div', { class: 'card' }, h('h2', { class: 'center' }, path.purpose === 'confirm' ? `🗺 Lộ trình gợi ý, luyện tập để xác nhận năng lực, tập trung ${path.focus_skill_vi}` : `🗺 Lộ trình học gợi ý, tập trung ${path.focus_skill_vi}`),
+      h('p', { class: 'center muted small' }, 'Em hãy chọn từng chặng trong lộ trình để học từ vựng, ôn ngữ pháp và luyện nói theo nội dung gợi ý.'),
       stagePath(path.units.map((u, i) => ({ href: `#/learn/${u.unit}`, icon: i === 0 ? '⭐' : String(u.step), c: i === 0 ? 'var(--green)' : 'var(--blue)', cd: i === 0 ? 'var(--green-d)' : 'var(--blue-d)', aria: `Bước ${u.step}: ${u.title}`,
-        title: `Bước ${u.step}: ${u.title}`, sub: `${u.level} · ${u.unit} · ${u.cefr}`, extra: h('span', { class: 'small' }, u.focus_vi) })))) : null,
+        title: `Bước ${u.step}: ${u.title}`, sub: `${u.level}, ${u.unit}, ${u.cefr}`, extra: h('span', { class: 'small' }, u.focus_vi) })))) : null,
     feedbackCard(r),
     (r.products || []).length ? h('div', { class: 'card' }, h('h2', {}, 'Sản phẩm phù hợp trên ICAN'), h('div', { class: 'grid g3' }, r.products.map((p) => h('div', { class: 'card tint-blue', style: 'margin:0' }, h('b', {}, p.name), h('p', { class: 'small muted', style: 'margin:.3em 0 0' }, p.reason))))) : null,
     share,
@@ -907,9 +914,9 @@ async function learnPage(code) {
     const listen = h('button', { class: 'btn2 small', onclick: () => playText(sentence, u.audio, listen) }, '🔊 Nghe mẫu');
     let mr = null;
     rec.onclick = async () => {
-      if (!tok) return toast('Cần mở từ trang kết quả của em để luyện nói');
+      if (!tok) return toast('Em hãy mở bài học từ báo cáo kết quả của mình để sử dụng tính năng luyện nói.');
       if (mr && mr.state === 'recording') { mr.stop(); return; }
-      let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch { return toast('Không dùng được micro'); }
+      let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch { return toast('Trình duyệt hiện chưa truy cập được micro, em hãy kiểm tra quyền sử dụng rồi thử lại.'); }
       const mime = pickMime(); mr = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined); const chunks = [];
       mr.ondataavailable = (e) => e.data.size && chunks.push(e.data);
       mr.onstop = async () => {
@@ -918,7 +925,7 @@ async function learnPage(code) {
         try {
           const b64 = await blobToB64(new Blob(chunks, { type: mr.mimeType || mime }));
           const r = (await api('/api/practice/pronounce', { method: 'POST', body: { text: sentence, audio_base64: b64, audio_format: fmtOf(mr.mimeType || mime) }, headers: { 'x-result-token': tok } })).data.result;
-          out.replaceChildren(h('div', {}, h('span', { class: 'badge ' + ((r.overall ?? 0) >= 80 ? 'ok' : (r.overall ?? 0) >= 60 ? 'warn' : 'bad'), style: 'font-size:15px' }, `Điểm phát âm: ${r.overall ?? '—'}/100${r.illustrative ? ' (minh họa)' : ''}`), ' ', (r.weak_phonemes || []).length ? h('span', { class: 'muted' }, `· Âm cần luyện: /${r.weak_phonemes.join('/, /')}/`) : null),
+          out.replaceChildren(h('div', {}, h('span', { class: 'badge ' + ((r.overall ?? 0) >= 80 ? 'ok' : (r.overall ?? 0) >= 60 ? 'warn' : 'bad'), style: 'font-size:15px' }, `Điểm phát âm: ${r.overall ?? 'Chưa có dữ liệu'}/100${r.illustrative ? ' (minh họa)' : ''}`), ' ', (r.weak_phonemes || []).length ? h('span', { class: 'muted' }, `Âm cần luyện: /${r.weak_phonemes.join('/, /')}/`) : null),
             h('div', {}, (r.words || []).map((w) => h('span', { class: 'word ' + (w.score == null ? '' : w.score >= 80 ? 'w-good' : w.score >= 60 ? 'w-mid' : 'w-bad'), title: w.score == null ? '' : `${w.score}` }, w.word))));
         } catch (e) { out.replaceChildren(h('span', { class: 'badge bad' }, e.message)); }
       };
@@ -927,7 +934,7 @@ async function learnPage(code) {
     return h('div', { class: 'task', style: 'margin:10px 0' }, h('div', { class: 'q-stem', style: 'font-size:19px;margin:0 0 10px' }, sentence), h('div', { class: 'row' }, listen, rec), out);
   };
   mount(
-    h('section', { class: 'card hero page-hero' }, h('div', {}, h('div', { class: 'qmeta' }, `${u.level} · ${u.code} · CEFR ${u.cefr}`), h('h1', { style: 'margin:.2em 0' }, u.title), L.summary_vi ? h('p', {}, L.summary_vi) : null,
+    h('section', { class: 'card hero page-hero' }, h('div', {}, h('div', { class: 'qmeta' }, `${u.level}, ${u.code}, CEFR ${u.cefr}`), h('h1', { style: 'margin:.2em 0' }, u.title), L.summary_vi ? h('p', {}, L.summary_vi) : null,
       tok ? h('a', { class: 'btn btn2 small', href: '#/r/' + tok }, '← Về báo cáo của em') : null), fox('study')),
     h('div', { class: 'grid g2' },
       h('div', { class: 'card' }, h('h2', {}, '📚 Từ vựng'), h('div', { class: 'vocab' }, (L.vocab || []).map((v) => h('div', { class: 'vocab-item' },
@@ -938,7 +945,7 @@ async function learnPage(code) {
           h('ul', { class: 'list', style: '--c:var(--purple)' }, (L.grammar_examples || []).map((x) => h('li', {}, x)))),
         h('div', { class: 'card', style: 'margin:0' }, h('h2', {}, '🎯 Sau bài học em có thể'), h('ul', { class: 'list' }, (L.can_do_vi || u.can_do || []).map((x) => h('li', {}, x)))))),
     h('div', { class: 'card' }, h('h2', {}, '🎤 Luyện nói và phát âm'),
-      h('p', { class: 'small muted' }, tok ? 'Nghe mẫu, bấm Ghi âm, đọc câu rồi bấm Dừng. Bản dùng thử hiển thị điểm phát âm minh họa.' : 'Mở bài học từ trang kết quả của em để dùng tính năng luyện phát âm.'),
+      h('p', { class: 'small muted' }, tok ? 'Em hãy nghe câu mẫu, chọn Ghi âm rồi đọc lại câu và chọn Dừng khi hoàn tất. Điểm phát âm trong bản dùng thử chỉ mang tính minh họa.' : 'Em hãy mở bài học từ trang báo cáo kết quả của mình để sử dụng tính năng luyện phát âm.'),
       (L.speaking_practice || []).map(practiceRow)),
   );
 }
@@ -957,7 +964,7 @@ async function schoolPage(token) {
     statTable(d[tab], tab === 'by_grade' ? 'Khối' : tab === 'by_class' ? 'Lớp' : 'Đợt'));
   drawTab();
   mount(
-    h('section', { class: 'card hero page-hero' }, h('div', {}, h('div', { class: 'qmeta' }, `Báo cáo nhà trường · ${d.school.id}`), h('h1', { style: 'margin:.2em 0' }, d.school.name), h('p', { class: 'muted', style: 'margin:0' }, 'School English Performance Report — dữ liệu tổng hợp, không có họ tên học sinh.')), fox('hello')),
+    h('section', { class: 'card hero page-hero' }, h('div', {}, h('div', { class: 'qmeta' }, `Báo cáo nhà trường, ${d.school.id}`), h('h1', { style: 'margin:.2em 0' }, d.school.name), h('p', { class: 'muted', style: 'margin:0' }, 'Báo cáo tổng hợp kết quả tiếng Anh của nhà trường, giúp theo dõi năng lực học sinh mà không hiển thị họ tên cá nhân.')), fox('hello')),
     h('div', { class: 'grid g4' },
       statTile('Tham gia', h('span', { class: 'kpi' }, s.participants), 'var(--blue)'),
       statTile('Hoàn thành', h('span', { class: 'kpi' }, s.completed), 'var(--green)'),
@@ -969,7 +976,7 @@ async function schoolPage(token) {
       h('div', { class: 'card' }, h('h2', {}, 'Năng lực trung bình theo kỹ năng'), skillBars(Object.fromEntries(['L', 'R', 'S', 'W'].map((k) => [k, { theta: s.avg[k], cefr: cefrOf(s.avg[k]) }]))))),
     h('div', { class: 'card' }, h('h2', {}, 'Chi tiết'), tabBox),
     h('div', { class: 'card' }, h('h2', {}, 'Năng lực cần ưu tiên cải thiện'),
-      d.weak_competencies.length ? tbl(['Năng lực', 'Số HS', 'Tỷ lệ'], d.weak_competencies.map((w) => [h('b', {}, w.label_vi), w.students, `${Math.round(w.share * 100)}%`])) : h('p', { class: 'muted' }, 'Chưa có dữ liệu.')),
+      d.weak_competencies.length ? tbl(['Năng lực', 'Số HS', 'Tỷ lệ'], d.weak_competencies.map((w) => [h('b', {}, w.label_vi), w.students, `${Math.round(w.share * 100)}%`])) : h('p', { class: 'muted' }, 'Hệ thống hiện chưa có dữ liệu để hiển thị nội dung này.')),
     h('p', { class: 'small muted' }, d.note_vi),
     h('p', { class: 'noprint' }, h('button', { class: 'btn2', onclick: () => window.print() }, 'In / Lưu PDF')),
   );
@@ -981,7 +988,7 @@ async function staffPage(tab, id) {
   tab = tab || 'dashboard';
   let me;
   try { me = (await api('/api/staff/me')).data; } catch (e) { if (e.status === 401) return staffLogin(); return mount(notFound('Không tải được', e.message)); }
-  if (tab === 'admin' && me.role !== 'admin') { toast('Chức năng này chỉ dành cho quản trị viên'); location.hash = '#/staff/dashboard'; return; }
+  if (tab === 'admin' && me.role !== 'admin') { toast('Bạn cần sử dụng tài khoản quản trị viên để truy cập chức năng này.'); location.hash = '#/staff/dashboard'; return; }
   setMode('console');
   const items = [['dashboard', '📊', 'Tổng quan'], ['schools', '🏫', 'Trường'], ['campaigns', '🗓', 'Đợt kiểm tra']];
   if (me.role === 'admin') items.push(['admin', '🛡', 'Quản trị']);
@@ -1020,7 +1027,7 @@ function staffLogin() {
     h('h2', { class: 'center' }, 'Đăng nhập nhân viên GE'),
     h('label', {}, 'Tên đăng nhập hoặc họ tên'), h('input', { type: 'text', autocomplete: 'username', placeholder: 'VD: lan.nv hoặc Nguyễn Thị Lan', oninput: (e) => (f.username = e.target.value) }),
     h('label', {}, 'Mật khẩu'), h('input', { type: 'password', autocomplete: 'current-password', oninput: (e) => (f.password = e.target.value) }),
-    h('p', { class: 'small muted' }, 'Tài khoản riêng: nhập tên đăng nhập + mật khẩu riêng. Mật khẩu chung: nhập họ tên của bạn + mật khẩu nhân viên chung. Quản trị viên: tên đăng nhập "admin".'),
+    h('p', { class: 'small muted' }, 'Nhân viên có thể đăng nhập bằng tên GE Demo hoặc staff với mật khẩu demo123. Quản trị viên sử dụng tên đăng nhập admin và cùng mật khẩu dùng thử để truy cập các chức năng quản lý.'),
     h('p', {}, h('button', { type: 'submit', class: 'btn-lg btn-block' }, 'Đăng nhập'))));
 }
 async function staffSchools(body, me) {
@@ -1028,11 +1035,11 @@ async function staffSchools(body, me) {
   const f = { province_code: '', ward_name: '', name: '', ownership: 'public', specialized: false, program: '', verified: true };
   const wardList = h('datalist', { id: 'wards' });
   const prov = h('select', { onchange: async (e) => { f.province_code = e.target.value; const w = (await api('/api/catalog/wards?province=' + encodeURIComponent(f.province_code))).data.wards; wardList.replaceChildren(...w.map((x) => h('option', { value: x.name }))); } },
-    h('option', { value: '' }, '— Chọn tỉnh/thành —'), pv.provinces.map((p) => h('option', { value: p.code }, p.name)));
+    h('option', { value: '' }, 'Chọn tỉnh hoặc thành phố'), pv.provinces.map((p) => h('option', { value: p.code }, p.name)));
   const create = async () => {
     try {
       const r = (await api('/api/staff/schools', { method: 'POST', body: { ...f, program: f.program || null } })).data.school;
-      toast(`Đã tạo trường ${r.name} – School ID ${r.id}`); staffPage('schools');
+      toast(`Đã tạo trường ${r.name}, School ID ${r.id}`); staffPage('schools');
     } catch (e) { toast(e.code === 'school_exists' ? `Trường đã có: ${e.data.school_id}` : e.message); }
   };
   const reportLink = async (id) => {
@@ -1045,7 +1052,7 @@ async function staffSchools(body, me) {
   };
   const rename = async (s) => {
     const name = prompt('Tên mới cho trường ' + s.id, s.name); if (!name || name === s.name) return;
-    try { await api('/api/admin/schools/' + s.id, { method: 'PATCH', body: { name } }); toast('Đã đổi tên trường'); staffPage('schools'); } catch (e) { toast(e.message); }
+    try { await api('/api/admin/schools/' + s.id, { method: 'PATCH', body: { name } }); toast('Tên trường đã được cập nhật trong danh sách quản lý.'); staffPage('schools'); } catch (e) { toast(e.message); }
   };
   const remove = async (s) => {
     const c = prompt(`XÓA trường "${s.name}" cùng ${s.campaigns} đợt và ${s.students} học sinh (không khôi phục được).\nNhập đúng mã ${s.id} để xác nhận:`); if (c == null) return;
@@ -1065,10 +1072,10 @@ async function staffSchools(body, me) {
     h('div', { class: 'card' }, h('h2', {}, `Danh sách trường (${sc.schools.length})`),
       sc.schools.length ? tbl(['School ID', 'Trường', 'Địa bàn', 'Loại hình', 'Đợt / HS', ''],
         sc.schools.map((s) => [h('code', {}, s.id), h('b', {}, s.name), h('span', { class: 'small' }, `${s.ward || ''}, ${s.province}`),
-          h('span', { class: 'small' }, `${s.ownership === 'public' ? 'Công lập' : 'Tư thục'}${s.specialized ? ' · chuyên' : ''}${s.program ? ' · ' + ((PROGRAMS.find((p) => p[0] === s.program) || [])[1] || '') : ''}`),
+          h('span', { class: 'small' }, `${s.ownership === 'public' ? 'Công lập' : 'Tư thục'}${s.specialized ? ', chuyên' : ''}${s.program ? ', ' + ((PROGRAMS.find((p) => p[0] === s.program) || [])[1] || '') : ''}`),
           `${s.campaigns} / ${s.students}`,
           h('div', { class: 'row', style: 'justify-content:flex-end' }, h('a', { class: 'btn btn2 small', href: `#/staff/campaigns?school=${s.id}` }, 'Đợt KT'), h('button', { class: 'btn-ghost small', onclick: () => reportLink(s.id) }, 'Link báo cáo'),
-            isAdmin ? h('button', { class: 'btn-ghost small', onclick: () => rename(s) }, 'Đổi tên') : null, isAdmin ? h('button', { class: 'btn-bad small', onclick: () => remove(s) }, 'Xóa') : null)])) : emptyState('Chưa có trường nào.')));
+            isAdmin ? h('button', { class: 'btn-ghost small', onclick: () => rename(s) }, 'Đổi tên') : null, isAdmin ? h('button', { class: 'btn-bad small', onclick: () => remove(s) }, 'Xóa') : null)])) : emptyState('Danh sách hiện chưa có trường học nào, bạn có thể thêm thông tin trường bằng biểu mẫu phía trên.')));
 }
 async function staffCampaigns(body) {
   const sid = new URLSearchParams(location.hash.split('?')[1] || '').get('school');
@@ -1080,7 +1087,7 @@ async function staffCampaigns(body) {
   body.replaceChildren(
     h('div', { class: 'card' }, h('h2', {}, '➕ Tạo đợt kiểm tra'),
       h('div', { class: 'grid g2' },
-        h('div', {}, h('label', {}, 'Trường'), h('select', { onchange: (e) => (f.school_id = e.target.value) }, h('option', { value: '' }, '— Chọn trường —'), sc.schools.map((s) => h('option', { value: s.id, selected: s.id === sid }, `${s.name} (${s.id})`)))),
+        h('div', {}, h('label', {}, 'Trường'), h('select', { onchange: (e) => (f.school_id = e.target.value) }, h('option', { value: '' }, 'Chọn trường học'), sc.schools.map((s) => h('option', { value: s.id, selected: s.id === sid }, `${s.name} (${s.id})`)))),
         h('div', {}, h('label', {}, 'Ngày kiểm tra'), h('input', { type: 'date', value: f.test_date, oninput: (e) => (f.test_date = e.target.value) })),
         h('div', {}, h('label', {}, 'Giáo viên phụ trách'), h('input', { type: 'text', oninput: (e) => (f.teacher = e.target.value) })),
         h('div', {}, h('label', {}, 'Tên đợt (tùy chọn)'), h('input', { type: 'text', oninput: (e) => (f.name = e.target.value) }))),
@@ -1088,7 +1095,7 @@ async function staffCampaigns(body) {
       h('p', { style: 'margin-top:16px' }, h('button', { onclick: create }, '＋ Tạo đợt kiểm tra'))),
     h('div', { class: 'card' }, h('h2', {}, 'Các đợt kiểm tra'),
       cs.campaigns.length ? tbl(['Ngày', 'Trường', 'Khối', 'Mã tham gia', 'HS / hoàn thành', 'Trạng thái'],
-        cs.campaigns.map((c) => [h('a', { href: '#/staff/campaigns/' + c.id }, c.test_date), c.school_name, c.grades.join(', '), h('code', { style: 'font-size:17px' }, c.join_code), `${c.students} / ${c.completed}`, h('span', { class: 'badge ' + (c.status === 'open' ? 'ok' : 'gray') }, c.status === 'open' ? 'Đang mở' : 'Đã đóng')])) : emptyState('Chưa có đợt kiểm tra nào.')));
+        cs.campaigns.map((c) => [h('a', { href: '#/staff/campaigns/' + c.id }, c.test_date), c.school_name, c.grades.join(', '), h('code', { style: 'font-size:17px' }, c.join_code), `${c.students} / ${c.completed}`, h('span', { class: 'badge ' + (c.status === 'open' ? 'ok' : 'gray') }, c.status === 'open' ? 'Đang mở' : 'Đã đóng')])) : emptyState('Danh sách hiện chưa có đợt kiểm tra nào, bạn có thể tạo đợt mới bằng biểu mẫu phía trên.')));
 }
 async function staffCampaign(body, id, me) {
   const { data } = await api('/api/staff/campaigns/' + encodeURIComponent(id));
@@ -1104,40 +1111,40 @@ async function staffCampaign(body, id, me) {
   const toggle = async () => { await api('/api/staff/campaigns/' + id, { method: 'PATCH', body: { status: c.status === 'open' ? 'closed' : 'open' } }); staffPage('campaigns', id); };
   const remove = async () => {
     const v = prompt(`XÓA đợt ${c.id} cùng ${data.students.length} học sinh và kết quả (không khôi phục được).\nNhập đúng mã ${c.id} để xác nhận:`); if (v == null) return;
-    try { await api('/api/admin/campaigns/' + c.id, { method: 'DELETE', body: { confirm: v.trim() } }); toast('Đã xóa đợt kiểm tra'); location.hash = '#/staff/campaigns'; } catch (e) { toast(e.message); }
+    try { await api('/api/admin/campaigns/' + c.id, { method: 'DELETE', body: { confirm: v.trim() } }); toast('Đợt kiểm tra cùng dữ liệu liên quan đã được xóa khỏi bản dùng thử.'); location.hash = '#/staff/campaigns'; } catch (e) { toast(e.message); }
   };
   body.replaceChildren(
-    h('div', { class: 'card' }, h('div', { class: 'row spread' }, h('div', {}, h('h2', { style: 'margin:0' }, `${c.school_name} · ${c.test_date}`), h('div', { class: 'muted small' }, `Khối ${c.grades.join(', ')} · GV: ${c.teacher || '—'} · NV GE: ${c.ge_staff || '—'} · ${c.id}`)),
+    h('div', { class: 'card' }, h('div', { class: 'row spread' }, h('div', {}, h('h2', { style: 'margin:0' }, `${c.school_name}, ${c.test_date}`), h('div', { class: 'muted small' }, `Khối ${c.grades.join(', ')}, GV: ${c.teacher || 'Chưa có dữ liệu'}, NV GE: ${c.ge_staff || 'Chưa có dữ liệu'}, ${c.id}`)),
       h('div', { class: 'row' }, h('button', { class: c.status === 'open' ? 'btn-bad' : 'btn-ok', onclick: toggle }, c.status === 'open' ? 'Đóng đợt' : 'Mở lại'), me.role === 'admin' ? h('button', { class: 'btn-ghost', onclick: remove }, '🗑 Xóa đợt') : null)),
       h('div', { class: 'row', style: 'margin-top:14px;gap:20px' }, qrNode(joinLink), h('div', { style: 'min-width:0' }, h('div', { class: 'qmeta' }, 'Mã tham gia'), h('div', { class: 'big-level', style: 'letter-spacing:6px' }, c.join_code), h('div', { class: 'small break' }, joinLink)))),
     h('div', { class: 'card' }, h('h2', {}, `Học sinh (${data.students.length})`),
-      h('p', { class: 'small muted' }, 'Độ tin cậy = hệ thống có đủ bằng chứng để kết luận không; Tham gia = học sinh có làm bài đầy đủ, tập trung không (SPEC 11, quy tắc đề xuất chưa hiệu chuẩn). Bấm "Chi tiết" để xem tín hiệu.'),
+      h('p', { class: 'small muted' }, 'Chỉ số độ tin cậy cho biết bài làm có đủ bằng chứng để đánh giá năng lực hay chưa, còn chỉ số tham gia phản ánh mức độ hoàn thành và tập trung của học sinh. Bạn có thể chọn "Chi tiết" để xem các thông tin giúp giải thích kết quả.'),
       data.students.length ? tbl(['Họ tên', 'Lớp', 'Trạng thái', 'Kết quả', 'Độ tin cậy', 'Tham gia', ''], data.students.map((s) => {
         const cell = h('div', {});
         if (s.status === 'completed') cell.append(h('button', { class: 'btn-ghost small', onclick: () => resultLink(s.session_id, cell) }, 'Link/QR kết quả'));
-        return [h('b', {}, s.full_name), s.class_name || s.grade, s.status === 'completed' ? h('span', { class: 'badge ok' }, 'Hoàn thành') : h('span', { class: 'badge warn' }, `Đang làm (${s.section || '—'})`),
-          s.cefr_overall ? (s.confidence_level === 'low' ? h('span', {}, s.cefr_overall, h('span', { class: 'small muted' }, ' (tham khảo, chưa đủ tin cậy)')) : s.cefr_overall) : '—',
-          confidenceCell(s), s.engagement_score != null ? h('span', { class: 'small' }, `${s.engagement_score}/100`) : '—', cell];
-      })) : emptyState('Chưa có học sinh nào tham gia. Phát mã tham gia hoặc QR ở trên cho học sinh.')));
+        return [h('b', {}, s.full_name), s.class_name || s.grade, s.status === 'completed' ? h('span', { class: 'badge ok' }, 'Hoàn thành') : h('span', { class: 'badge warn' }, `Đang làm (${s.section || 'Chưa có dữ liệu'})`),
+          s.cefr_overall ? (s.confidence_level === 'low' ? h('span', {}, s.cefr_overall, h('span', { class: 'small muted' }, ' (tham khảo, chưa đủ tin cậy)')) : s.cefr_overall) : 'Chưa có dữ liệu',
+          confidenceCell(s), s.engagement_score != null ? h('span', { class: 'small' }, `${s.engagement_score}/100`) : 'Chưa có dữ liệu', cell];
+      })) : emptyState('Đợt kiểm tra hiện chưa có học sinh tham gia, bạn hãy gửi mã tham gia hoặc mã QR ở trên để học sinh bắt đầu làm bài.')));
 }
 const CONF_VI = { high: ['Cao', 'ok'], medium: ['Trung bình', 'warn'], low: ['Chưa đủ tin cậy', 'bad'] };
 const EV_VI = { good: 'Đủ', partial: 'Một phần', insufficient: 'Thiếu' };
 /** SPEC 11 §3.6: staff-only confidence score, engagement signals, consistency signals and evidence per skill. */
 function confidenceCell(s) {
-  if (s.status !== 'completed') return '—';
+  if (s.status !== 'completed') return 'Chưa có dữ liệu';
   if (!s.confidence_level) return h('span', { class: 'badge gray', title: 'Bài làm trước khi có cơ chế độ tin cậy' }, 'Chưa đánh giá');
   const [vi, cls] = CONF_VI[s.confidence_level];
   const q = s.quality || {};
   const sig = [...((q.engagement && q.engagement.signals) || []).map((x) => `Tham gia: ${x.detail_vi} (−${x.penalty})`), ...((q.consistency && q.consistency.signals) || []).map((x) => `Cần xem xét: ${x.detail_vi}`)];
-  const ev = q.evidence ? Object.entries(q.evidence.skills).map(([k, v]) => `${SK[k].vi}: ${EV_VI[v.level]}`).join(' · ') : '';
-  return h('details', { class: 'conf-detail' }, h('summary', {}, h('span', { class: 'badge ' + cls }, `${vi} · ${s.confidence_score}`), ' Chi tiết'),
-    h('div', { class: 'small' }, h('div', {}, `Bằng chứng (${q.evidence ? q.evidence.score : '—'}/100): ${ev}`),
-      sig.length ? h('ul', { class: 'list small' }, sig.map((x) => h('li', {}, x))) : h('div', { class: 'muted' }, 'Không có tín hiệu bất thường.')));
+  const ev = q.evidence ? Object.entries(q.evidence.skills).map(([k, v]) => `${SK[k].vi}: ${EV_VI[v.level]}`).join(', ') : '';
+  return h('details', { class: 'conf-detail' }, h('summary', {}, h('span', { class: 'badge ' + cls }, `${vi}, ${s.confidence_score}`), ' Chi tiết'),
+    h('div', { class: 'small' }, h('div', {}, `Bằng chứng (${q.evidence ? q.evidence.score : 'Chưa có dữ liệu'}/100): ${ev}`),
+      sig.length ? h('ul', { class: 'list small' }, sig.map((x) => h('li', {}, x))) : h('div', { class: 'muted' }, 'Bài làm hiện không ghi nhận tín hiệu bất thường cần xem xét thêm.')));
 }
 async function staffDashboard(body) {
   const { data: d } = await api('/api/staff/dashboard');
   const s = d.summary;
-  const count = (obj, labels) => Object.keys(obj).length ? tbl(['Mục', 'Số HS'], Object.entries(obj).map(([k, n]) => [labels ? labels[k] || k : k, h('b', {}, n)])) : h('p', { class: 'muted' }, 'Chưa có dữ liệu.');
+  const count = (obj, labels) => Object.keys(obj).length ? tbl(['Mục', 'Số HS'], Object.entries(obj).map(([k, n]) => [labels ? labels[k] || k : k, h('b', {}, n)])) : h('p', { class: 'muted' }, 'Hệ thống hiện chưa có dữ liệu để hiển thị nội dung này.');
   const goalLabels = Object.fromEntries(GOALS);
   body.replaceChildren(
     h('div', { class: 'grid g4', style: 'margin-top:16px' },
@@ -1146,7 +1153,7 @@ async function staffDashboard(body) {
       statTile('Mức trung bình', h('span', { class: 'kpi' }, cefrOf(s.avg.overall)), 'var(--orange)'),
       statTile('Đồng ý nhận tư vấn', h('span', { class: 'kpi' }, d.marketing_consent), 'var(--purple)')),
     h('div', { class: 'card' }, h('h2', {}, 'Phân bố trình độ'), cefrDist(s.cefr_distribution),
-      d.confidence ? h('p', { class: 'small muted', id: 'conf-summary' }, `Độ tin cậy: Cao ${d.confidence.high} · Trung bình ${d.confidence.medium} · Chưa đủ tin cậy ${d.confidence.low} (không tính vào phân bố/trung bình) · Chưa đánh giá ${d.confidence.unknown}`) : null),
+      d.confidence ? h('p', { class: 'small muted', id: 'conf-summary' }, `Có ${d.confidence.high} bài đạt độ tin cậy cao, ${d.confidence.medium} bài đạt mức trung bình và ${d.confidence.unknown} bài chưa được đánh giá độ tin cậy. Ngoài ra, ${d.confidence.low} bài chưa đủ tin cậy sẽ không được tính vào phân bố trình độ và mức trung bình.`) : null),
     h('div', { class: 'card' }, h('div', { class: 'row spread' }, h('h2', { style: 'margin:0' }, 'Theo địa phương'), h('a', { class: 'btn btn2 small', href: '/api/staff/export.csv' }, '⬇ Xuất CSV (không chứa họ tên)')), statTable(d.by_province, 'Tỉnh/thành')),
     h('div', { class: 'card' }, h('h2', {}, 'Theo nhóm lớp'), statTable(d.by_grade_band, 'Nhóm lớp')),
     h('div', { class: 'card' }, h('h2', {}, 'Theo trường'), statTable(d.by_school, 'Trường')),
@@ -1156,7 +1163,7 @@ async function staffDashboard(body) {
 }
 
 // ---------------- admin (SPEC 06) ----------------
-const fmtTime = (v) => { if (v == null) return '—'; const d = typeof v === 'number' ? new Date(v) : new Date(String(v).replace(' ', 'T') + 'Z'); return Number.isNaN(d.getTime()) ? String(v) : d.toLocaleString('vi-VN'); };
+const fmtTime = (v) => { if (v == null) return 'Chưa có dữ liệu'; const d = typeof v === 'number' ? new Date(v) : new Date(String(v).replace(' ', 'T') + 'Z'); return Number.isNaN(d.getTime()) ? String(v) : d.toLocaleString('vi-VN'); };
 async function adminPage(body, sub, me) {
   const subs = [['overview', '📈 Hệ thống'], ['users', '👥 Tài khoản'], ['students', '🔎 Học sinh'], ['audit', '📜 Nhật ký']];
   const content = h('div', {}, loading());
@@ -1168,28 +1175,28 @@ async function adminPage(body, sub, me) {
 }
 async function adminOverview(box) {
   const { data: o } = await api('/api/admin/overview');
-  const setShared = async (v) => { try { await api('/api/admin/settings', { method: 'PATCH', body: { shared_login: v } }); toast(v ? 'Đã bật mật khẩu nhân viên chung' : 'Đã tắt mật khẩu nhân viên chung'); staffPage('admin', 'overview'); } catch (e) { toast(e.message); } };
+  const setShared = async (v) => { try { await api('/api/admin/settings', { method: 'PATCH', body: { shared_login: v } }); toast(v ? 'Chế độ đăng nhập bằng mật khẩu chung của nhân viên đã được bật.' : 'Chế độ đăng nhập bằng mật khẩu chung của nhân viên đã được tắt.'); staffPage('admin', 'overview'); } catch (e) { toast(e.message); } };
   box.replaceChildren(
     h('div', { class: 'grid g4' },
       statTile('Trường', h('span', { class: 'kpi' }, o.schools), 'var(--blue)', o.test_schools ? `${o.test_schools} trường kiểm thử` : null),
       statTile('Đợt kiểm tra', h('span', { class: 'kpi' }, o.campaigns_open + o.campaigns_closed), 'var(--purple)', `${o.campaigns_open} đang mở`),
-      statTile('Học sinh', h('span', { class: 'kpi' }, o.students), 'var(--green)', `${o.sessions_completed} hoàn thành · ${o.sessions_active} đang làm`),
-      statTile('Tài khoản', h('span', { class: 'kpi' }, o.users), 'var(--orange)', `${o.admins} quản trị (D1) + admin gốc`)),
+      statTile('Học sinh', h('span', { class: 'kpi' }, o.students), 'var(--green)', `${o.sessions_completed} hoàn thành, ${o.sessions_active} đang làm`),
+      statTile('Tài khoản', h('span', { class: 'kpi' }, o.users), 'var(--orange)', `${o.admins} tài khoản quản trị riêng và một tài khoản quản trị gốc`)),
     h('div', { class: 'grid g2', style: 'margin-top:16px' },
       h('div', { class: 'card' }, h('h2', {}, '🔐 Đăng nhập nhân viên'),
         h('p', {}, 'Mật khẩu nhân viên chung: ', o.shared_login ? h('span', { class: 'badge ok' }, 'Đang bật') : h('span', { class: 'badge bad' }, 'Đã tắt')),
-        h('p', { class: 'small muted' }, 'Tắt khi mọi nhân viên đã có tài khoản riêng. Tắt sẽ đăng xuất ngay mọi phiên dùng mật khẩu chung; tài khoản riêng và admin không bị ảnh hưởng.'),
+        h('p', { class: 'small muted' }, 'Bạn có thể tắt mật khẩu chung khi tất cả nhân viên đã có tài khoản riêng. Khi tắt, những phiên đang dùng mật khẩu chung sẽ được đăng xuất, còn tài khoản riêng và quản trị viên vẫn hoạt động bình thường.'),
         o.shared_login ? h('button', { class: 'btn-bad', onclick: () => { if (confirm('Tắt đăng nhập bằng mật khẩu nhân viên chung?')) setShared(false); } }, 'Tắt mật khẩu chung') : h('button', { onclick: () => setShared(true) }, 'Bật lại mật khẩu chung')),
       h('div', { class: 'card' }, h('h2', {}, '🩺 Tình trạng dữ liệu'),
         tbl(['Chỉ số', 'Giá trị'], [['Câu hỏi đang dùng (ngân hàng)', h('b', {}, o.bank_items)], ['Câu chấm lỗi (Nói/Viết)', h('b', {}, o.scoring_errors)], ['Đợt đã đóng', h('b', {}, o.campaigns_closed)], ['Trường kiểm thử "THCS Live …"', h('b', {}, o.test_schools)]]),
-        h('p', { class: 'small muted' }, 'Xóa dữ liệu kiểm thử ở mục Trường (nút Xóa) — chỉ quản trị viên thấy.'))));
+        h('p', { class: 'small muted' }, 'Quản trị viên có thể mở mục Trường và chọn Xóa để loại bỏ những trường cùng dữ liệu kiểm thử không còn cần thiết.'))));
 }
 async function adminUsers(box, me, secret) {
   const { data } = await api('/api/admin/users');
   const f = { username: '', display_name: '', role: 'staff', password: '' };
   const secretBox = h('div');
   const showSecret = (title, username, pw) => { secretBox.replaceChildren(h('div', { class: 'card tint-yellow' }, h('h3', {}, title), h('p', {}, 'Tên đăng nhập: ', h('code', {}, username)), h('div', { class: 'secret' }, pw),
-    h('p', { class: 'small' }, '⚠ Mật khẩu chỉ hiện MỘT lần. Gửi riêng cho người dùng qua kênh an toàn, không dán vào nhóm chat chung.'), h('button', { class: 'btn2 small', onclick: () => navigator.clipboard.writeText(pw).then(() => toast('Đã sao chép mật khẩu')) }, 'Sao chép mật khẩu'))); window.scrollTo(0, 0); };
+    h('p', { class: 'small' }, 'Mật khẩu của tài khoản dùng thử được hiển thị tại đây để bạn gửi cho người được cấp tài khoản.'), h('button', { class: 'btn2 small', onclick: () => navigator.clipboard.writeText(pw).then(() => toast('Mật khẩu của tài khoản đã được sao chép để bạn chuyển cho người sử dụng.')) }, 'Sao chép mật khẩu'))); window.scrollTo(0, 0); };
   const create = async () => {
     try {
       const r = (await api('/api/admin/users', { method: 'POST', body: { ...f, password: f.password || undefined } })).data;
@@ -1210,7 +1217,7 @@ async function adminUsers(box, me, secret) {
       h('p', { style: 'margin-top:16px' }, h('button', { id: 'nu-create', onclick: create }, '＋ Tạo tài khoản'))),
     h('div', { class: 'card' }, h('h2', {}, `Tài khoản (${data.users.length} + admin gốc)`),
       tbl(['Tên đăng nhập', 'Tên hiển thị', 'Vai trò', 'Trạng thái', 'Đăng nhập gần nhất', ''],
-        [[h('code', {}, 'admin'), 'Quản trị viên (gốc)', h('span', { class: 'role-badge' }, 'Quản trị viên'), h('span', { class: 'badge ok' }, 'Hoạt động'), '—', h('span', { class: 'small muted' }, 'Mật khẩu trong config/ của người vận hành')],
+        [[h('code', {}, 'admin'), 'Quản trị viên (gốc)', h('span', { class: 'role-badge' }, 'Quản trị viên'), h('span', { class: 'badge ok' }, 'Hoạt động'), 'Chưa có dữ liệu', h('span', { class: 'small muted' }, 'Tài khoản quản trị dùng thử sử dụng mật khẩu demo123.')],
           ...data.users.map((u) => [h('code', {}, u.username), u.display_name, h('span', { class: 'role-badge' }, ROLE_VI[u.role]), u.active ? h('span', { class: 'badge ok' }, 'Hoạt động') : h('span', { class: 'badge bad' }, 'Đã khóa'), h('span', { class: 'small' }, fmtTime(u.last_login_at)),
             h('div', { class: 'row', style: 'justify-content:flex-end' },
               h('button', { class: 'btn-ghost small', onclick: () => { if (confirm(`Đặt lại mật khẩu cho ${u.username}? Phiên đăng nhập hiện tại của người này sẽ bị đăng xuất.`)) patch(u, { reset_password: true }); } }, 'Đặt lại MK'),
@@ -1227,22 +1234,22 @@ async function adminStudents(box) {
       const { data } = await api('/api/admin/students?q=' + encodeURIComponent(q.value.trim()));
       const del = async (s) => {
         const v = prompt(`XÓA học sinh "${s.full_name}" và toàn bộ bài làm/kết quả (không khôi phục được).\nNhập đúng mã ${s.student_id} để xác nhận:`); if (v == null) return;
-        try { await api('/api/admin/students/' + s.student_id, { method: 'DELETE', body: { confirm: v.trim() } }); toast('Đã xóa dữ liệu học sinh'); run(); } catch (e) { toast(e.message); }
+        try { await api('/api/admin/students/' + s.student_id, { method: 'DELETE', body: { confirm: v.trim() } }); toast('Dữ liệu bài làm của học sinh đã được xóa khỏi bản dùng thử.'); run(); } catch (e) { toast(e.message); }
       };
       const link = async (s, cell) => {
         try { const r = (await api(`/api/staff/sessions/${s.session_id}/result-link`, { method: 'POST', body: {} })).data; cell.replaceChildren(h('a', { class: 'btn btn2 small', href: '#/r/' + r.result_token }, 'Mở kết quả')); } catch (e) { toast(e.message); }
       };
-      out.replaceChildren(h('p', { class: 'muted small' }, `${data.students.length} kết quả${data.students.length >= 200 ? ' (tối đa 200 — thu hẹp từ khóa)' : ''}`),
+      out.replaceChildren(h('p', { class: 'muted small' }, `${data.students.length} kết quả${data.students.length >= 200 ? ' (tối đa 200, thu hẹp từ khóa)' : ''}`),
         data.students.length ? tbl(['Họ tên', 'Lớp', 'Trường', 'Ngày KT', 'Trạng thái', 'CEFR', ''], data.students.map((s) => {
           const cell = h('div', { class: 'row', style: 'justify-content:flex-end' });
           if (s.status === 'completed') cell.append(h('button', { class: 'btn-ghost small', onclick: () => link(s, cell) }, 'Link KQ'));
           cell.append(h('button', { class: 'btn-bad small', onclick: () => del(s) }, 'Xóa'));
-          return [h('b', {}, s.full_name), s.class_name || s.grade, h('span', { class: 'small' }, s.school_name), s.test_date, s.status === 'completed' ? h('span', { class: 'badge ok' }, 'Hoàn thành') : s.status ? h('span', { class: 'badge warn' }, 'Đang làm') : h('span', { class: 'badge gray' }, 'Chưa làm'), s.cefr_overall || '—', cell];
-        })) : emptyState('Không tìm thấy học sinh phù hợp.'));
+          return [h('b', {}, s.full_name), s.class_name || s.grade, h('span', { class: 'small' }, s.school_name), s.test_date, s.status === 'completed' ? h('span', { class: 'badge ok' }, 'Hoàn thành') : s.status ? h('span', { class: 'badge warn' }, 'Đang làm') : h('span', { class: 'badge gray' }, 'Chưa làm'), s.cefr_overall || 'Chưa có dữ liệu', cell];
+        })) : emptyState('Hệ thống chưa tìm thấy học sinh phù hợp với từ khóa, bạn hãy kiểm tra hoặc thử một từ khóa khác.'));
     } catch (e) { out.replaceChildren(h('span', { class: 'badge bad' }, e.message)); }
   };
   box.replaceChildren(h('div', { class: 'card' }, h('h2', {}, '🔎 Tìm học sinh toàn hệ thống'),
-    h('p', { class: 'small muted' }, 'Dùng khi phụ huynh/nhà trường yêu cầu tra cứu, cấp lại link kết quả hoặc xóa dữ liệu cá nhân.'),
+    h('p', { class: 'small muted' }, 'Bạn có thể dùng chức năng này để tra cứu học sinh, cấp lại đường dẫn kết quả hoặc xóa dữ liệu khi có yêu cầu từ phụ huynh hay nhà trường.'),
     h('div', { class: 'row' }, h('div', { style: 'flex:1 1 260px' }, q), h('button', { id: 'stu-search', onclick: run }, 'Tìm')), out));
   run();
 }
@@ -1250,5 +1257,5 @@ async function adminAudit(box) {
   const { data } = await api('/api/admin/audit');
   const ACT = { user_create: 'Tạo tài khoản', user_update: 'Sửa tài khoản', settings_update: 'Đổi cài đặt', student_delete: 'Xóa học sinh', campaign_delete: 'Xóa đợt', school_delete: 'Xóa trường', school_update: 'Đổi tên trường' };
   box.replaceChildren(h('div', { class: 'card' }, h('h2', {}, '📜 Nhật ký quản trị (200 gần nhất)'),
-    data.events.length ? tbl(['Thời gian', 'Người thực hiện', 'Hành động', 'Đối tượng', 'Chi tiết'], data.events.map((e) => [h('span', { class: 'small' }, fmtTime(e.at)), h('code', {}, e.actor), h('b', {}, ACT[e.action] || e.action), h('code', {}, e.target), h('span', { class: 'small muted break' }, e.detail ? JSON.stringify(e.detail) : '')])) : emptyState('Chưa có thao tác quản trị nào.')));
+    data.events.length ? tbl(['Thời gian', 'Người thực hiện', 'Hành động', 'Đối tượng', 'Chi tiết'], data.events.map((e) => [h('span', { class: 'small' }, fmtTime(e.at)), h('code', {}, e.actor), h('b', {}, ACT[e.action] || e.action), h('code', {}, e.target), h('span', { class: 'small muted break' }, e.detail ? JSON.stringify(e.detail) : '')])) : emptyState('Nhật ký hiện chưa ghi nhận thao tác quản trị nào trên bản dùng thử.')));
 }

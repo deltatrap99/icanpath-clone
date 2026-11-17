@@ -1,4 +1,4 @@
-# ICan Path — bản clone
+# ICan Path, bản clone
 
 Bản clone giao diện website https://icanpath.duckmind.ai/#/ và các luồng trong video tham chiếu. Giữ nguyên HTML tạo từ JavaScript, CSS, font Nunito, hình linh vật và các bố cục responsive từ website gốc. Phần dịch vụ được dựng độc lập bằng JavaScript chạy trên trình duyệt.
 
@@ -33,3 +33,7 @@ Dữ liệu mẫu và các thay đổi được lưu trong localStorage của tr
 Điểm trắc nghiệm dựa trên đáp án trong ngân hàng câu hỏi demo. Nhận xét Nói/Viết và phát âm chỉ minh họa, không gọi dịch vụ AI thật. Ghi âm được xử lý trên thiết bị. Link báo cáo cá nhân hoạt động trên trình duyệt đang lưu dữ liệu; báo cáo mẫu hoạt động ở mọi trình duyệt. Để đồng bộ nhiều thiết bị cần bổ sung backend, database và dịch vụ chấm bài thật.
 
 `src/app.js` giữ giao diện từ website gốc. `src/demo-core.js`, `src/demo-assessment.js`, `src/demo-staff.js` cung cấp lớp dịch vụ độc lập. `docs/research` lưu khảo sát/đặc tả; `docs/design-references` chứa ảnh đối chiếu và khung hình video. Build chỉ đưa `src/` vào `dist/`.
+
+## Quy tắc nội dung
+
+Nội dung hiển thị đã được biên tập thành câu đầy đủ, rõ ý, sử dụng dấu phẩy và từ nối để liệt kê thông tin. Các nguyên tắc được lưu trong AGENTS.md để những lần cập nhật sau tiếp tục áp dụng thống nhất. Khi mở báo cáo đã lưu, phần nhận xét sẽ được cập nhật theo cách viết mới, đồng thời giữ nguyên điểm số và dữ liệu bài làm.

@@ -34,3 +34,9 @@ Browser QA with CUA:
 The original backend and grading services are not exposed by the website. This clone uses independent demo data in the current browser, not the original service/database. New personal result links and locally created campaigns require that browser's stored data; seeded sample links are available on every fresh browser. Speaking/writing/pronunciation feedback is explicitly illustrative. Microphone UI and submitted recording metadata are implemented; physical microphone recording and OS print/PDF dialog were not exercised by the agent. Ward suggestions are sample sets for three cities; free text works for all provinces. Original staff-account credentials and original student records are absent from deployed source.
 
 Screenshots and video frames remain local under `docs/design-references/` (excluded from Git/source publication). Build/deployment packages include only application files and declared hosting metadata.
+
+## Content revision, 17 November 2026
+
+Applied the requested writing style throughout homepage, onboarding, assessment instructions, reports, lessons, staff/admin screens, policy copy, metadata and notifications. Removed em dashes and middle-dot separators from all first-party UI source, expanded explanatory fragments into complete connected sentences, and preserved concise action labels and valid English assessment content. Added repository AGENTS.md for future copy work.
+
+Browser checks at 1440px and 390px confirmed the revised home layout, and the report, lesson, school report, admin, policy and self-assessment pages had no prohibited punctuation or horizontal overflow. A focused legacy-report check confirmed that cached text updates while overall and per-skill numeric scores remain unchanged. Existing application integration checks and the final static build passed.
