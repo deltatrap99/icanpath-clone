@@ -33,12 +33,12 @@
 .identity-option2 .card.center > .peri-figure,.identity-option2 .center.muted > .peri-figure{width:120px;margin:7px auto 20px}
 @keyframes peri-arrive{from{opacity:0;transform:translate(12px,10px)}to{opacity:1;transform:translate(0,0)}}
 @media(max-width:1100px){
-  .identity-option2 .peri-hero-friend{width:190px;right:3px;bottom:115px}
+  .identity-option2 .peri-hero-friend{width:190px;right:12px;bottom:115px}
   .identity-option2 .peri-stage-art{width:66px;height:96px}.identity-option2 .peri-stage-art > .peri-figure{width:65px;height:95px}
   .identity-option2 .identity-stage-top{flex-wrap:nowrap}
 }
 @media(max-width:800px){
-  .identity-option2 .peri-hero-friend{width:155px;right:-5px;bottom:120px}
+  .identity-option2 .peri-hero-friend{width:155px;right:12px;bottom:120px}
   .identity-option2 .identity-hero-art figcaption{left:20px;right:12px;font-size:12px}.identity-option2 .identity-hero-art figcaption strong{font-size:16px}
   .identity-option2 .peri-stage-art{width:65px;height:93px}.identity-option2 .peri-stage-art > .peri-figure{width:63px;height:91px}
   .identity-option2 .identity-stages .identity-stage-top{flex-wrap:wrap;gap:8px}
