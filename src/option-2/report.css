@@ -1,0 +1,159 @@
+/* Learner reflection and Peri's connected learning journey, scoped to option 2. */
+.identity-option2 .report-card-intro{color:var(--muted);font-size:14px;line-height:1.8;margin:0 0 18px}
+.identity-option2 .reflection-section,.identity-option2 .learning-journey{scroll-margin-top:114px;margin:48px 0}
+.identity-option2 .report-section-heading{display:flex;align-items:center;gap:32px;margin:0 0 28px}
+.identity-option2 .report-section-heading > div{flex:1;min-width:0}
+.identity-option2 .report-section-heading h2{font-size:32px;line-height:1.25;margin:0 0 14px;color:var(--ink-strong)}
+.identity-option2 .report-section-heading p{max-width:780px;color:var(--muted);font-size:15px;line-height:1.85;margin:0}
+.identity-option2 .reflection-companion{width:90px;height:128px;margin-right:16px}
+.identity-option2 .reflection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.identity-option2 .reflection-card{border:1px solid #DCE7F5;border-radius:23px;background:white;padding:24px;box-shadow:0 5px 20px #17437808;min-width:0}
+.identity-option2 .reflection-card-heading{display:flex;align-items:center;gap:12px;margin:0 0 22px}
+.identity-option2 .reflection-skill-icon{display:grid;place-items:center;width:46px;height:46px;flex:none;background:#EAF2FF;border-radius:14px;color:var(--identity-ui)}
+.identity-option2 .reflection-S .reflection-skill-icon{background:#FFF0E7;color:#A54F3C}
+.identity-option2 .reflection-card h3{font-size:22px;line-height:1.25;margin:0;flex:1}
+.identity-option2 .reflection-tag{display:inline-flex;align-items:center;gap:5px;flex:none;font-size:10px;line-height:1.4;font-weight:800;border-radius:999px;padding:6px 9px;background:#EBF3FF;color:#16477E}
+.identity-option2 .reflection-tag-underestimate{color:#8C522D;background:#FFF2E2}
+.identity-option2 .reflection-tag-overestimate{color:#704D3C;background:#FFF4EB}
+.identity-option2 .reflection-tag-unknown{color:#4E627F;background:#F0F4F9}
+.identity-option2 .reflection-views{display:grid;grid-template-columns:minmax(0,1fr) 135px;border-radius:16px;border:1px solid #E1E9F4;background:#FBFDFF;overflow:hidden;margin-bottom:22px}
+.identity-option2 .reflection-self{padding:18px 20px}
+.identity-option2 .reflection-label{display:block;font-size:11px;font-weight:750;color:#637794;margin-bottom:9px;line-height:1.5}
+.identity-option2 .reflection-self strong{display:block;font-size:16px;line-height:1.5;color:#254471;min-height:24px}
+.identity-option2 .reflection-confidence{display:flex;gap:5px;max-width:128px;margin:13px 0 8px}
+.identity-option2 .reflection-confidence i{height:5px;border-radius:999px;flex:1;background:#E1E8F3}
+.identity-option2 .reflection-confidence i.filled{background:#3155D9}
+.identity-option2 .reflection-scale{display:block;font-size:10px;line-height:1.6;color:#63738B}
+.identity-option2 .reflection-result{padding:18px 15px;background:#EEF4FF;border-left:1px solid #DEE8F7;display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center}
+.identity-option2 .reflection-result .reflection-label{margin-bottom:6px}
+.identity-option2 .reflection-level{font-size:36px;line-height:1.2;letter-spacing:-.03em;font-weight:900;color:#0057A5;display:block;margin:0 0 6px}
+.identity-option2 .reflection-level.pending{font-size:17px;line-height:1.4;letter-spacing:0}
+.identity-option2 .reflection-feedback h4{font-size:16px;font-weight:850;color:#15396D;line-height:1.45;margin:0 0 8px}
+.identity-option2 .reflection-feedback p{font-size:13px;color:#5B6E89;line-height:1.85;margin:0}
+.identity-option2 .reflection-practice{display:flex;gap:10px;align-items:flex-start;border-top:1px solid #E4ECF7;margin:18px 0 0;padding:16px 0 0;color:#3155D9}
+.identity-option2 .reflection-practice > svg{margin-top:3px}
+.identity-option2 .reflection-practice p{font-size:13px;line-height:1.8;color:#3C597D;margin:0}
+.identity-option2 .reflection-note{display:flex;align-items:center;gap:12px;padding:18px 22px;margin-top:20px;border-radius:17px;background:#FFF9F0;color:#A66035;border:1px solid #F2E7D7}
+.identity-option2 .reflection-note p{font-size:13px;line-height:1.8;color:#6F604E;margin:0}
+
+.identity-option2 .learning-journey{position:relative;background:#F3F8FF;border:1px solid #DFEAF8;border-radius:30px;overflow:hidden;isolation:isolate}
+.identity-option2 .journey-heading{display:flex;align-items:center;gap:30px;padding:38px 42px 30px;background:#EAF3FF}
+.identity-option2 .journey-heading-peri{width:113px;height:145px;margin:0 8px;flex:none;filter:drop-shadow(0 9px 10px #1A4D7E12)}
+.identity-option2 .journey-heading > div{min-width:0;max-width:820px}
+.identity-option2 .journey-heading h2{font-size:34px;line-height:1.25;margin:0 0 14px}
+.identity-option2 .journey-heading p{font-size:14px;line-height:1.85;color:#516D91;margin:0 0 14px;max-width:760px}
+.identity-option2 .journey-focus{display:inline-flex;gap:7px;align-items:center;border-radius:999px;padding:6px 12px;background:white;border:1px solid #CADFFB;color:#0057A5;font-size:11px;font-weight:800}
+.identity-option2 .journey-progress-panel{display:grid;grid-template-columns:minmax(0,1fr) 170px auto;align-items:center;gap:25px;margin:28px 34px 4px;background:white;border:1px solid #DFE8F5;border-radius:19px;padding:20px 22px}
+.identity-option2 .journey-progress-copy strong{font-size:14px;color:#193F76;line-height:1.55;display:block}
+.identity-option2 .journey-progress-copy p{font-size:11px;line-height:1.7;color:#637794;margin:5px 0 0}
+.identity-option2 .journey-progress-track{height:8px;background:#E5ECF7;border-radius:999px;overflow:hidden}
+.identity-option2 .journey-progress-track > span{display:block;height:100%;background:#3155D9;border-radius:999px;transition:width .3s ease}
+.identity-option2 .journey-start{min-height:46px;font-size:12px;padding:12px 17px;gap:10px}
+.identity-option2 .journey-route{list-style:none;padding:28px 38px 20px;margin:0;position:relative}
+.identity-option2 .journey-stage{display:grid;grid-template-columns:minmax(0,1fr) 152px minmax(0,1fr);align-items:center;position:relative;min-height:264px;padding:16px 0;isolation:isolate}
+.identity-option2 .journey-road-wrap{position:absolute;left:calc(50% - 76px);top:0;bottom:0;width:152px;pointer-events:none;z-index:-1}
+.identity-option2 .journey-road{width:100%;height:100%;display:block;overflow:visible}
+.identity-option2 .journey-road-narrow{display:none}
+.identity-option2 .journey-road path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.identity-option2 .journey-road-bed{stroke:white;stroke-width:18}
+.identity-option2 .journey-road-line{stroke:#AFC9EF;stroke-width:3;stroke-dasharray:4 9}
+.identity-option2 .journey-stage.completed .journey-road-line,.identity-option2 .journey-stage.current .journey-road-line{stroke:#5B86E9}
+.identity-option2 .journey-marker{position:relative;grid-column:2;grid-row:1;justify-self:center;width:112px;height:44px;display:grid;place-items:center;transform:translateX(-24px)}
+.identity-option2 .journey-stage:nth-child(even) .journey-marker{transform:translateX(24px)}
+.identity-option2 .journey-marker > .peri-figure{position:absolute;bottom:43px;left:calc(50% - 40px);width:80px;height:114px}
+.identity-option2 .journey-milestone{display:grid;place-items:center;width:44px;height:44px;border:2px solid #8CADDE;border-radius:50%;background:white;color:#3155D9;font-size:16px;line-height:1;font-weight:900;box-shadow:0 0 0 6px #F3F8FF}
+.identity-option2 .journey-stage.current .journey-milestone{color:white;background:#3155D9;border-color:#3155D9;box-shadow:0 0 0 7px #DFEAFE,0 4px 10px #3155D91A}
+.identity-option2 .journey-stage.completed .journey-milestone{background:#DFEDFF;border-color:#B8D1F3;color:#0057A5}
+.identity-option2 .journey-here{position:absolute;top:56px;left:calc(50% - 58px);width:116px;border-radius:999px;background:#FFF2DF;color:#80552F;padding:5px 7px;text-align:center;font-size:9px;font-weight:850;line-height:1.5;white-space:nowrap}
+.identity-option2 .journey-stop{position:relative;grid-column:1;grid-row:1;min-width:0;background:white;border:1px solid #D9E5F5;border-radius:22px;padding:22px 24px;box-shadow:0 6px 18px #17437806}
+.identity-option2 .journey-stage:nth-child(even) .journey-stop{grid-column:3}
+.identity-option2 .journey-stage.current .journey-stop{border:2px solid #88AFF4;padding:21px 23px;background:#FCFDFF}
+.identity-option2 .journey-stop-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#617B9D;font-size:10px;font-weight:850;margin:0 0 12px}
+.identity-option2 .journey-level{padding:3px 9px;border-radius:999px;border:1px solid #DCE8F8;background:#F3F7FF;color:#315B98}
+.identity-option2 .journey-story{font-size:11px;color:#0057A5;font-weight:800;line-height:1.6;margin:0 0 7px}
+.identity-option2 .journey-stop h3{font-size:22px;line-height:1.3;letter-spacing:-.02em;color:#12346E;margin:0 0 13px}
+.identity-option2 .journey-skill-goal{font-size:13px;line-height:1.8;color:#5A7090;margin:0 0 16px}
+.identity-option2 .journey-encouragement{font-size:12px;line-height:1.8;color:#7B5B37;background:#FFF8EC;border-radius:12px;padding:10px 12px;margin:0 0 18px;display:flex;gap:8px;align-items:flex-start}
+.identity-option2 .journey-encouragement svg{margin-top:2px;color:#BD7745}
+.identity-option2 .journey-lesson-link{font-size:12px;min-height:44px;padding:11px 16px;gap:10px}
+.identity-option2 .journey-done-label{display:flex;align-items:center;gap:5px;font-size:10px;color:#42668E;margin-top:12px}
+.identity-option2 .journey-destination{display:flex;gap:24px;align-items:center;padding:18px 40px 34px;background:url(/option-2/assets/horizon-waves.svg) center bottom / 100% 150px no-repeat}
+.identity-option2 .journey-destination > img{width:104px;height:104px;flex:none;object-fit:contain}
+.identity-option2 .journey-destination h3{font-size:22px;line-height:1.35;margin:0 0 10px}
+.identity-option2 .journey-destination p{font-size:13px;line-height:1.85;color:#587291;margin:0;max-width:730px}
+.identity-option2 .journey-lesson-finish{display:flex;align-items:center;gap:30px;border:1px solid #E6DBCA;background:#FFF9F0;border-radius:24px;padding:32px 36px;margin:30px 0 0}
+.identity-option2 .journey-lesson-finish > .peri-figure{width:102px;height:145px;flex:none}
+.identity-option2 .journey-lesson-finish h2{font-size:27px;line-height:1.3;margin:0 0 13px}
+.identity-option2 .journey-lesson-finish p{font-size:14px;color:#6B665D;line-height:1.8;margin:0 0 20px}
+.identity-option2 .journey-lesson-finish .btn,.identity-option2 .journey-lesson-finish button{font-size:13px;min-height:46px}
+
+@media(max-width:1100px){
+  .identity-option2 .reflection-card{padding:21px}.identity-option2 .reflection-tag{font-size:10px;padding:6px 7px;gap:4px}
+  .identity-option2 .reflection-views{grid-template-columns:minmax(0,1fr) 112px}.identity-option2 .reflection-self{padding:16px}.identity-option2 .reflection-result{padding:16px 10px}
+  .identity-option2 .journey-heading{padding:32px;gap:25px}.identity-option2 .journey-heading h2{font-size:31px}
+  .identity-option2 .journey-progress-panel{grid-template-columns:minmax(0,1fr) auto;gap:16px;margin:24px 28px 0}.identity-option2 .journey-progress-track{grid-column:1;grid-row:2}.identity-option2 .journey-start{grid-column:2;grid-row:1/3}
+  .identity-option2 .journey-route{padding:22px 28px 16px}.identity-option2 .journey-stop{padding:21px}.identity-option2 .journey-stage.current .journey-stop{padding:20px}
+  .identity-option2 .journey-stop h3{font-size:20px}
+}
+@media(max-width:900px){
+  .identity-option2 .journey-stage{grid-template-columns:104px minmax(0,1fr);min-height:238px}
+  .identity-option2 .journey-road-wrap{left:0;width:104px}.identity-option2 .journey-road-wide{display:none}.identity-option2 .journey-road-narrow{display:block}
+  .identity-option2 .journey-marker,.identity-option2 .journey-stage:nth-child(even) .journey-marker{grid-column:1;transform:none}
+  .identity-option2 .journey-stop,.identity-option2 .journey-stage:nth-child(even) .journey-stop{grid-column:2}
+  .identity-option2 .journey-marker > .peri-figure{width:69px;height:100px;left:calc(50% - 34.5px)}
+  .identity-option2 .journey-here{font-size:10px;width:100px;left:calc(50% - 50px)}
+}
+@media(max-width:768px){
+  .identity-option2 .report-section-heading{gap:20px}.identity-option2 .report-section-heading h2{font-size:28px}.identity-option2 .report-section-heading p{font-size:14px}
+  .identity-option2 .reflection-companion{width:75px;height:106px;margin:0}.identity-option2 .reflection-grid{gap:14px}.identity-option2 .reflection-card{padding:18px}
+  .identity-option2 .reflection-card-heading{gap:9px;flex-wrap:wrap}.identity-option2 .reflection-card h3{font-size:21px}.identity-option2 .reflection-tag{margin-left:auto;font-size:10px}
+  .identity-option2 .reflection-views{grid-template-columns:1fr}.identity-option2 .reflection-result{border:0;border-top:1px solid #DEE8F7;flex-direction:row;align-items:center;justify-content:space-between;gap:10px;padding:12px 15px;text-align:left}
+  .identity-option2 .reflection-result .reflection-label{margin:0;font-size:10px}.identity-option2 .reflection-result .reflection-scale{max-width:75px;font-size:9px}.identity-option2 .reflection-level{font-size:27px;margin:0}.identity-option2 .reflection-level.pending{font-size:13px}
+  .identity-option2 .reflection-feedback h4{font-size:15px}.identity-option2 .reflection-feedback p,.identity-option2 .reflection-practice p{font-size:12px}
+  .identity-option2 .journey-heading{padding:27px 26px;gap:20px}.identity-option2 .journey-heading-peri{width:85px;height:113px;margin:0}.identity-option2 .journey-heading h2{font-size:28px}.identity-option2 .journey-heading p{font-size:13px}
+  .identity-option2 .journey-destination{padding:14px 28px 30px;gap:16px}.identity-option2 .journey-destination h3{font-size:20px}
+  .identity-option2 .journey-lesson-finish{padding:28px;gap:23px}.identity-option2 .journey-lesson-finish h2{font-size:24px}
+}
+@media(max-width:600px){
+  .identity-option2 .reflection-section,.identity-option2 .learning-journey{margin:35px 0;scroll-margin-top:92px}
+  .identity-option2 .report-section-heading{display:block;position:relative;margin-bottom:23px}
+  .identity-option2 .report-section-heading .identity-kicker{padding-right:75px;font-size:8px;letter-spacing:1px}
+  .identity-option2 .report-section-heading h2{font-size:27px;line-height:1.3;margin-bottom:14px;padding-right:68px}
+  .identity-option2 .report-section-heading p{font-size:13px;line-height:1.85}
+  .identity-option2 .reflection-companion{position:absolute;right:1px;top:9px;width:60px;height:87px}
+  .identity-option2 .reflection-grid{grid-template-columns:1fr;gap:16px}.identity-option2 .reflection-card{padding:20px;border-radius:20px}
+  .identity-option2 .reflection-card-heading{margin-bottom:19px;gap:10px;flex-wrap:nowrap}.identity-option2 .reflection-tag{font-size:10px;padding:6px 8px;gap:4px}.identity-option2 .reflection-tag svg{width:13px;height:13px}
+  .identity-option2 .reflection-skill-icon{width:40px;height:40px;border-radius:12px}.identity-option2 .reflection-skill-icon svg{width:24px;height:24px}.identity-option2 .reflection-card h3{font-size:20px}
+  .identity-option2 .reflection-views{grid-template-columns:minmax(0,1fr) 102px;margin-bottom:19px}.identity-option2 .reflection-self{padding:15px 14px}.identity-option2 .reflection-self strong{font-size:14px;line-height:1.5}
+  .identity-option2 .reflection-label{font-size:10px;margin-bottom:7px}.identity-option2 .reflection-scale{font-size:9px;line-height:1.65}
+  .identity-option2 .reflection-result{border:0;border-left:1px solid #DEE8F7;flex-direction:column;justify-content:center;text-align:center;gap:0;padding:15px 9px}.identity-option2 .reflection-result .reflection-label{margin-bottom:5px;font-size:9px}.identity-option2 .reflection-result .reflection-scale{max-width:none;font-size:9px}.identity-option2 .reflection-level{font-size:31px;margin-bottom:6px}.identity-option2 .reflection-level.pending{font-size:15px;line-height:1.4}
+  .identity-option2 .reflection-feedback h4{font-size:15px}.identity-option2 .reflection-feedback p,.identity-option2 .reflection-practice p{font-size:12px;line-height:1.85}
+  .identity-option2 .reflection-note{padding:15px 17px;gap:10px;align-items:flex-start;border-radius:15px}.identity-option2 .reflection-note svg{margin-top:3px}.identity-option2 .reflection-note p{font-size:12px;line-height:1.85}
+  .identity-option2 .learning-journey{border-radius:23px;margin-left:-5px;margin-right:-5px}
+  .identity-option2 .journey-heading{display:block;position:relative;padding:25px 21px 23px}
+  .identity-option2 .journey-heading-peri{position:absolute;right:13px;top:22px;width:70px;height:86px}
+  .identity-option2 .journey-heading .identity-kicker{font-size:8px;letter-spacing:1px;padding-right:70px}.identity-option2 .journey-heading h2{font-size:27px;padding-right:65px;margin-bottom:18px;line-height:1.3}.identity-option2 .journey-heading p{font-size:13px;line-height:1.85;margin-bottom:15px}.identity-option2 .journey-focus{font-size:10px;padding:6px 10px}
+  .identity-option2 .journey-progress-panel{display:flex;flex-direction:column;align-items:stretch;margin:20px 16px 7px;padding:18px;border-radius:16px;gap:13px}.identity-option2 .journey-progress-copy strong{font-size:13px;line-height:1.65}.identity-option2 .journey-progress-copy p{font-size:10px;line-height:1.8}.identity-option2 .journey-progress-track{height:6px}.identity-option2 .journey-start{font-size:12px;min-height:45px;padding:11px 14px;justify-content:space-between}
+  .identity-option2 .journey-route{padding:15px 15px 13px 4px}.identity-option2 .journey-stage{grid-template-columns:77px minmax(0,1fr);min-height:250px;padding:14px 0}
+  .identity-option2 .journey-road-wrap{left:0;width:77px}.identity-option2 .journey-marker{width:77px;height:37px}
+  .identity-option2 .journey-marker > .peri-figure{width:55px;height:79px;left:calc(50% - 27.5px);bottom:38px}
+  .identity-option2 .journey-milestone{width:37px;height:37px;font-size:13px;border-width:1.5px;box-shadow:0 0 0 5px #F3F8FF}.identity-option2 .journey-milestone svg{width:20px;height:20px}
+  .identity-option2 .journey-here{font-size:9px;width:76px;left:calc(50% - 38px);top:47px;padding:4px 3px;white-space:normal}
+  .identity-option2 .journey-stop{padding:18px 16px;border-radius:18px}.identity-option2 .journey-stage.current .journey-stop{padding:17px 15px}
+  .identity-option2 .journey-stop-meta{font-size:9px;margin-bottom:11px;gap:7px}.identity-option2 .journey-level{padding:3px 7px}.identity-option2 .journey-story{font-size:10px;margin-bottom:6px;line-height:1.7}
+  .identity-option2 .journey-stop h3{font-size:19px;line-height:1.35;margin-bottom:11px}.identity-option2 .journey-skill-goal{font-size:12px;line-height:1.85;margin-bottom:16px}.identity-option2 .journey-encouragement{font-size:11px;line-height:1.8;padding:10px;gap:7px;margin-bottom:15px}.identity-option2 .journey-encouragement svg{width:15px;height:15px}
+  .identity-option2 .journey-lesson-link{font-size:11px;min-height:44px;padding:10px 12px;gap:6px;width:100%;justify-content:space-between}.identity-option2 .journey-lesson-link svg{width:16px;height:16px}.identity-option2 .journey-done-label{font-size:9px;line-height:1.6;align-items:flex-start}
+  .identity-option2 .journey-destination{gap:8px;align-items:flex-start;padding:15px 17px 28px}.identity-option2 .journey-destination > img{width:64px;height:80px}.identity-option2 .journey-destination h3{font-size:18px;line-height:1.4;margin-bottom:9px}.identity-option2 .journey-destination p{font-size:12px;line-height:1.85}
+  .identity-option2 .journey-lesson-finish{display:block;position:relative;padding:24px 20px;border-radius:20px}.identity-option2 .journey-lesson-finish > .peri-figure{position:absolute;right:14px;top:24px;width:65px;height:94px}.identity-option2 .journey-lesson-finish .identity-kicker{font-size:8px;letter-spacing:.9px;padding-right:73px}.identity-option2 .journey-lesson-finish h2{font-size:23px;line-height:1.35;padding-right:64px;margin-bottom:17px}.identity-option2 .journey-lesson-finish p{font-size:13px;line-height:1.85}.identity-option2 .journey-lesson-finish .row{flex-direction:column;align-items:stretch}.identity-option2 .journey-lesson-finish .btn,.identity-option2 .journey-lesson-finish button{width:100%;font-size:12px;min-height:47px}
+}
+@media(max-width:350px){
+  .identity-option2 .reflection-card{padding:17px}.identity-option2 .reflection-card-heading{gap:8px}.identity-option2 .reflection-tag{font-size:10px;padding:5px 6px}.identity-option2 .reflection-skill-icon{width:36px;height:36px}.identity-option2 .reflection-card h3{font-size:19px}
+  .identity-option2 .reflection-views{grid-template-columns:minmax(0,1fr) 91px}.identity-option2 .reflection-self{padding:14px 12px}.identity-option2 .reflection-self strong{font-size:13px}
+  .identity-option2 .journey-heading{padding:22px 18px}.identity-option2 .journey-heading h2{font-size:25px}.identity-option2 .journey-heading-peri{width:60px;height:76px;right:12px}
+  .identity-option2 .journey-route{padding-right:12px}.identity-option2 .journey-stage{grid-template-columns:65px minmax(0,1fr)}.identity-option2 .journey-road-wrap,.identity-option2 .journey-marker{width:65px}.identity-option2 .journey-marker > .peri-figure{width:49px;height:73px;left:calc(50% - 24.5px)}.identity-option2 .journey-here{width:65px;left:calc(50% - 32.5px);font-size:9px}
+  .identity-option2 .journey-stop{padding:17px 14px}.identity-option2 .journey-stage.current .journey-stop{padding:16px 13px}.identity-option2 .journey-stop h3{font-size:18px}.identity-option2 .journey-lesson-link{font-size:10px;padding:10px}.identity-option2 .journey-encouragement{display:block}.identity-option2 .journey-encouragement svg{margin:0 4px 2px 0}
+}
+@media(prefers-reduced-motion:reduce){.identity-option2 .journey-progress-track > span{transition:none}}
+@media print{
+  .identity-option2 .reflection-section,.identity-option2 .learning-journey{margin:20px 0;break-before:auto}.identity-option2 .reflection-card,.identity-option2 .journey-stage{break-inside:avoid;box-shadow:none}.identity-option2 .journey-start,.identity-option2 .journey-lesson-link,.identity-option2 .journey-lesson-finish .row{display:none}.identity-option2 .learning-journey{overflow:visible}.identity-option2 .journey-route{padding:10px 20px}.identity-option2 .reflection-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}

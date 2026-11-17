@@ -87,7 +87,7 @@ function router() {
   const q = new URLSearchParams(qs || '');
   setBand(null);
   const routes = {
-    '': () => home(), join: () => joinPage(parts[1]), test: () => testPage(), r: () => resultPage(parts[1]),
+    '': () => home(), join: () => joinPage(parts[1]), test: () => testPage(), r: () => resultPage(parts[1], q),
     learn: () => learnPage(parts[1], q), school: () => schoolPage(parts[1]), staff: () => staffPage(parts[1], parts[2]),
     'dieu-khoan': () => legalPage('dieu-khoan'), 'chinh-sach-du-lieu': () => legalPage('chinh-sach-du-lieu'),
   };
@@ -826,7 +826,7 @@ const statTile = (label, value, c, sub) => h('div', { class: 'stat', style: `--c
 function notFound(title, text) { return h('div', { class: 'card center', style: 'max-width:520px;margin:30px auto' }, fox('study'), h('h2', {}, title), h('p', {}, text), h('a', { class: 'btn', href: '#/' }, 'Trang chủ')); }
 
 // ---------------- results ----------------
-async function resultPage(token) {
+async function resultPage(token, query = new URLSearchParams()) {
   if (!token) return home();
   mount(loading());
   let r;
@@ -843,7 +843,8 @@ async function resultPage(token) {
   // SPEC 14: this page is the parent share link -> no "Độ tin cậy của kết quả" block; the level only drives neutral labels (staff pages show confidence)
   const conf = r.confidence || { level: null };
   const low = conf.level === 'low';
-  const stepsCard = h('div', { class: 'card', style: '--c:var(--blue)', id: 'next-steps' }, h('h2', {}, '🚀 Mục tiêu tiếp theo'),
+  const stepsCard = h('div', { class: 'card', style: '--c:var(--blue)', id: 'next-steps' }, h('h2', {}, IDENTITY ? 'Bước nhỏ hôm nay, thêm tự tin ngày mai' : '🚀 Mục tiêu tiếp theo'),
+    IDENTITY ? h('p', { class: 'report-card-intro' }, 'Em không cần làm tất cả cùng lúc, hãy chọn một việc vừa sức và dành cho nó một chút thời gian mỗi ngày.') : null,
     h('ul', { class: 'list' }, (r.next_steps || []).map((x) => h('li', {}, x.text_vi))));
   const ability = (a) => h('li', { class: 'ability ' + a.status }, h('b', {}, `${SK[a.skill].icon} ${SK[a.skill].vi}: `), h('span', { class: a.status === 'insufficient' ? 'muted' : '' }, a.text_vi));
   const listOrNote = (xs) => xs.length ? h('ul', { class: 'list' }, xs.map((s) => h('li', {}, h('b', {}, s.label_vi), h('span', { class: 'muted small' }, `, ${s.evidence_vi}`)))) : h('p', { class: 'muted small' }, 'Hệ thống hiện chưa có đủ dữ liệu để đưa ra nhận xét cho phần này.');
@@ -876,23 +877,25 @@ async function resultPage(token) {
         h('p', { class: 'small muted' }, `Trình độ từ vựng và ngữ pháp trong phần khởi động: ${(r.use_of_english && r.use_of_english.cefr) || 'Chưa có dữ liệu'}`)),
       h('div', { class: 'card center' }, h('h2', {}, 'Cân bằng kỹ năng'), radar(sk))),
     h('div', { class: 'grid g2' },
-      h('div', { class: 'card', style: '--c:var(--green)', id: 'abilities' }, h('h2', {}, '✅ Em đã làm được'), h('ul', { class: 'list' }, (r.abilities || []).map(ability))),
+      h('div', { class: 'card', style: '--c:var(--green)', id: 'abilities' }, h('h2', {}, IDENTITY ? 'Những điều em đã làm được' : '✅ Em đã làm được'),
+        IDENTITY ? h('p', { class: 'report-card-intro' }, 'Mỗi kỹ năng có một điểm khởi đầu riêng. Em hãy ghi nhận những điều dưới đây và cho mình cơ hội thử thêm một chút ở lần luyện tập tiếp theo.') : null,
+        h('ul', { class: 'list' }, (r.abilities || []).map(ability))),
       stepsCard),
     h('div', { class: 'grid g2', style: 'margin-top:16px' },
-      h('div', { class: 'card pill-s' }, h('h2', {}, '🌟 Điểm mạnh'), hedge(), listOrNote(r.strengths)),
-      h('div', { class: 'card pill-w' }, h('h2', {}, '🎯 Năng lực cần cải thiện'), hedge(), listOrNote(r.improvements))),
-    h('div', { class: 'card', id: 'self-vs-actual' }, h('h2', {}, 'Em tự đánh giá vs. kết quả thực tế'),
+      h('div', { class: 'card pill-s' }, h('h2', {}, IDENTITY ? 'Điểm mạnh để em tự tin hơn' : '🌟 Điểm mạnh'), hedge(), listOrNote(r.strengths)),
+      h('div', { class: 'card pill-w' }, h('h2', {}, IDENTITY ? 'Cơ hội để em tiến bộ từng ngày' : '🎯 Năng lực cần cải thiện'), hedge(), listOrNote(r.improvements))),
+    IDENTITY?.reflection ? IDENTITY.reflection.render(h, r) : h('div', { class: 'card', id: 'self-vs-actual' }, h('h2', {}, 'Em tự đánh giá vs. kết quả thực tế'),
       low ? h('p', { class: 'small muted', style: 'margin:-.3em 0 .6em' }, 'Phần so sánh này chỉ mang tính tham khảo, em cần hoàn thành thêm bài luyện để xác nhận mức độ phù hợp với kết quả.') : null,
       tbl(['Kỹ năng', 'Em tự đánh giá', 'Kết quả', 'Nhận xét'], r.self_vs_actual.map((x) => [h('b', {}, `${SK[x.skill].icon} ${x.skill_vi}`), x.self_level ? `${'⭐'.repeat(x.self_level)} ${x.self_label_vi || ''}` : 'Chưa có dữ liệu', h('b', {}, x.actual_cefr || 'Chưa có dữ liệu'), h('span', {}, verdictBadge(x.verdict), ' ', h('span', { class: 'small muted' }, x.verdict_vi))]))),
-    path && path.units.length ? h('div', { class: 'card' }, h('h2', { class: 'center' }, path.purpose === 'confirm' ? `🗺 Lộ trình gợi ý, luyện tập để xác nhận năng lực, tập trung ${path.focus_skill_vi}` : `🗺 Lộ trình học gợi ý, tập trung ${path.focus_skill_vi}`),
+    path && path.units.length ? IDENTITY?.journey ? IDENTITY.journey.render(h, path, token) : h('div', { class: 'card' }, h('h2', { class: 'center' }, path.purpose === 'confirm' ? `🗺 Lộ trình gợi ý, luyện tập để xác nhận năng lực, tập trung ${path.focus_skill_vi}` : `🗺 Lộ trình học gợi ý, tập trung ${path.focus_skill_vi}`),
       h('p', { class: 'center muted small' }, 'Em hãy chọn từng chặng trong lộ trình để học từ vựng, ôn ngữ pháp và luyện nói theo nội dung gợi ý.'),
       stagePath(path.units.map((u, i) => ({ href: `#/learn/${u.unit}`, icon: i === 0 ? '⭐' : String(u.step), c: i === 0 ? 'var(--green)' : 'var(--blue)', cd: i === 0 ? 'var(--green-d)' : 'var(--blue-d)', aria: `Bước ${u.step}: ${u.title}`,
         title: `Bước ${u.step}: ${u.title}`, sub: `${u.level}, ${u.unit}, ${u.cefr}`, extra: h('span', { class: 'small' }, u.focus_vi) })))) : null,
     feedbackCard(r),
     (r.products || []).length ? h('div', { class: 'card' }, h('h2', {}, 'Sản phẩm phù hợp trên ICAN'), h('div', { class: 'grid g3' }, r.products.map((p) => h('div', { class: 'card tint-blue', style: 'margin:0' }, h('b', {}, p.name), h('p', { class: 'small muted', style: 'margin:.3em 0 0' }, p.reason))))) : null,
     share,
-    h('p', { class: 'small muted' }, r.overall.note_vi),
   );
+  if (IDENTITY && query.get('focus') === 'journey') requestAnimationFrame(() => document.getElementById('learning-journey')?.scrollIntoView({ block: 'start' }));
 }
 function feedbackCard(r) {
   const fb = r.feedback || { writing: [], speaking: [] };
@@ -910,11 +913,15 @@ function feedbackCard(r) {
 }
 
 // ---------------- learn + practice ----------------
-async function learnPage(code) {
+async function learnPage(code, query = new URLSearchParams()) {
   mount(loading());
   let u;
   try { u = (await api('/api/units/' + encodeURIComponent(code || ''))).data.unit; } catch (e) { return mount(notFound('Không mở được bài học', e.message)); }
-  const tok = sessionStorage.getItem('ip_result_tok') || localStorage.getItem(LS.result);
+  const tok = IDENTITY && query.get('result') || sessionStorage.getItem('ip_result_tok') || localStorage.getItem(LS.result);
+  let learningPath;
+  if (IDENTITY?.journey && tok) {
+    try { learningPath = (await api('/api/results', { headers: { 'x-result-token': tok } })).data.result.learning_path; } catch { /* Existing lesson remains available when its originating report cannot be read. */ }
+  }
   const L = u.lesson || {};
   const practiceRow = (sentence) => {
     const out = h('div', { class: 'small', style: 'margin-top:8px' });
@@ -956,6 +963,7 @@ async function learnPage(code) {
       IDENTITY?.activityGuide(h, 'learn'),
       h('p', { class: 'small muted' }, tok ? 'Em hãy nghe câu mẫu, chọn Ghi âm rồi đọc lại câu và chọn Dừng khi hoàn tất. Điểm phát âm trong bản dùng thử chỉ mang tính minh họa.' : 'Em hãy mở bài học từ trang báo cáo kết quả của mình để sử dụng tính năng luyện phát âm.'),
       (L.speaking_practice || []).map(practiceRow)),
+    IDENTITY?.journey.lessonFooter(h, { token: tok, unit: u, path: learningPath, toast }),
   );
 }
 

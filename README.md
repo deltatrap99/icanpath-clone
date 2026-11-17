@@ -24,6 +24,8 @@ Phương án đầu tiên vẫn ở `/`. Hai phương án dùng chung dịch v�
 
 Nhân vật Peri dùng năm tư thế gốc từ bộ hình được cung cấp, xuất hiện ở trang chủ, khai báo thông tin, năm chặng đánh giá, phần luyện nói và báo cáo. `src/option-2/peri.js` chọn tư thế theo hoạt động, còn `peri.css` bố trí nhân vật trên desktop và điện thoại. Các ảnh PNG gốc trong `src/option-2/assets/peri/` được giữ nguyên, không cần tải từ Drive khi chạy website.
 
+Báo cáo option 2 có bốn thẻ nhìn lại kỹ năng cùng nhận xét khích lệ và gợi ý luyện tập. Hành trình Peri nối các bài học thành từng chặng, cho phép học sinh tự đánh dấu hoàn thành ở cuối bài học và quay lại đúng vị trí trên lộ trình. Tiến độ được lưu riêng theo báo cáo, độc lập với điểm kiểm tra. Các module `reflection.js`, `journey.js` và `journey-state.js` phụ trách giao diện và tiến độ này.
+
 ## Dùng thử
 
 | Luồng | Đường dẫn / tài khoản |

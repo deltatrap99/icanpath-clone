@@ -17,7 +17,7 @@
     S: { pose: 'wink', icon: 'chat', text: 'Peri tin rằng em làm được. Em hãy nói chậm, rõ và diễn đạt theo cách của mình.' },
     W: { pose: 'think', icon: 'pen', text: 'Em hãy sắp xếp ý trước khi viết, rồi dành chút thời gian đọc lại bài của mình cùng Peri.' },
     learn: { pose: 'fly', text: 'Mỗi lần luyện tập giúp em tiến thêm một bước. Em hãy nghe câu mẫu rồi thử đọc lại thật rõ cùng Peri.' },
-    result: { pose: 'jump', text: 'Em đã có thêm một bước để hiểu mình hơn. Peri sẽ cùng em chọn những nội dung cần luyện tiếp theo.' },
+    result: { pose: 'jump', text: 'Mỗi lần em thử sức đều có giá trị. Cùng Peri nhìn lại những điều mình đã làm được, rồi chọn một bước vừa sức để tiếp tục khám phá nhé.' },
   };
   function figure(h, name = 'wave', options = {}) {
     const key = poses[name] ? name : aliases[name] || 'wave';

@@ -24,6 +24,14 @@ Peri là người bạn đồng hành trong các hoạt động. Bộ hình gố
 
 Lời nhắn của Peri cần khích lệ quá trình học, không tiết lộ đáp án và không đưa ra nhận định năng lực khi chưa có dữ liệu. Chuyển động giới thiệu ngắn được tắt khi thiết bị chọn giảm chuyển động.
 
+## Báo cáo và hành trình học
+
+Phần nhìn lại bốn kỹ năng dùng các thẻ riêng, với hai góc nhìn được trình bày rõ ràng: mức tự đánh giá của học sinh và mức tham chiếu CEFR của bài làm. Hai thang này không được vẽ trên cùng một trục hoặc quy đổi thành phần trăm tương đương. Nhận xét cần khích lệ, đồng thời đưa ra một hành động luyện tập cụ thể. Khi thiếu bài làm hoặc dữ liệu chưa đủ rõ, giao diện cần giải thích rằng nên tìm hiểu thêm, không tự tạo kết quả hay khen một năng lực chưa được ghi nhận.
+
+Lộ trình là một con đường nối các chặng, với Peri ở vị trí tiếp theo chưa được học sinh đánh dấu hoàn thành. Mỗi chặng có chủ đề, mục tiêu và đường dẫn tới bài học. Học sinh có thể chọn bất kỳ chặng nào và tự đánh dấu sau khi đã học, tiến độ này được lưu riêng cho từng báo cáo trong khóa `ip_journey_v1:<token>`, không sửa điểm đánh giá. Peri chuyển sang chặng tiếp theo sau khi học sinh hoàn thành thao tác này. Trên điện thoại, con đường thu gọn về một bên để giữ phần nội dung dễ đọc.
+
+Theo yêu cầu biên tập, đoạn dài bắt đầu bằng “BẢN DEMO” đã được bỏ khỏi trang báo cáo cá nhân. Dữ liệu kết quả, cách tính điểm và thông tin tham chiếu hiện có được giữ nguyên.
+
 ## Màu sắc
 
 | Vai trò | Màu | Cách sử dụng |
