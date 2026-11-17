@@ -8,6 +8,12 @@ Logo chính là `src/option-2/assets/icanpath-logo.svg`, gồm biểu tượng c
 
 Biểu tượng ứng dụng nằm trong `path-mark.svg`. Hình 3D `open-horizon.png` được tạo mới từ tham chiếu để dùng ở trang chủ, không phải ảnh chụp của bảng nhận diện. Dải sóng `horizon-waves.svg` tạo chiều sâu nhẹ cho màn hình đánh giá.
 
+## Thông tin thương hiệu ở chân trang
+
+Chân trang phương án 2 nêu rõ ICANPath là một sản phẩm thuộc hệ sinh thái ICAN, đi kèm thông điệp thương hiệu do người dùng cung cấp. `src/option-2/assets/ican-logo.png` là ảnh gốc được lấy từ [website ICAN](https://www.ican.vn/), tại [đường dẫn ảnh nhận diện](https://s3.icankid.io/media/web/ican-v2/ican_logo.png). `galaxy-education-logo.png` giữ nguyên file `Logo-11.png` do người dùng gửi, kèm tên “Công ty Cổ phần Galaxy Education”. Các logo được hiển thị đúng tỷ lệ và không đổi màu, vẽ lại hay thêm hiệu ứng.
+
+Địa chỉ Hồ Chí Minh và Hà Nội được chép theo ảnh người dùng cung cấp ngày 17/11/2026. Trụ sở Hồ Chí Minh là Lầu 3A, tòa nhà 51-53 Võ Văn Tần, Phường Xuân Hòa, Thành phố Hồ Chí Minh, Việt Nam. Văn phòng Hà Nội là Tầng 5, Tòa nhà Diamond Plaza, số 25 Lê Văn Lương, Phường Thanh Xuân, Thành phố Hà Nội. Khi cập nhật về sau, dùng thông tin được xác nhận trong yêu cầu mới thay vì tự thay bằng một địa chỉ khác từ nguồn bên ngoài.
+
 ## Nhân vật Peri
 
 Peri là người bạn đồng hành trong các hoạt động. Bộ hình gốc được cung cấp tại [thư mục Peri trên Drive](https://drive.google.com/drive/folders/1Z8VoZPirtq4UYLBPPwBbyV5J2_1HAlcX), gồm năm ảnh PNG nền trong suốt. Các ảnh trong `src/option-2/assets/peri/` giữ nguyên nội dung, màu sắc và độ phân giải của bản gốc, được đặt tên theo tư thế để dùng nhất quán.

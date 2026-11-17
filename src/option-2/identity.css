@@ -160,13 +160,6 @@ body.identity-option2 {
 .identity-cta h2{font-size:32px;line-height:1.25;margin:0 0 15px}
 .identity-cta p{font-size:15px;line-height:1.8;color:#6B6D7C;max-width:550px;margin:0 0 22px}
 .identity-cta > img{width:200px;flex:none}
-.identity-option2 .foot{background:#F9FBFF;border-top:1px solid #E8EEF7;text-align:left;padding:39px 28px 24px}
-.identity-footer-in{max-width:1144px;display:flex;justify-content:space-between;gap:24px;margin:auto;align-items:center}
-.identity-footer-in .brand img{width:176px;height:48px}
-.identity-footer-in p{font-size:13px;color:#59718F;margin:8px 0 0}
-.identity-footer-in nav{display:flex;gap:25px;flex-wrap:wrap;font-size:12px}
-.identity-footer-in nav a{min-height:44px;display:flex;align-items:center;color:#536D8D}
-.identity-footer-note{max-width:1144px;border-top:1px solid #E4ECF7;margin:25px auto 0;padding-top:20px;font-size:11px;color:#6D7E98;line-height:1.7}
 
 /* Assessment, mobile first with an anchored logo and slim progress indicators. */
 .identity-option2.mode-focus{background:#FBFDFF url(/option-2/assets/horizon-waves.svg) center bottom / 100% 220px fixed no-repeat}
@@ -278,7 +271,6 @@ body.identity-option2 {
   .identity-sample-card{padding:21px 17px}.identity-sample-card h3{font-size:18px}.identity-sample-top{gap:4px}.identity-sample-top img{width:114px}.identity-sample-top > span{font-size:8px;padding:4px 7px}
   .identity-sample-caption{font-size:9px;gap:5px}
   .identity-cta{padding:30px;margin-top:52px;gap:10px}.identity-cta h2{font-size:28px}.identity-cta > img{width:145px}.identity-cta p{font-size:14px}
-  .identity-footer-in nav{gap:15px;font-size:11px}.identity-footer-in .brand img{width:152px;height:41px}
 }
 @media(max-width:600px){
   .identity-option2 .identity-skill-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -317,7 +309,6 @@ body.identity-option2 {
   .identity-benefits{gap:12px;margin:18px 0 12px}.identity-benefits li{font-size:12px;gap:8px}.identity-text-link{font-size:13px}
   .identity-report-visual{max-width:340px}.identity-sample-card{padding:24px 22px}.identity-sample-top{margin-bottom:21px}.identity-sample-top img{width:124px}.identity-sample-top > span{font-size:9px}.identity-sample-card h3{font-size:19px}.identity-sample-caption{font-size:10px;margin-top:15px}
   .identity-cta{margin-top:36px;padding:29px 23px 33px;border-radius:22px;gap:0;display:block}.identity-cta > img{width:118px;height:118px;position:absolute;right:-27px;top:8px;opacity:.23}.identity-cta > div{max-width:none}.identity-cta .identity-kicker{font-size:8px;letter-spacing:1px;max-width:230px}.identity-cta h2{font-size:26px;max-width:260px}.identity-cta p{font-size:13px;margin-bottom:21px}.identity-cta .btn-lg{font-size:14px;min-height:49px}
-  .identity-option2 .foot{padding:29px 20px 23px}.identity-footer-in{flex-direction:column;align-items:flex-start;gap:17px}.identity-footer-in .brand img{width:155px;height:42px}.identity-footer-in p{font-size:12px}.identity-footer-in nav{gap:10px 19px;font-size:11px}.identity-footer-note{font-size:10px;margin-top:18px;padding-top:17px}
   .identity-option2 .identity-lesson-brand{padding:18px 18px 0}.identity-option2 .identity-lesson-brand .brand img{width:140px;height:38px}
   .identity-option2 .lesson-top{padding:8px 16px 7px;gap:9px}.identity-option2 .lesson-meta{padding:0 20px 5px}.identity-option2 .lesson-top .steps{gap:5px}
   .identity-option2 .step{height:6px;font-size:0;padding:0;border:0;border-radius:999px;background:#E1E7F0}.identity-option2 .step.cur,.identity-option2 .step.done{background:#3155D9}
