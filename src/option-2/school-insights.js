@@ -24,7 +24,7 @@
   }
   function example(h, item) {
     return h('details', { class: 'school-error-evidence' }, h('summary', {}, 'Xem minh chứng và cách hỗ trợ', window.ICanIdentity.icon('chevron', 17)),
-      h('div', { class: 'school-error-evidence-body' }, h('span', { class: 'school-insight-eyebrow' }, item.kind === 'choice' ? 'CÂU HỎI VÀ LỰA CHỌN MẪU' : 'PHIẾU QUAN SÁT MẪU'),
+      h('div', { class: 'school-error-evidence-body' }, h('span', { class: 'school-insight-eyebrow' }, item.kind === 'choice' ? 'CÂU HỎI VÀ LỰA CHỌN' : 'PHIẾU QUAN SÁT'),
         item.context ? h('blockquote', { lang: 'en' }, item.context) : null, h('p', { class: 'school-error-prompt', lang: 'en' }, item.prompt),
         h('div', { class: 'school-error-example-pair' }, h('div', { class: 'school-error-before' }, h('span', {}, item.kind === 'choice' ? 'Lựa chọn cần xem lại' : 'Minh chứng cần hỗ trợ'), h('p', { lang: item.id === 'S-ending' ? 'vi' : 'en' }, item.kind === 'choice' ? item.options[item.misconception] : item.error_example)),
           h('div', { class: 'school-error-after' }, h('span', {}, item.kind === 'choice' ? 'Lựa chọn phù hợp' : 'Gợi ý vận dụng'), h('p', { lang: item.id === 'S-ending' ? 'vi' : 'en' }, item.kind === 'choice' ? item.options[item.correct] : item.better_example))),
@@ -32,7 +32,7 @@
   }
   function errors(h, skill, { onError, selectedError, roster }) {
     return h('section', { class: 'school-insight-errors', 'aria-labelledby': 'school-errors-title' },
-      h('div', { class: 'school-error-list-heading' }, h('div', {}, h('h4', { id: 'school-errors-title' }, 'Những lỗi cần cùng học sinh tháo gỡ'), h('p', {}, 'Thầy cô chọn tên lỗi để xem danh sách học sinh, hoặc mở minh chứng để tìm cách hỗ trợ phù hợp. Các lỗi được xếp theo tỷ lệ gặp trong từng hoạt động.')), h('span', { class: 'school-insight-source' }, 'Từ bài làm')),
+      h('div', { class: 'school-error-list-heading' }, h('div', {}, h('h4', { id: 'school-errors-title' }, 'Những lỗi cần ưu tiên'), h('p', {}, 'Các lỗi được xếp theo tỷ lệ gặp. Thầy cô mở danh sách học sinh hoặc xem minh chứng để tìm cách hỗ trợ.')), h('span', { class: 'school-insight-source' }, 'Từ bài làm')),
       skill.errors.length ? h('ol', { class: 'school-error-list' }, skill.errors.map((item, index) => h('li', { class: selectedError === item.id ? 'school-error-selected' : '' }, h('div', { class: 'school-error-row' }, h('span', { class: 'school-error-order', 'aria-hidden': 'true' }, String(index + 1).padStart(2, '0')),
         h('div', { class: 'school-error-main' }, h('h5', {}, h('button', { type: 'button', class: 'school-error-title-button', onclick: () => onError(item), 'aria-label': 'Xem học sinh gặp lỗi: ' + item.error, 'aria-expanded': String(selectedError === item.id), 'aria-controls': selectedError === item.id ? 'school-error-students' : null }, item.error)), h('p', {}, `${item.affected}/${item.assessed} học sinh gặp biểu hiện này trong hoạt động được xem xét.`), h('span', { class: 'school-error-rate-track', 'aria-hidden': 'true' }, h('i', { style: `width:${item.error_percent}%` }))),
         h('div', { class: 'school-error-rate' }, h('strong', {}, fmt(item.error_percent) + '%'), h('span', {}, 'bài được xem xét'))),
@@ -42,8 +42,9 @@
   function plan(h, skill) {
     const priority = skill.errors[0];
     if (!priority) return null;
-    return h('aside', { class: 'school-insight-plan', 'aria-labelledby': 'school-plan-title' },
-      h('div', { class: 'school-insight-plan-top' }, window.ICanPeri.figure(h, poses[skill.key], { decorative: true }), h('div', {}, h('span', { class: 'school-insight-eyebrow' }, 'PERI ĐỒNG HÀNH CÙNG THẦY CÔ'), h('h4', { id: 'school-plan-title' }, 'Chọn một điều để cùng tiến bộ'))),
+    return h('details', { class: 'school-insight-plan readability-details', 'aria-labelledby': 'school-plan-title' },
+      h('summary', {}, h('span', { id: 'school-plan-title' }, 'Gợi ý hỗ trợ từ Peri'), window.ICanIdentity.icon('chevron', 18)),
+      h('div', { class: 'school-insight-plan-top' }, window.ICanPeri.figure(h, poses[skill.key], { decorative: true }), h('div', {}, h('span', { class: 'school-insight-eyebrow' }, 'PERI ĐỒNG HÀNH CÙNG THẦY CÔ'), h('h4', {}, 'Chọn một điều để cùng tiến bộ'))),
       h('p', {}, `Trong các hoạt động của kỹ năng ${names[skill.key].toLowerCase()}, “${priority.error.toLowerCase()}” có tỷ lệ gặp cao nhất, với ${priority.affected}/${priority.assessed} học sinh. Thầy cô có thể bắt đầu từ một hoạt động ngắn, rồi quan sát lại sự thay đổi.`),
       h('ol', {}, priority.practice.map((text, index) => h('li', {}, h('span', { class: 'school-plan-number', 'aria-hidden': 'true' }, index + 1), h('span', {}, ['Nhận ra điểm cần chú ý', 'Cùng luyện một cách cụ thể', 'Kiểm tra lại bằng tình huống mới'][index]), h('p', {}, text)))),
       h('p', { class: 'school-insight-plan-note' }, 'Thầy cô ghi nhận cả những điều học sinh đã làm được và một bước các em có thể thử tiếp theo, để mỗi lần luyện tập đều có thêm động lực.'));

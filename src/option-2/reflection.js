@@ -39,7 +39,7 @@
       h('div', { class: 'report-section-heading' },
         h('div', {}, h('span', { class: 'identity-kicker' }, 'THÊM MỘT GÓC NHÌN VỀ EM'),
           h('h2', { id: 'reflection-title' }, 'Hiểu mình hơn, tự tin tiến bước'),
-          h('p', {}, 'Điều em cảm nhận trước bài đánh giá và phần thể hiện hôm nay giúp em hiểu rõ hơn từng kỹ năng. Mình cùng nhìn lại để chọn một bước luyện tập phù hợp nhé.')),
+          h('p', {}, 'So sánh cảm nhận ban đầu với bài làm hôm nay, rồi chọn một bước luyện tập phù hợp.')),
         window.ICanPeri.figure(h, 'wink', { class: 'reflection-companion', decorative: true })),
       h('div', { class: 'reflection-grid' }, model(result).map(item => h('article', { class: 'reflection-card reflection-' + item.key, 'aria-labelledby': 'reflection-' + item.key },
         h('div', { class: 'reflection-card-heading' }, h('span', { class: 'reflection-skill-icon' }, identity.icon(item.icon, 27)),
@@ -52,8 +52,10 @@
           h('div', { class: 'reflection-result' }, h('span', { class: 'reflection-label' }, 'Qua bài đánh giá'),
             h('b', { class: 'reflection-level' + (item.actualCefr ? '' : ' pending') }, item.actualCefr || 'Cần thêm bài làm'),
             h('span', { class: 'reflection-scale' }, item.actualCefr ? 'Mức tham chiếu CEFR' : 'Mình sẽ cùng tìm hiểu thêm.'))),
-        h('div', { class: 'reflection-feedback' }, h('h4', {}, item.heading), h('p', {}, item.message)),
-        h('div', { class: 'reflection-practice' }, identity.icon('compass', 19), h('p', {}, item.practice))))),
+        h('details', { class: 'readability-details reflection-more' },
+          h('summary', {}, 'Peri gợi ý cho em', identity.icon('chevron', 18)),
+          h('div', { class: 'reflection-feedback' }, h('h4', {}, item.heading), h('p', {}, item.message)),
+          h('div', { class: 'reflection-practice' }, identity.icon('compass', 19), h('p', {}, item.practice)))))),
       h('div', { class: 'reflection-note' }, identity.icon('sun', 22), h('p', {}, 'Mỗi kỹ năng có một nhịp phát triển riêng. Em không cần giỏi ngay mọi thứ, chỉ cần chọn một điều vừa sức để luyện thêm hôm nay.')));
   }
   window.ICanReflection = { model, render };

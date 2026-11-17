@@ -63,7 +63,7 @@
     };
     const focusCode = () => { code.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' }); code.focus({ preventScroll: true }); };
     const stageData = [
-      ['U', 'Khởi động', '3 phút', 'Em làm quen với các câu hỏi từ vựng và ngữ pháp để tìm mức khởi đầu phù hợp.'],
+      ['U', 'Khởi động', '3 phút', 'Em tìm mức khởi đầu qua câu hỏi từ vựng và ngữ pháp.'],
       ['L', 'Nghe', '7 phút', 'Em lắng nghe hội thoại và chọn đáp án theo nội dung vừa nghe.'],
       ['R', 'Đọc', '6 phút', 'Em đọc những đoạn văn ngắn rồi trả lời các câu hỏi về nội dung.'],
       ['S', 'Nói', '7 phút', 'Em ghi âm câu trả lời để thể hiện cách phát âm và diễn đạt của mình.'],
@@ -75,7 +75,7 @@
         h('div', { class: 'identity-hero-copy' },
           h('div', { class: 'identity-eyebrow' }, icon('sun', 25), 'Đánh giá và định hướng'),
           h('h1', { id: 'identity-title' }, 'Hiểu hôm nay,', h('br'), h('span', {}, 'mở ngày mai.')),
-          h('p', { class: 'identity-lead' }, 'ICANPath giúp em hiểu năng lực, nhận ra thế mạnh và chọn hướng học phù hợp. Cùng Peri, em tự tin tiến bộ theo nhịp của mình.'),
+          h('p', { class: 'identity-lead' }, 'Hiểu năng lực tiếng Anh, nhận ra thế mạnh và cùng Peri chọn bước học tiếp theo.'),
           h('form', { class: 'identity-join', onsubmit: start },
             h('label', { for: 'identity-join-code' }, 'Bắt đầu hành trình của em'),
             h('p', { id: 'identity-code-help' }, 'Em hãy nhập mã tham gia do thầy cô cung cấp để bắt đầu.'),
@@ -97,8 +97,8 @@
         h('div', {}, icon('school'), h('span', {}, 'Dành cho ', h('b', {}, 'lớp 3 đến lớp 11')))),
       h('section', { class: 'identity-section', 'aria-labelledby': 'identity-skills-title' },
         h('div', { class: 'identity-section-heading' }, h('span', { class: 'identity-kicker' }, 'KHÁM PHÁ NĂNG LỰC'),
-          h('h2', { id: 'identity-skills-title' }, 'Từng kỹ năng, thêm một điều hiểu về em'),
-          h('p', {}, 'Bài đánh giá gồm năm chặng với độ khó được điều chỉnh theo câu trả lời, để em thể hiện khả năng một cách tự nhiên và vừa sức.')),
+          h('h2', { id: 'identity-skills-title' }, 'Khám phá qua 5 chặng'),
+          h('p', {}, 'Độ khó được điều chỉnh theo câu trả lời, để em thể hiện khả năng một cách vừa sức.')),
         h('div', { class: 'identity-stages' }, stageData.map(([key, title, time, desc]) => h('article', { class: 'identity-stage' + (key === 'U' ? ' identity-warmup' : '') },
           h('div', { class: 'identity-stage-top' }, h('span', { class: 'peri-stage-art' }, peri.figure(h, { U: 'jump', L: 'wave', R: 'think', S: 'wink', W: 'fly' }[key], { decorative: true }), h('span', { class: 'peri-stage-skill' }, icon(skillIcons[key], 21))), h('span', { class: 'identity-stage-time' }, time)),
           h('h3', {}, title), h('p', {}, desc)))),
@@ -106,8 +106,8 @@
       h('section', { class: 'identity-report-section', 'aria-labelledby': 'identity-report-title' },
         h('div', { class: 'identity-report-copy' }, h('span', { class: 'identity-kicker' }, 'TỪ THẤU HIỂU ĐẾN HÀNH ĐỘNG'),
           h('h2', { id: 'identity-report-title' }, 'Biết mình ở đâu,', h('br'), 'để chọn bước tiếp theo.'),
-          h('p', {}, 'Sau bài đánh giá, em nhận được bức tranh về năng lực tiếng Anh của mình, từ điểm mạnh đến những nội dung cần luyện thêm. Mỗi kết quả đều đi cùng gợi ý để em có thể bắt đầu tiến bộ từng ngày.'),
-          h('ul', { class: 'identity-benefits' }, ['Em xem mức tham chiếu CEFR và kết quả của bốn kỹ năng.', 'Em nhận biết điểm mạnh cùng những nội dung cần ưu tiên.', 'Em khám phá các bài luyện được gợi ý theo kết quả.'].map(text => h('li', {}, icon('check', 18), text))),
+          h('p', {}, 'Em nhận được kết quả bốn kỹ năng và gợi ý luyện tập để biết mình nên bắt đầu từ đâu.'),
+          h('ul', { class: 'identity-benefits' }, ['Em hiểu mức tham chiếu CEFR của mình.', 'Em nhận ra điểm mạnh và kỹ năng cần luyện.', 'Em chọn bài luyện phù hợp với kết quả.'].map(text => h('li', {}, icon('check', 18), text))),
           h('a', { class: 'identity-text-link', href: '#/r/demo-result' }, 'Khám phá báo cáo', arrow())),
         h('div', { class: 'identity-report-visual' },
           h('div', { class: 'identity-sample-card' },
@@ -119,7 +119,7 @@
           h('div', { class: 'identity-sample-caption' }, icon('compass', 19), 'Mỗi kết quả mở ra một hướng đi phù hợp.'))),
       window.ICanPeople.render(h, { icon, focusCode }),
       h('section', { class: 'identity-cta' },
-        h('div', {}, h('span', { class: 'identity-kicker' }, 'CHÂN TRỜI MỚI BẮT ĐẦU TỪ EM'), h('h2', {}, 'Cùng Peri mở thêm những khả năng'), h('p', {}, 'Hãy bắt đầu bằng việc hiểu mình hôm nay, để mỗi bước học tiếng Anh ngày mai đều có một hướng đi rõ ràng hơn.'), h('button', { class: 'btn-lg', onclick: focusCode }, 'Cùng Peri khám phá', arrow())),
+        h('div', {}, h('span', { class: 'identity-kicker' }, 'CHÂN TRỜI MỚI BẮT ĐẦU TỪ EM'), h('h2', {}, 'Cùng Peri mở thêm những khả năng'), h('p', {}, 'Nhập mã từ thầy cô để khám phá năng lực và bắt đầu hành trình của em.'), h('button', { class: 'btn-lg', onclick: focusCode }, 'Cùng Peri khám phá', arrow())),
         peri.figure(h, 'wink', { class: 'peri-cta-friend' }))));
   }
   window.ICanIdentity = {

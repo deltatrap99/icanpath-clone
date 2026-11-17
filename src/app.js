@@ -846,8 +846,8 @@ async function resultPage(token, query = new URLSearchParams()) {
   // SPEC 14: this page is the parent share link -> no "Độ tin cậy của kết quả" block; the level only drives neutral labels (staff pages show confidence)
   const conf = r.confidence || { level: null };
   const low = conf.level === 'low';
-  const stepsCard = h('div', { class: 'card', style: '--c:var(--blue)', id: 'next-steps' }, h('h2', {}, IDENTITY ? 'Bước nhỏ hôm nay, thêm tự tin ngày mai' : '🚀 Mục tiêu tiếp theo'),
-    IDENTITY ? h('p', { class: 'report-card-intro' }, 'Em không cần làm tất cả cùng lúc, hãy chọn một việc vừa sức và dành cho nó một chút thời gian mỗi ngày.') : null,
+  const stepsCard = h('div', { class: 'card', style: '--c:var(--blue)', id: 'next-steps' }, h('h2', {}, IDENTITY ? 'Việc em có thể bắt đầu' : '🚀 Mục tiêu tiếp theo'),
+    IDENTITY ? h('p', { class: 'report-card-intro' }, 'Em chọn một việc và luyện từ 10 đến 15 phút mỗi ngày.') : null,
     h('ul', { class: 'list' }, (r.next_steps || []).map((x) => h('li', {}, x.text_vi))));
   const ability = (a) => h('li', { class: 'ability ' + a.status }, h('b', {}, `${SK[a.skill].icon} ${SK[a.skill].vi}: `), h('span', { class: a.status === 'insufficient' ? 'muted' : '' }, a.text_vi));
   const listOrNote = (xs) => xs.length ? h('ul', { class: 'list' }, xs.map((s) => h('li', {}, h('b', {}, s.label_vi), h('span', { class: 'muted small' }, `, ${s.evidence_vi}`)))) : h('p', { class: 'muted small' }, 'Hệ thống hiện chưa có đủ dữ liệu để đưa ra nhận xét cho phần này.');
@@ -869,6 +869,7 @@ async function resultPage(token, query = new URLSearchParams()) {
   const path = r.learning_path;
   mount(
     hero,
+    IDENTITY ? h('nav', { class: 'report-quick-nav noprint', 'aria-label': 'Các phần trong báo cáo' }, [['#abilities', 'Em đã làm được'], ['#self-vs-actual', 'Hiểu mình hơn'], ['#learning-journey', 'Lộ trình học']].filter(([id]) => id !== '#learning-journey' || path?.units?.length).map(([id, label]) => h('a', { href: '#/r/' + token + '?focus=' + (id === '#learning-journey' ? 'journey' : id.slice(1)), onclick: event => { event.preventDefault(); document.getElementById(id.slice(1))?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); } }, label, IDENTITY.icon('chevron', 16)))) : null,
     IDENTITY?.activityGuide(h, 'result'),
     h('div', { class: 'grid g3' },
       statTile('Tổng thể', r.overall.cefr || 'Chưa có dữ liệu', 'var(--green)', low ? 'CEFR tham chiếu (tham khảo)' : estimated ? 'CEFR tham chiếu (ước lượng)' : 'CEFR tham chiếu'),
@@ -880,13 +881,14 @@ async function resultPage(token, query = new URLSearchParams()) {
         h('p', { class: 'small muted' }, `Trình độ từ vựng và ngữ pháp trong phần khởi động: ${(r.use_of_english && r.use_of_english.cefr) || 'Chưa có dữ liệu'}`)),
       h('div', { class: 'card center' }, h('h2', {}, 'Cân bằng kỹ năng'), radar(sk))),
     h('div', { class: 'grid g2' },
-      h('div', { class: 'card', style: '--c:var(--green)', id: 'abilities' }, h('h2', {}, IDENTITY ? 'Những điều em đã làm được' : '✅ Em đã làm được'),
-        IDENTITY ? h('p', { class: 'report-card-intro' }, 'Mỗi kỹ năng có một điểm khởi đầu riêng. Em hãy ghi nhận những điều dưới đây và cho mình cơ hội thử thêm một chút ở lần luyện tập tiếp theo.') : null,
+      h('div', { class: 'card', style: '--c:var(--green)', id: 'abilities' }, h('h2', {}, IDENTITY ? 'Em đã làm được gì?' : '✅ Em đã làm được'),
+        IDENTITY ? h('p', { class: 'report-card-intro' }, 'Em cùng nhìn lại những điều đã làm được qua bốn kỹ năng.') : null,
         h('ul', { class: 'list' }, (r.abilities || []).map(ability))),
       stepsCard),
-    h('div', { class: 'grid g2', style: 'margin-top:16px' },
-      h('div', { class: 'card pill-s' }, h('h2', {}, IDENTITY ? 'Điểm mạnh để em tự tin hơn' : '🌟 Điểm mạnh'), hedge(), listOrNote(r.strengths)),
-      h('div', { class: 'card pill-w' }, h('h2', {}, IDENTITY ? 'Cơ hội để em tiến bộ từng ngày' : '🎯 Năng lực cần cải thiện'), hedge(), listOrNote(r.improvements))),
+    h(IDENTITY ? 'details' : 'div', { class: IDENTITY ? 'report-evidence readability-details' : 'grid g2', style: 'margin-top:16px' },
+      IDENTITY ? h('summary', {}, 'Xem điểm mạnh và nội dung cần luyện', IDENTITY.icon('chevron', 18)) : null,
+      h('div', { class: 'card pill-s' }, h('h2', {}, IDENTITY ? 'Điểm mạnh của em' : '🌟 Điểm mạnh'), hedge(), listOrNote(r.strengths)),
+      h('div', { class: 'card pill-w' }, h('h2', {}, IDENTITY ? 'Kỹ năng cần luyện thêm' : '🎯 Năng lực cần cải thiện'), hedge(), listOrNote(r.improvements))),
     IDENTITY?.reflection ? IDENTITY.reflection.render(h, r) : h('div', { class: 'card', id: 'self-vs-actual' }, h('h2', {}, 'Em tự đánh giá vs. kết quả thực tế'),
       low ? h('p', { class: 'small muted', style: 'margin:-.3em 0 .6em' }, 'Phần so sánh này chỉ mang tính tham khảo, em cần hoàn thành thêm bài luyện để xác nhận mức độ phù hợp với kết quả.') : null,
       tbl(['Kỹ năng', 'Em tự đánh giá', 'Kết quả', 'Nhận xét'], r.self_vs_actual.map((x) => [h('b', {}, `${SK[x.skill].icon} ${x.skill_vi}`), x.self_level ? `${'⭐'.repeat(x.self_level)} ${x.self_label_vi || ''}` : 'Chưa có dữ liệu', h('b', {}, x.actual_cefr || 'Chưa có dữ liệu'), h('span', {}, verdictBadge(x.verdict), ' ', h('span', { class: 'small muted' }, x.verdict_vi))]))),

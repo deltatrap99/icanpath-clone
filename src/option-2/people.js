@@ -3,9 +3,9 @@
   'use strict';
   function render(h, { icon, focusCode }) {
     const roles = [
-      { key: 'student', icon: 'user', title: 'Dành cho học sinh', description: 'Em nhận ra điểm mạnh và những điều cần luyện thêm, để chọn cách học vừa sức và tự tin tiến bộ mỗi ngày.', action: 'Nhập mã để bắt đầu', onClick: focusCode },
-      { key: 'family', icon: 'family', title: 'Đồng hành cùng phụ huynh', description: 'Phụ huynh hiểu rõ hơn kết quả bốn kỹ năng, từ đó cùng con đặt mục tiêu và ghi nhận từng bước tiến nhỏ.', action: 'Xem báo cáo năng lực', href: '#/r/demo-result' },
-      { key: 'school', icon: 'school', title: 'Kết nối với nhà trường', description: 'Nhà trường theo dõi kết quả từng khối, từng lớp và nhận biết những nội dung cần hỗ trợ để đồng hành với học sinh.', action: 'Đăng nhập nhà trường', href: '#/school-portal' },
+      { key: 'student', icon: 'user', title: 'Dành cho học sinh', description: 'Em hiểu điểm mạnh, chọn bài luyện và theo dõi bước tiến của mình.', action: 'Nhập mã để bắt đầu', onClick: focusCode },
+      { key: 'family', icon: 'family', title: 'Đồng hành cùng phụ huynh', description: 'Phụ huynh xem kết quả bốn kỹ năng để cùng con chọn mục tiêu phù hợp.', action: 'Xem báo cáo năng lực', href: '#/r/demo-result' },
+      { key: 'school', icon: 'school', title: 'Kết nối với nhà trường', description: 'Thầy cô theo dõi từng lớp, nhận diện khó khăn và chọn nội dung cần hỗ trợ.', action: 'Đăng nhập nhà trường', href: '#/school-portal' },
     ];
     const node = (name, className) => h('span', { class: 'people-orbit-node ' + className }, icon(name, 21));
     return h('section', { class: 'identity-section identity-people', id: 'identity-people', 'aria-labelledby': 'identity-people-title' },
