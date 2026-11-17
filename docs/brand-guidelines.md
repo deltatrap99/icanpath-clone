@@ -6,7 +6,23 @@ Phương án 2 được triển khai từ bảng nhận diện do người dùng
 
 Logo chính là `src/option-2/assets/icanpath-logo.svg`, gồm biểu tượng con người, chữ CAN với tam giác ba màu, chữ Path màu xanh và nét cong san hô. Logo dùng đường nét vector độc lập với font trên thiết bị. Giữ đúng tỷ lệ và khoảng trống ít nhất bằng chiều cao chữ i quanh logo, không kéo méo hoặc thêm hiệu ứng lên logo.
 
-Biểu tượng ứng dụng nằm trong `path-mark.svg`. Hình cánh cửa nhỏ trong `portal-orbit.svg` thay thế linh vật ở phần khai báo thông tin, chuyển chặng và các trạng thái trống. Hình 3D `open-horizon.png` được tạo mới từ tham chiếu để dùng ở trang chủ, không phải ảnh chụp của bảng nhận diện. Dải sóng `horizon-waves.svg` tạo chiều sâu nhẹ cho màn hình đánh giá.
+Biểu tượng ứng dụng nằm trong `path-mark.svg`. Hình 3D `open-horizon.png` được tạo mới từ tham chiếu để dùng ở trang chủ, không phải ảnh chụp của bảng nhận diện. Dải sóng `horizon-waves.svg` tạo chiều sâu nhẹ cho màn hình đánh giá.
+
+## Nhân vật Peri
+
+Peri là người bạn đồng hành trong các hoạt động. Bộ hình gốc được cung cấp tại [thư mục Peri trên Drive](https://drive.google.com/drive/folders/1Z8VoZPirtq4UYLBPPwBbyV5J2_1HAlcX), gồm năm ảnh PNG nền trong suốt. Các ảnh trong `src/option-2/assets/peri/` giữ nguyên nội dung, màu sắc và độ phân giải của bản gốc, được đặt tên theo tư thế để dùng nhất quán.
+
+| Tư thế | Tệp gốc | Ngữ cảnh sử dụng |
+| --- | --- | --- |
+| Vẫy tay | Artboard 1.png | Chào đón học sinh, chuẩn bị lắng nghe và đăng nhập GE. |
+| Bật nhảy | Artboard 2.png | Khởi động, sẵn sàng làm bài, chuyển chặng và xem kết quả. |
+| Bay khám phá | Artboard 3.png | Trang chủ, giới thiệu chặng và luyện tập sau đánh giá. |
+| Suy nghĩ | Artboard 4.png | Đọc hiểu, chuẩn bị ý cho bài viết và các trạng thái cần hỗ trợ. |
+| Nháy mắt | Artboard 5.png | Tự đánh giá, khích lệ phần Nói, trang bài học và lời mời khám phá. |
+
+`src/option-2/peri.js` quản lý tư thế và lời đồng hành. Ảnh gốc có vùng trong suốt rộng, vì vậy ứng dụng dùng viewBox SVG để tạo khung hiển thị vừa vặn mà không sửa ảnh. Không kéo giãn nhân vật, đổi màu hay lật chữ hoặc chi tiết nhận diện. Peri đứng cạnh nội dung hướng dẫn, không che câu hỏi, đáp án, đồng hồ hoặc nút thao tác. Hình minh họa có mô tả khi đứng độc lập và được ẩn khỏi trình đọc màn hình khi nội dung bên cạnh đã truyền đạt cùng ý nghĩa.
+
+Lời nhắn của Peri cần khích lệ quá trình học, không tiết lộ đáp án và không đưa ra nhận định năng lực khi chưa có dữ liệu. Chuyển động giới thiệu ngắn được tắt khi thiết bị chọn giảm chuyển động.
 
 ## Màu sắc
 

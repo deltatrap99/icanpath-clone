@@ -47,7 +47,7 @@ function toast(msg, ms = 3200) { const t = document.getElementById('toast'); t.t
 function setBand(band) { document.body.classList.remove('band-35', 'band-68', 'band-911'); if (band) document.body.classList.add('band-' + band.replace('-', '')); }
 function setMode(mode) { document.body.classList.remove('mode-site', 'mode-focus', 'mode-console'); document.body.classList.add('mode-' + mode); }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const fox = (kind, cls) => h('img', { src: `/img/fox-${kind}.webp`, alt: '', width: 402, height: 440, class: cls || null, decoding: 'async' });
+const fox = (kind, cls, attrs = {}) => IDENTITY?.mascot ? IDENTITY.mascot(h, kind, { ...attrs, class: cls }) : h('img', { src: `/img/fox-${kind}.webp`, alt: '', width: 402, height: 440, class: cls || null, decoding: 'async', ...attrs });
 const loading = () => h('div', { class: 'loading' }, h('div', { class: 'spinner', role: 'status', 'aria-label': 'Đang tải' }));
 const brandLink = () => IDENTITY ? IDENTITY.brand(h) : h('a', { class: 'brand', href: '#/', 'aria-label': 'ICan Path, trang chủ' }, h('img', { src: '/img/fox-hello.webp', alt: '', width: 40, height: 44 }), h('span', {}, 'ican', h('b', {}, 'path')));
 const skillLabel = (k) => IDENTITY ? h('span', { class: 'row', style: 'gap:6px;flex-wrap:nowrap' }, IDENTITY.icon(IDENTITY.skillIcons[k], 22), SK[k].vi) : `${SK[k].icon} ${SK[k].vi}`;
@@ -186,9 +186,9 @@ async function joinPage(code) {
   const titles = ['Thông tin của em', 'Việc học tiếng Anh', 'Em tự đánh giá', 'Mục tiêu & xác nhận'];
   const render = () => {
     setBand(f.grade ? bandOf(f.grade) : null);
-    const body = [];
+    const body = [IDENTITY?.onboardingGuide(h, step)];
     if (step === 0) {
-      body.push(h('div', { class: 'listen-row' }, h('img', { src: '/img/fox-hello.webp', alt: '', width: 90, height: 98, style: 'width:90px;flex:none' }),
+      body.push(h('div', { class: 'listen-row' }, fox('hello', 'peri-join-friend', { width: 90, height: 98, style: 'width:90px;flex:none' }),
         h('div', { class: 'bubble' }, `Chào em, chào mừng em đến với ICan Path tại ${info.school_name}. Em hãy dành khoảng 2 phút để điền thông tin trước khi bắt đầu bài kiểm tra.`)),
         h('label', {}, 'Họ và tên'), h('input', { type: 'text', value: f.full_name, maxlength: 80, oninput: (e) => (f.full_name = e.target.value), autocomplete: 'off', placeholder: 'VD: Nguyễn Văn An' }),
         h('label', {}, 'Lớp (khối)'), chips(info.grades.map((g) => [g, 'Lớp ' + g]), (g) => f.grade === g, (g) => { f.grade = g; render(); }),
@@ -354,7 +354,7 @@ function renderTest() {
     const party = kids && idx > 0;
     if (party && !T.celebrated.has(v.section)) { T.celebrated.add(v.section); sfx('section'); }
     return mount(h('div', { class: 'lesson' }, lessonTop(),
-      h('div', { class: 'lesson-body intro slide-in' }, party ? confetti() : null, fox(party ? 'cheer' : img), party ? h('p', { class: 'party' }, `Em đã hoàn thành thêm một chặng và nhận được tổng cộng ⭐ ${T.stars} sao.`) : null,
+      h('div', { class: 'lesson-body intro slide-in' }, party ? confetti() : null, IDENTITY?.sectionArt ? IDENTITY.sectionArt(h, v.section, { celebrated: party }) : fox(party ? 'cheer' : img), party ? h('p', { class: 'party' }, `Em đã hoàn thành thêm một chặng và nhận được tổng cộng ⭐ ${T.stars} sao.`) : null,
         h('div', { class: 'qmeta', style: 'justify-content:center' }, `${SK[v.section].icon} Phần ${idx + 1}/${v.sections.length}`),
         h('h2', {}, title), h('p', {}, desc), v.band === '9-11' ? h('p', { class: 'small muted' }, '🎓 ' + CERT_NOTE) : null,
         footBar(h('span', { class: 'muted small' }, sec.max ? `Phần này có tối đa ${sec.max} câu hỏi và đồng hồ riêng để em theo dõi thời gian.` : 'Em có thể theo dõi thời gian làm bài bằng đồng hồ của phần này.'),
@@ -380,7 +380,7 @@ function renderMcq() {
   const instr = icons ? (it.format === 'reading_mcq' ? 'Em hãy đọc nội dung rồi chọn bức tranh phù hợp nhất.' : 'Em hãy nghe nội dung rồi chọn bức tranh phù hợp nhất.')
     : p.variant === 'picture' ? 'Em hãy quan sát bức tranh rồi chọn đáp án phù hợp nhất.' : p.variant === 'situation' ? 'Em hãy chọn câu trả lời phù hợp với tình huống được mô tả.'
     : { listening_mcq: 'Em hãy nghe nội dung rồi chọn đáp án phù hợp nhất.', reading_mcq: 'Em hãy đọc đoạn văn rồi trả lời câu hỏi bên dưới.' }[it.format] || 'Em hãy chọn đáp án phù hợp nhất cho câu hỏi bên dưới.';
-  const body = [h('div', { class: 'qmeta' }, `${SK[v.section].icon} ${SKILL_FULL[v.section]}, Câu ${(s.answered || 0) + 1} (tối đa ${s.max})`), ctxChips(p), h('div', { class: 'instr' }, instr)];
+  const body = [h('div', { class: 'qmeta' }, `${SK[v.section].icon} ${SKILL_FULL[v.section]}, Câu ${(s.answered || 0) + 1} (tối đa ${s.max})`), ctxChips(p), h('div', { class: 'instr' }, instr), IDENTITY?.activityGuide(h, v.section)];
   if (it.format === 'listening_mcq') {
     // SPEC 08: recorded MP3 (works on every device); a play is counted only when sound actually starts.
     T.plays[it.id] ??= 0;
@@ -674,7 +674,7 @@ function renderSpeaking() {
       h('div', { class: 'row', style: 'gap:16px' }, rec, timeEl));
   });
   if (!pickMime() || !navigator.mediaDevices) cards.unshift(h('div', { class: 'card tint-red' }, h('span', { class: 'badge bad' }, 'Trình duyệt không hỗ trợ ghi âm. Em hãy dùng Chrome/Safari bản mới hoặc bấm "Sang phần Viết".')));
-  mount(lesson([h('div', { class: 'qmeta' }, '🎤 Nói'), h('div', { class: 'instr' }, 'Ghi âm câu trả lời của em'), ...cards],
+  mount(lesson([h('div', { class: 'qmeta' }, '🎤 Nói'), h('div', { class: 'instr' }, 'Ghi âm câu trả lời của em'), IDENTITY?.activityGuide(h, 'S'), ...cards],
     footBar(h('span', { class: 'muted small' }, 'Bản ghi âm được xử lý trên thiết bị của em, còn các nhận xét trong bản dùng thử chỉ mang tính minh họa.'),
       h('button', { class: 'btn-lg btn-block', onclick: () => { stopRecorder(false); advanceSection(); } }, 'Sang phần Viết →'))));
   tick();
@@ -727,8 +727,8 @@ function renderWriting() {
   const upd = () => { const n = (ta.value.match(/[A-Za-z'’-]+/g) || []).length; count.textContent = `${n} từ (gợi ý ${t.payload.min_words}–${t.payload.max_words})`; count.className = 'badge ' + (n >= t.payload.min_words ? 'ok' : 'warn'); sessionStorage.setItem('ip_w_' + t.id, ta.value); };
   ta.oninput = upd; upd();
   const btn = h('button', { class: 'btn-lg btn-block', onclick: () => { if (!ta.value.trim() && !confirm('Em chưa nhập nội dung cho bài viết, em có muốn tiếp tục nộp bài không?')) return; submitWriting(ta.value, false, btn); } }, t.status === 'error' ? '↻ Thử chấm lại' : '📨 Nộp bài viết');
-  mount(lesson([h('div', { class: 'qmeta' }, '✍️ Viết'), ctxChips(t.payload), h('div', { class: 'instr' }, t.payload.genre === 'story' && t.payload.image ? 'Nhìn 3 tranh và kể lại câu chuyện' : t.payload.image ? 'Nhìn tranh và viết' : 'Viết bằng tiếng Anh'), h('div', { class: 'q-stem' }, t.payload.prompt), picture(t.payload.image, t.payload.genre === 'story' ? 'sm story' : 'sm'),
-    t.payload.prompt_vi ? h('div', { class: 'listen-row' }, h('img', { src: '/img/fox-study.webp', alt: '', width: 70, height: 77, style: 'width:70px;flex:none' }), h('div', { class: 'bubble' }, '🇻🇳 ' + t.payload.prompt_vi)) : null, ta],
+  mount(lesson([h('div', { class: 'qmeta' }, '✍️ Viết'), ctxChips(t.payload), h('div', { class: 'instr' }, t.payload.genre === 'story' && t.payload.image ? 'Nhìn 3 tranh và kể lại câu chuyện' : t.payload.image ? 'Nhìn tranh và viết' : 'Viết bằng tiếng Anh'), IDENTITY?.activityGuide(h, 'W'), h('div', { class: 'q-stem' }, t.payload.prompt), picture(t.payload.image, t.payload.genre === 'story' ? 'sm story' : 'sm'),
+    t.payload.prompt_vi ? IDENTITY ? h('div', { class: 'peri-writing-prompt' }, h('span', { class: 'peri-guide-label' }, 'Gợi ý chủ đề'), h('p', {}, t.payload.prompt_vi)) : h('div', { class: 'listen-row' }, fox('study', null, { width: 70, height: 77, style: 'width:70px;flex:none' }), h('div', { class: 'bubble' }, '🇻🇳 ' + t.payload.prompt_vi)) : null, ta],
   footBar(count, btn), true));
   tick();
 }
@@ -865,6 +865,7 @@ async function resultPage(token) {
   const path = r.learning_path;
   mount(
     hero,
+    IDENTITY?.activityGuide(h, 'result'),
     h('div', { class: 'grid g3' },
       statTile('Tổng thể', r.overall.cefr || 'Chưa có dữ liệu', 'var(--green)', low ? 'CEFR tham chiếu (tham khảo)' : estimated ? 'CEFR tham chiếu (ước lượng)' : 'CEFR tham chiếu'),
       statTile('Mạnh nhất', scored[0] ? skillLabel(scored[0]) : 'Chưa có dữ liệu', 'var(--blue)', scored[0] ? sk[scored[0]].cefr : ''),
@@ -942,7 +943,7 @@ async function learnPage(code) {
   };
   mount(
     h('section', { class: 'card hero page-hero' }, h('div', {}, h('div', { class: 'qmeta' }, `${u.level}, ${u.code}, CEFR ${u.cefr}`), h('h1', { style: 'margin:.2em 0' }, u.title), L.summary_vi ? h('p', {}, L.summary_vi) : null,
-      tok ? h('a', { class: 'btn btn2 small', href: '#/r/' + tok }, '← Về báo cáo của em') : null), fox('study')),
+      tok ? h('a', { class: 'btn btn2 small', href: '#/r/' + tok }, '← Về báo cáo của em') : null), fox(IDENTITY ? 'wink' : 'study')),
     h('div', { class: 'grid g2' },
       h('div', { class: 'card' }, h('h2', {}, '📚 Từ vựng'), h('div', { class: 'vocab' }, (L.vocab || []).map((v) => h('div', { class: 'vocab-item' },
         h('div', { style: 'min-width:0' }, h('b', { style: 'font-size:18px;color:var(--ink-strong)' }, v.word), h('div', { class: 'small muted' }, v.meaning_vi), h('div', { class: 'small' }, v.example)),
@@ -952,6 +953,7 @@ async function learnPage(code) {
           h('ul', { class: 'list', style: '--c:var(--purple)' }, (L.grammar_examples || []).map((x) => h('li', {}, x)))),
         h('div', { class: 'card', style: 'margin:0' }, h('h2', {}, '🎯 Sau bài học em có thể'), h('ul', { class: 'list' }, (L.can_do_vi || u.can_do || []).map((x) => h('li', {}, x)))))),
     h('div', { class: 'card' }, h('h2', {}, '🎤 Luyện nói và phát âm'),
+      IDENTITY?.activityGuide(h, 'learn'),
       h('p', { class: 'small muted' }, tok ? 'Em hãy nghe câu mẫu, chọn Ghi âm rồi đọc lại câu và chọn Dừng khi hoàn tất. Điểm phát âm trong bản dùng thử chỉ mang tính minh họa.' : 'Em hãy mở bài học từ trang báo cáo kết quả của mình để sử dụng tính năng luyện phát âm.'),
       (L.speaking_practice || []).map(practiceRow)),
   );
@@ -1030,7 +1032,7 @@ function staffLogin() {
     try { await api('/api/staff/login', { method: 'POST', body: f }); router(); } catch (e) { toast(e.message); btn.disabled = false; }
   };
   mount(h('form', { class: 'card', style: 'max-width:440px;margin:24px auto', onsubmit: submit },
-    h('div', { class: 'center' }, h('img', { src: '/img/fox-hello.webp', alt: '', width: 120, height: 131, style: 'width:120px' })),
+    h('div', { class: 'center' }, fox('hello', 'peri-login-friend', { width: 120, height: 131, style: 'width:120px' })),
     h('h2', { class: 'center' }, 'Đăng nhập nhân viên GE'),
     h('label', {}, 'Tên đăng nhập hoặc họ tên'), h('input', { type: 'text', autocomplete: 'username', placeholder: 'VD: lan.nv hoặc Nguyễn Thị Lan', oninput: (e) => (f.username = e.target.value) }),
     h('label', {}, 'Mật khẩu'), h('input', { type: 'password', autocomplete: 'current-password', oninput: (e) => (f.password = e.target.value) }),

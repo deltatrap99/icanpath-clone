@@ -1,0 +1,70 @@
+/* Peri uses the five original transparent PNGs, with SVG viewBoxes for consistent framing. */
+.identity-option2 .peri-figure{display:inline-block;position:relative;width:140px;aspect-ratio:var(--peri-aspect);flex:none;vertical-align:middle;line-height:0;pointer-events:none}
+.identity-option2 .peri-figure > svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+.identity-option2 .peri-hero-friend{position:absolute;width:230px;right:18px;bottom:92px;z-index:1;filter:drop-shadow(0 12px 12px #18477D20);animation:peri-arrive .55s ease-out both}
+.identity-option2 .identity-hero-art figcaption{z-index:2;max-width:310px}
+.identity-option2 .identity-hero-art figcaption strong{font-size:19px}
+.identity-option2 .peri-stage-art{position:relative;display:flex;justify-content:center;align-items:center;width:78px;height:105px;flex:none}
+.identity-option2 .peri-stage-art > .peri-figure{width:72px;height:103px}
+.identity-option2 .peri-stage-skill{position:absolute;right:-5px;bottom:4px;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;color:var(--identity-ui);background:white;border:1px solid #DDE8F7;box-shadow:0 3px 8px #0D3F7C0A}
+.identity-option2 .identity-warmup .peri-stage-skill{color:#A36030;border-color:#EEDDC8}
+.identity-option2 .peri-cta-friend{width:145px;margin:0 16px 0 25px;transform:rotate(4deg)}
+.identity-option2 .peri-guide{display:flex;gap:18px;align-items:center;margin:5px 0 23px;padding:13px 18px;background:#F1F7FF;border:1px solid #E0EBF9;border-radius:18px;text-align:left}
+.identity-option2 .peri-guide > .peri-figure{width:58px;height:81px}
+.identity-option2 .peri-guide > div{min-width:0;flex:1}
+.identity-option2 .peri-guide-label{display:block;font-size:11px;font-weight:850;letter-spacing:.1px;color:#0057A5;margin:0 0 3px}
+.identity-option2 .peri-guide p{font-size:13px;line-height:1.75;color:#3E5A7F;margin:0}
+.identity-option2 .peri-guide[data-peri-activity=result]{background:#FFF9F0;border-color:#F2E5D2;margin:18px 0}
+.identity-option2 .peri-guide[data-peri-activity=result] .peri-guide-label{color:#8B5A2D}
+.identity-option2 .peri-guide[data-peri-activity=result] p{color:#64594C}
+.identity-option2 .peri-activity-art{width:220px;height:235px;position:relative;margin:0 auto 25px;display:flex;align-items:flex-start;justify-content:center;padding-top:8px}
+.identity-option2 .peri-activity-art::before{content:'';position:absolute;inset:49px 12px 26px;background:#EAF3FF;border-radius:50%;z-index:-1}
+.identity-option2 .peri-activity-art > .peri-figure{width:136px;height:193px}
+.identity-option2 .peri-activity-badge{display:grid;place-items:center;position:absolute;right:6px;bottom:48px;width:53px;height:53px;background:white;border:1px solid #D5E5FD;box-shadow:0 6px 15px #1646850A;border-radius:17px;color:var(--identity-ui);transform:rotate(-7deg)}
+.identity-option2 .peri-activity-caption{position:absolute;bottom:0;left:0;right:0;font-size:11px;line-height:1.5;font-weight:750;color:#60799B}
+.identity-option2 .intro > .peri-figure{width:130px;margin:8px auto 22px;display:block}
+.identity-option2 .listen-row > .peri-join-friend{width:90px}
+.identity-option2 .peri-writing-prompt{background:#FFF9F0;border:1px solid #F0E3CF;border-radius:15px;padding:14px 18px;margin:0 0 18px}
+.identity-option2 .peri-writing-prompt p{font-size:13px;line-height:1.75;color:#625344;margin:4px 0 0}
+.identity-option2 .peri-writing-prompt .peri-guide-label{color:#8B5A2D}
+.identity-option2 .peri-login-friend{width:98px!important;margin:0 auto 13px}
+.identity-option2 .result-hero > .peri-figure{width:126px;justify-self:center}
+.identity-option2 .page-hero > .peri-figure{width:110px;justify-self:end;margin:0 7px}
+.identity-option2 .card.center > .peri-figure,.identity-option2 .center.muted > .peri-figure{width:120px;margin:7px auto 20px}
+@keyframes peri-arrive{from{opacity:0;transform:translate(12px,10px)}to{opacity:1;transform:translate(0,0)}}
+@media(max-width:1100px){
+  .identity-option2 .peri-hero-friend{width:190px;right:3px;bottom:115px}
+  .identity-option2 .peri-stage-art{width:66px;height:96px}.identity-option2 .peri-stage-art > .peri-figure{width:65px;height:95px}
+  .identity-option2 .identity-stage-top{flex-wrap:nowrap}
+}
+@media(max-width:800px){
+  .identity-option2 .peri-hero-friend{width:155px;right:-5px;bottom:120px}
+  .identity-option2 .identity-hero-art figcaption{left:20px;right:12px;font-size:12px}.identity-option2 .identity-hero-art figcaption strong{font-size:16px}
+  .identity-option2 .peri-stage-art{width:65px;height:93px}.identity-option2 .peri-stage-art > .peri-figure{width:63px;height:91px}
+  .identity-option2 .identity-stages .identity-stage-top{flex-wrap:wrap;gap:8px}
+  .identity-option2 .identity-warmup .identity-stage-top{flex-wrap:nowrap;gap:20px}
+  .identity-option2 .peri-cta-friend{width:118px;margin:0 5px 0 10px}
+}
+@media(max-width:600px){
+  .identity-option2 .peri-hero-friend{width:111px;right:15px;bottom:9px;filter:drop-shadow(0 6px 6px #18477D20)}
+  .identity-option2 .identity-stages .identity-stage-top{flex-wrap:nowrap;gap:3px;align-items:center;margin-bottom:15px}
+  .identity-option2 .peri-stage-art{width:71px;height:99px}.identity-option2 .peri-stage-art > .peri-figure{width:67px;height:96px}
+  .identity-option2 .peri-stage-skill{width:27px;height:27px;right:-2px;bottom:2px}.identity-option2 .peri-stage-skill svg{width:18px;height:18px}
+  .identity-option2 .identity-warmup .identity-stage-top{flex-direction:column;gap:6px;margin:0}.identity-option2 .identity-warmup .peri-stage-art{width:65px;height:89px}.identity-option2 .identity-warmup .peri-stage-art > .peri-figure{width:61px;height:86px}
+  .identity-option2 .identity-cta{padding-right:105px;min-height:230px}.identity-option2 .identity-cta h2{font-size:24px}.identity-option2 .identity-cta p{font-size:12px;max-width:none}.identity-option2 .identity-cta .btn-lg{padding:12px 16px;font-size:12px;white-space:nowrap}
+  .identity-option2 .peri-cta-friend{position:absolute;right:7px;bottom:49px;width:92px;opacity:1;margin:0;transform:rotate(5deg)}
+  .identity-option2 .peri-guide{padding:12px 13px;gap:13px;border-radius:15px;margin:2px 0 21px}
+  .identity-option2 .peri-guide > .peri-figure{width:47px;height:70px}
+  .identity-option2 .peri-guide-label{font-size:10px;margin-bottom:3px}.identity-option2 .peri-guide p{font-size:12px;line-height:1.75}
+  .identity-option2 .peri-activity-art{width:200px;height:214px;margin:0 auto 20px;padding-top:5px}.identity-option2 .peri-activity-art > .peri-figure{width:123px;height:176px}.identity-option2 .peri-activity-badge{width:46px;height:46px;right:10px;bottom:40px;border-radius:15px}.identity-option2 .peri-activity-caption{font-size:10px}
+  .identity-option2 .listen-row > .peri-join-friend{width:65px!important}
+  .identity-option2 .peri-writing-prompt{padding:12px 14px}.identity-option2 .peri-writing-prompt p{font-size:12px}
+  .identity-option2 .result-hero > .peri-figure{width:90px;margin-bottom:3px}
+  .identity-option2 .page-hero{grid-template-columns:minmax(0,1fr) 64px;gap:13px}.identity-option2 .page-hero > .peri-figure{width:64px;margin:0}.identity-option2 .page-hero h1{font-size:23px}
+}
+@media(max-width:350px){
+  .identity-option2 .peri-stage-art{width:61px;height:89px}.identity-option2 .peri-stage-art > .peri-figure{width:57px;height:85px}
+  .identity-option2 .identity-stage-time{font-size:9px}.identity-option2 .identity-cta{padding-right:88px;padding-left:18px}.identity-option2 .peri-cta-friend{width:79px;right:2px}.identity-option2 .identity-cta h2{font-size:22px}
+}
+@media(prefers-reduced-motion:reduce){.identity-option2 .peri-hero-friend{animation:none}}
+@media print{.identity-option2 .peri-guide{break-inside:avoid}.identity-option2 .peri-hero-friend{animation:none;filter:none}}

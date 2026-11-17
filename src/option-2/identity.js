@@ -2,6 +2,7 @@
 (() => {
   'use strict';
   const assets = '/option-2/assets/';
+  const peri = window.ICanPeri;
   const paths = {
     sun: ['M4 16a8 8 0 0 1 16 0', 'M2 20h20M12 2v3M3 7l2 2M21 7l-2 2M1 14h3M20 14h3'],
     headphones: ['M4 13v-1a8 8 0 0 1 16 0v1', 'M4 12H3v7h4v-7ZM20 12h1v7h-4v-7Z'],
@@ -36,9 +37,6 @@
     return h('a', { class: 'brand', href: '#/', 'aria-label': 'ICANPath, trang chủ' }, h('img', { src: assets + 'icanpath-logo.svg', alt: 'ICANPath', width: 200, height: 54 }));
   }
   function decorate(el) {
-    if (el.tagName === 'IMG' && /^\/img\/fox-/.test(el.getAttribute('src') || '')) {
-      el.src = assets + 'portal-orbit.svg'; el.height = el.width; el.classList.add('identity-art');
-    }
     if (/^H[123]$/.test(el.tagName) && el.firstChild?.nodeType === Node.TEXT_NODE) {
       el.firstChild.textContent = el.firstChild.textContent.replace(/^[\p{Extended_Pictographic}\uFE0F\u200D\s]+/u, '');
     }
@@ -91,7 +89,8 @@
           lastResult ? h('a', { class: 'identity-resume', href: '#/r/' + lastResult }, 'Xem kết quả gần nhất', arrow()) : null),
         h('figure', { class: 'identity-hero-art' },
           h('img', { src: assets + 'open-horizon.png', alt: 'Cánh cửa xanh mở ra chân trời mới với ánh bình minh ấm áp.', width: 1536, height: 1024, fetchpriority: 'high', decoding: 'async' }),
-          h('figcaption', {}, h('span', {}, 'Mỗi bước khám phá,'), h('strong', {}, 'thêm một chân trời.')))),
+          peri.figure(h, 'fly', { class: 'peri-hero-friend' }),
+          h('figcaption', {}, h('span', {}, 'Peri sẽ đồng hành cùng em,'), h('strong', {}, 'trên từng bước khám phá.')))),
       h('div', { class: 'identity-facts', 'aria-label': 'Thông tin bài đánh giá' },
         h('div', {}, icon('clock'), h('span', {}, 'Khoảng ', h('b', {}, '30 phút'))),
         h('div', {}, icon('book'), h('span', {}, h('b', {}, '4 kỹ năng'), ' tiếng Anh')),
@@ -101,7 +100,7 @@
           h('h2', { id: 'identity-skills-title' }, 'Từng kỹ năng, thêm một điều hiểu về em'),
           h('p', {}, 'Bài đánh giá gồm năm chặng với độ khó được điều chỉnh theo câu trả lời, để em thể hiện khả năng một cách tự nhiên và vừa sức.')),
         h('div', { class: 'identity-stages' }, stageData.map(([key, title, time, desc]) => h('article', { class: 'identity-stage' + (key === 'U' ? ' identity-warmup' : '') },
-          h('div', { class: 'identity-stage-top' }, h('span', { class: 'identity-icon-box' }, icon(skillIcons[key], 28)), h('span', { class: 'identity-stage-time' }, time)),
+          h('div', { class: 'identity-stage-top' }, h('span', { class: 'peri-stage-art' }, peri.figure(h, { U: 'jump', L: 'wave', R: 'think', S: 'wink', W: 'fly' }[key], { decorative: true }), h('span', { class: 'peri-stage-skill' }, icon(skillIcons[key], 21))), h('span', { class: 'identity-stage-time' }, time)),
           h('h3', {}, title), h('p', {}, desc)))),
         h('p', { class: 'identity-gentle-note' }, icon('check', 18), 'Em cứ trả lời theo khả năng của mình, vì câu trả lời chưa đúng sẽ không bị trừ điểm.')),
       h('section', { class: 'identity-report-section', 'aria-labelledby': 'identity-report-title' },
@@ -122,11 +121,15 @@
         h('div', { class: 'identity-section-heading' }, h('span', { class: 'identity-kicker' }, 'CÙNG EM MỞ THÊM KHẢ NĂNG'), h('h2', { id: 'identity-people-title' }, 'Một hành trình, nhiều người đồng hành'), h('p', {}, 'Khi học sinh, gia đình và nhà trường cùng thấu hiểu, mỗi bước học tập sẽ có thêm sự tin tưởng và định hướng.')),
         h('div', { class: 'identity-role-grid' }, roles.map(([name, title, desc]) => h('article', { class: 'identity-role' }, h('div', { class: 'identity-icon-box' }, icon(name, 29)), h('h3', {}, title), h('p', {}, desc))))),
       h('section', { class: 'identity-cta' },
-        h('div', {}, h('span', { class: 'identity-kicker' }, 'CHÂN TRỜI MỚI BẮT ĐẦU TỪ EM'), h('h2', {}, 'Mở thêm những khả năng'), h('p', {}, 'Hãy bắt đầu bằng việc hiểu mình hôm nay, để mỗi bước học tiếng Anh ngày mai đều có một hướng đi rõ ràng hơn.'), h('button', { class: 'btn-lg', onclick: focusCode }, 'Cùng em khám phá', arrow())),
-        h('img', { src: assets + 'portal-orbit.svg', alt: '', width: 240, height: 240, loading: 'lazy' }))));
+        h('div', {}, h('span', { class: 'identity-kicker' }, 'CHÂN TRỜI MỚI BẮT ĐẦU TỪ EM'), h('h2', {}, 'Cùng Peri mở thêm những khả năng'), h('p', {}, 'Hãy bắt đầu bằng việc hiểu mình hôm nay, để mỗi bước học tiếng Anh ngày mai đều có một hướng đi rõ ràng hơn.'), h('button', { class: 'btn-lg', onclick: focusCode }, 'Cùng Peri khám phá', arrow())),
+        peri.figure(h, 'wink', { class: 'peri-cta-friend' }))));
   }
   window.ICanIdentity = {
     icon, brand, decorate, renderHome,
+    mascot: peri.figure,
+    sectionArt: peri.activityArt,
+    activityGuide: peri.guide,
+    onboardingGuide: peri.onboarding,
     skillIcons,
     skillColors: { U: '#0057A5', L: '#3155D9', R: '#3155D9', S: '#FF8066', W: '#3155D9' },
     lessonBrand: h => h('div', { class: 'identity-lesson-brand' }, brand(h)),

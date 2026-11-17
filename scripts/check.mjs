@@ -20,6 +20,9 @@ for (const file of sourceFiles) {
     for (const [, , path] of css.matchAll(/url\((["']?)(\/[^"')]+)\1\)/g)) assert((await stat(resolve(src, '.' + path))).size > 0, `Missing CSS asset: ${path}`);
   }
 }
+const periContext = vm.createContext({ window: {} });
+vm.runInContext(await readFile(resolve(src, 'option-2/peri.js'), 'utf8'), periContext);
+for (const pose of Object.values(periContext.window.ICanPeri.poses)) assert((await stat(resolve(src, 'option-2/assets/peri', pose.file))).size > 0, `Missing Peri artwork: ${pose.file}`);
 const storage = new Map();
 const context = vm.createContext({ window: {}, document: { addEventListener() {} }, localStorage: { getItem: k => storage.get(k) || null, setItem: (k, v) => storage.set(k, String(v)) }, crypto: webcrypto, URL, Date, console, setTimeout, Blob });
 for (const file of ['demo-core.js', 'audio-manifest.js', 'demo-assessment.js', 'demo-staff.js']) vm.runInContext(await readFile(resolve(src, file), 'utf8'), context, { filename: file });

@@ -22,6 +22,8 @@ Phương án đầu tiên vẫn ở `/`. Hai phương án dùng chung dịch v�
 
 `src/option-2/identity.js` cung cấp giao diện trang chủ và các điểm tích hợp nhận diện, `identity.css` chỉ áp dụng cho body có lớp `identity-option2`. Các tài nguyên nằm trong `src/option-2/assets/`, hướng dẫn sử dụng nhận diện được lưu trong `docs/brand-guidelines.md`.
 
+Nhân vật Peri dùng năm tư thế gốc từ bộ hình được cung cấp, xuất hiện ở trang chủ, khai báo thông tin, năm chặng đánh giá, phần luyện nói và báo cáo. `src/option-2/peri.js` chọn tư thế theo hoạt động, còn `peri.css` bố trí nhân vật trên desktop và điện thoại. Các ảnh PNG gốc trong `src/option-2/assets/peri/` được giữ nguyên, không cần tải từ Drive khi chạy website.
+
 ## Dùng thử
 
 | Luồng | Đường dẫn / tài khoản |
