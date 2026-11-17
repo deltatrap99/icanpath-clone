@@ -1,0 +1,14 @@
+{
+  "name": "icanpath-clone",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Faithful ICan Path interface clone with independent browser-local demo services",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/serve.mjs --dist",
+    "check": "node scripts/check.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

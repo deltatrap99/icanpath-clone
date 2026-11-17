@@ -1,0 +1,138 @@
+[
+  {
+    "code": "P34",
+    "name": "An Giang"
+  },
+  {
+    "code": "P16",
+    "name": "Bắc Ninh"
+  },
+  {
+    "code": "P11",
+    "name": "Cao Bằng"
+  },
+  {
+    "code": "P33",
+    "name": "Cà Mau"
+  },
+  {
+    "code": "P30",
+    "name": "Cần Thơ"
+  },
+  {
+    "code": "P23",
+    "name": "Gia Lai"
+  },
+  {
+    "code": "P02",
+    "name": "Huế"
+  },
+  {
+    "code": "P01",
+    "name": "Hà Nội"
+  },
+  {
+    "code": "P10",
+    "name": "Hà Tĩnh"
+  },
+  {
+    "code": "P17",
+    "name": "Hưng Yên"
+  },
+  {
+    "code": "P18",
+    "name": "Hải Phòng"
+  },
+  {
+    "code": "P24",
+    "name": "Khánh Hòa"
+  },
+  {
+    "code": "P03",
+    "name": "Lai Châu"
+  },
+  {
+    "code": "P13",
+    "name": "Lào Cai"
+  },
+  {
+    "code": "P25",
+    "name": "Lâm Đồng"
+  },
+  {
+    "code": "P06",
+    "name": "Lạng Sơn"
+  },
+  {
+    "code": "P09",
+    "name": "Nghệ An"
+  },
+  {
+    "code": "P19",
+    "name": "Ninh Bình"
+  },
+  {
+    "code": "P15",
+    "name": "Phú Thọ"
+  },
+  {
+    "code": "P22",
+    "name": "Quảng Ngãi"
+  },
+  {
+    "code": "P07",
+    "name": "Quảng Ninh"
+  },
+  {
+    "code": "P20",
+    "name": "Quảng Trị"
+  },
+  {
+    "code": "P05",
+    "name": "Sơn La"
+  },
+  {
+    "code": "P27",
+    "name": "TP. Hồ Chí Minh"
+  },
+  {
+    "code": "P08",
+    "name": "Thanh Hóa"
+  },
+  {
+    "code": "P14",
+    "name": "Thái Nguyên"
+  },
+  {
+    "code": "P12",
+    "name": "Tuyên Quang"
+  },
+  {
+    "code": "P29",
+    "name": "Tây Ninh"
+  },
+  {
+    "code": "P31",
+    "name": "Vĩnh Long"
+  },
+  {
+    "code": "P04",
+    "name": "Điện Biên"
+  },
+  {
+    "code": "P21",
+    "name": "Đà Nẵng"
+  },
+  {
+    "code": "P26",
+    "name": "Đắk Lắk"
+  },
+  {
+    "code": "P28",
+    "name": "Đồng Nai"
+  },
+  {
+    "code": "P32",
+    "name": "Đồng Tháp"
+  }
+]
