@@ -16,8 +16,9 @@
         const observed = students.map(student => observations.get(student.id + ':' + task.id)).filter(record => record && accepted.includes(record.value));
         observed.forEach(record => assessedIds.add(record.student_id));
         const correct = observed.filter(record => record.value === task.correct).length;
-        const affected = observed.filter(record => record.value === task.misconception).length;
-        return { ...JSON.parse(JSON.stringify(task)), assessed: observed.length, missing: students.length - observed.length, correct_count: correct, pass_percent: percent(correct, observed.length), affected, error_percent: percent(affected, observed.length) };
+        const affectedIds = observed.filter(record => record.value === task.misconception).map(record => record.student_id).sort();
+        const affected = affectedIds.length;
+        return { ...JSON.parse(JSON.stringify(task)), assessed: observed.length, missing: students.length - observed.length, correct_count: correct, pass_percent: percent(correct, observed.length), affected, affected_ids: affectedIds, error_percent: percent(affected, observed.length) };
       });
       const errors = criteria.filter(item => item.assessed && item.affected).sort((a, b) => b.affected / b.assessed - a.affected / a.assessed || b.affected - a.affected || a.id.localeCompare(b.id));
       const average = students.length ? round(students.reduce((sum, student) => sum + student.skills[key].score, 0) / students.length) : null;

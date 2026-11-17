@@ -64,5 +64,28 @@
     const start = (pageNumber - 1) * pageSize;
     return { students: filtered.slice(start, start + pageSize), total: filtered.length, pages, current: pageNumber, start: filtered.length ? start + 1 : 0, end: Math.min(start + pageSize, filtered.length) };
   }
-  window.ICanSchoolService = { login, logout, session, report, page, skills: { ...SKILLS }, levels: [...LEVELS] };
+  function errorReport(scope, taskId) {
+    const cohortReport = report(scope);
+    const criterion = cohortReport.diagnostics.skills.flatMap(skill => skill.criteria).find(item => item.id === taskId);
+    if (!criterion || criterion.skill !== cohortReport.scope.skill) fail('Lỗi chưa thuộc kỹ năng đang chọn, thầy cô vui lòng mở lại từ phần phân tích kỹ năng.', 'invalid_criterion');
+    const ids = new Set(criterion.affected_ids);
+    const students = cohortReport.students.filter(student => ids.has(student.id)).sort((a, b) => a.name.localeCompare(b.name, 'vi') || a.class_name.localeCompare(b.class_name, 'vi') || a.id.localeCompare(b.id));
+    return { report: cohortReport, criterion, students };
+  }
+  function studentReport(scope, studentId, taskId = '') {
+    const group = taskId ? errorReport(scope, taskId) : null;
+    const cohortReport = group?.report || report(scope);
+    const student = cohortReport.students.find(item => item.id === studentId);
+    if (!student) fail('Học sinh chưa thuộc phạm vi báo cáo đang chọn, thầy cô vui lòng kiểm tra lại lớp hoặc khối.', 'student_not_found');
+    if (group && !group.criterion.affected_ids.includes(studentId)) fail('Học sinh chưa có minh chứng khớp với lỗi đang chọn, thầy cô vui lòng quay lại danh sách.', 'student_not_affected');
+    const responses = new Map(window.ICanSchoolEvidence.responsesFor(student).map(record => [record.task_id, record]));
+    const evidence = window.ICanSchoolEvidence.tasks.map(task => {
+      const value = responses.get(task.id)?.value;
+      const valid = (task.kind === 'choice' ? Object.keys(task.options) : ['met', 'needs_support']).includes(value);
+      const status = !valid ? 'missing' : value === task.correct ? 'met' : value === task.misconception ? 'needs_support' : 'other_error';
+      return { ...clone(task), value: valid ? value : null, status, response_text: !valid ? null : task.kind === 'choice' ? task.options[value] : status === 'met' ? task.better_example : task.error_example };
+    });
+    return { report: cohortReport, student, context_error: group?.criterion || null, evidence };
+  }
+  window.ICanSchoolService = { login, logout, session, report, page, errorReport, studentReport, skills: { ...SKILLS }, levels: [...LEVELS] };
 })();

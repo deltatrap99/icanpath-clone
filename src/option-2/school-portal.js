@@ -2,12 +2,16 @@
 (() => {
   'use strict';
   const service = () => window.ICanSchoolService;
-  function href({ grade = '', class_name = '', skill = 'overall', focus = '' } = {}) {
+  function href({ grade = '', class_name = '', skill = 'overall', focus = '', error = '', student = '', search = '', page = 1 } = {}) {
     const query = new URLSearchParams();
     if (grade) query.set('grade', grade);
     if (class_name) query.set('class', class_name);
     if (skill !== 'overall') query.set('skill', skill);
-    if (focus === 'skills') query.set('focus', focus);
+    if (error) query.set('error', error);
+    if (student) query.set('student', student);
+    if (error && search) query.set('search', search);
+    if (error && Number.isInteger(Number(page)) && Number(page) > 1) query.set('page', String(page));
+    if (['skills', 'error', 'rankings'].includes(focus)) query.set('focus', focus);
     return '#/school-portal' + (query.size ? '?' + query.toString() : '');
   }
   function login(h, mount, onRoute) {
@@ -32,11 +36,25 @@
     if (!service().session()) return login(h, mount, onRoute);
     const className = query.get('class') || '';
     const scope = { grade: query.get('grade') || (className ? className.slice(0, 2) : ''), class_name: className, skill: query.get('skill') || 'overall' };
-    let report;
-    try { report = service().report(scope); }
+    const errorId = query.get('error') || '';
+    let report, errorData;
+    try {
+      if (query.get('student')) {
+        mount(window.ICanSchoolStudentReport.render(h, service().studentReport(scope, query.get('student'), errorId), query));
+        const heading = document.querySelector('.school-personal-hero h1'); heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true });
+        return;
+      }
+      errorData = errorId ? service().errorReport(scope, errorId) : null;
+      report = errorData?.report || service().report(scope);
+    }
     catch (cause) { return mount(h('div', { class: 'school-panel school-portal school-error' }, h('h1', {}, 'Chưa mở được báo cáo theo lựa chọn này'), h('p', {}, cause.message), h('a', { class: 'btn', href: href() }, 'Xem lại toàn trường'))); }
     const logout = () => { service().logout(); onRoute(); };
     const setScope = update => { location.hash = href({ ...scope, ...update }); };
+    const focusRoster = () => { const target = document.getElementById('school-error-students-title'); target.scrollIntoView({ block: 'start' }); target.focus({ preventScroll: true }); };
+    const openError = item => {
+      const next = href({ ...scope, skill: item.skill, error: item.id, focus: 'error' });
+      if (location.hash === next) focusRoster(); else location.hash = next;
+    };
     const focusSkills = () => {
       const section = document.getElementById('school-insights');
       section.scrollIntoView({ block: 'start' });
@@ -57,9 +75,11 @@
       h('section', { class: 'school-filter-panel', 'aria-label': 'Chọn phạm vi báo cáo' }, h('div', {}, h('label', { for: grade.id }, 'Khối học'), grade), h('div', {}, h('label', { for: classroom.id }, 'Lớp học'), classroom), h('div', {}, h('label', { for: skill.id }, 'Kết quả hiển thị'), skill), h('a', { class: 'btn btn2 school-reset', href: href() }, 'Về toàn trường')),
       h('div', { class: 'school-scope-heading', 'aria-live': 'polite' }, h('h2', {}, report.scope.label), h('p', {}, `Phạm vi này có ${report.summary.total} học sinh thuộc ${report.summary.classes} lớp, đang xem kết quả ${service().skills[scope.skill].toLowerCase()}.`)),
       window.ICanSchoolCharts.metrics(h, report), h('div', { class: 'school-charts-grid' }, chart.node, window.ICanSchoolCharts.histogram(h, report)),
-      window.ICanSchoolInsights.render(h, report, { onSelect: key => setScope({ skill: key, focus: 'skills' }) }),
+      window.ICanSchoolInsights.render(h, report, { onSelect: key => setScope({ skill: key, focus: 'skills' }), onError: openError, selectedError: errorId, roster: errorData ? window.ICanSchoolErrorStudents.create(h, errorData, query) : null }),
       rankings.node, h('p', { class: 'school-data-note' }, 'Điểm tổng thể là trung bình của bốn kỹ năng trong bộ dữ liệu minh họa. Thầy cô có thể chọn tên học sinh để xem kết quả Nghe, Đọc, Nói và Viết.')));
     if (query.get('focus') === 'skills') focusSkills();
+    if (query.get('focus') === 'error' && errorData) focusRoster();
+    if (query.get('focus') === 'rankings') { const target = document.getElementById('school-ranking-title'); target.setAttribute('tabindex', '-1'); target.scrollIntoView({ block: 'start' }); target.focus({ preventScroll: true }); }
   }
   window.ICanSchoolPortal = { render, href };
 })();

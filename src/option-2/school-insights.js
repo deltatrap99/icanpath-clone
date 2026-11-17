@@ -30,12 +30,14 @@
           h('div', { class: 'school-error-after' }, h('span', {}, item.kind === 'choice' ? 'Lựa chọn phù hợp' : 'Gợi ý vận dụng'), h('p', { lang: item.id === 'S-ending' ? 'vi' : 'en' }, item.kind === 'choice' ? item.options[item.correct] : item.better_example))),
         h('p', { class: 'school-error-explanation' }, item.explanation), h('div', { class: 'school-error-support' }, window.ICanIdentity.icon('signpost', 21), h('p', {}, item.support))));
   }
-  function errors(h, skill) {
+  function errors(h, skill, { onError, selectedError, roster }) {
     return h('section', { class: 'school-insight-errors', 'aria-labelledby': 'school-errors-title' },
-      h('div', { class: 'school-error-list-heading' }, h('div', {}, h('h4', { id: 'school-errors-title' }, 'Những lỗi cần cùng học sinh tháo gỡ'), h('p', {}, 'Các lỗi được xếp theo tỷ lệ gặp trong từng hoạt động, thầy cô có thể mở minh chứng để chọn cách hỗ trợ phù hợp.')), h('span', { class: 'school-insight-source' }, 'Từ bài làm mẫu')),
-      skill.errors.length ? h('ol', { class: 'school-error-list' }, skill.errors.map((item, index) => h('li', {}, h('div', { class: 'school-error-row' }, h('span', { class: 'school-error-order', 'aria-hidden': 'true' }, String(index + 1).padStart(2, '0')),
-        h('div', { class: 'school-error-main' }, h('h5', {}, item.error), h('p', {}, `${item.affected}/${item.assessed} học sinh gặp biểu hiện này trong hoạt động được xem xét.`), h('span', { class: 'school-error-rate-track', 'aria-hidden': 'true' }, h('i', { style: `width:${item.error_percent}%` }))),
-        h('div', { class: 'school-error-rate' }, h('strong', {}, fmt(item.error_percent) + '%'), h('span', {}, 'bài được xem xét'))), example(h, item)))) : h('div', { class: 'school-insight-empty' }, window.ICanPeri.figure(h, 'think', { decorative: true }), h('p', {}, skill.assessed ? 'Chưa ghi nhận biểu hiện lỗi thuộc các tiêu chí mẫu này, thầy cô có thể xem thêm minh chứng trước khi kết luận.' : 'Chưa có bài làm hoặc phiếu quan sát cho kỹ năng này, thầy cô cần bổ sung minh chứng trước khi phân tích lỗi.')));
+      h('div', { class: 'school-error-list-heading' }, h('div', {}, h('h4', { id: 'school-errors-title' }, 'Những lỗi cần cùng học sinh tháo gỡ'), h('p', {}, 'Thầy cô chọn tên lỗi để xem danh sách học sinh, hoặc mở minh chứng để tìm cách hỗ trợ phù hợp. Các lỗi được xếp theo tỷ lệ gặp trong từng hoạt động.')), h('span', { class: 'school-insight-source' }, 'Từ bài làm mẫu')),
+      skill.errors.length ? h('ol', { class: 'school-error-list' }, skill.errors.map((item, index) => h('li', { class: selectedError === item.id ? 'school-error-selected' : '' }, h('div', { class: 'school-error-row' }, h('span', { class: 'school-error-order', 'aria-hidden': 'true' }, String(index + 1).padStart(2, '0')),
+        h('div', { class: 'school-error-main' }, h('h5', {}, h('button', { type: 'button', class: 'school-error-title-button', onclick: () => onError(item), 'aria-label': 'Xem học sinh gặp lỗi: ' + item.error, 'aria-expanded': String(selectedError === item.id), 'aria-controls': selectedError === item.id ? 'school-error-students' : null }, item.error)), h('p', {}, `${item.affected}/${item.assessed} học sinh gặp biểu hiện này trong hoạt động được xem xét.`), h('span', { class: 'school-error-rate-track', 'aria-hidden': 'true' }, h('i', { style: `width:${item.error_percent}%` }))),
+        h('div', { class: 'school-error-rate' }, h('strong', {}, fmt(item.error_percent) + '%'), h('span', {}, 'bài được xem xét'))),
+        h('div', { class: 'school-error-students-action' }, h('button', { type: 'button', class: 'btn2', onclick: () => onError(item), 'aria-label': `Xem ${item.affected} học sinh gặp lỗi ${item.error}` }, window.ICanIdentity.icon('user', 17), `Xem ${item.affected} học sinh`, window.ICanIdentity.icon('arrow', 16))),
+        selectedError === item.id ? roster : null, example(h, item)))) : h('div', { class: 'school-insight-empty' }, window.ICanPeri.figure(h, 'think', { decorative: true }), h('p', {}, skill.assessed ? 'Chưa ghi nhận biểu hiện lỗi thuộc các tiêu chí mẫu này, thầy cô có thể xem thêm minh chứng trước khi kết luận.' : 'Chưa có bài làm hoặc phiếu quan sát cho kỹ năng này, thầy cô cần bổ sung minh chứng trước khi phân tích lỗi.')));
   }
   function plan(h, skill) {
     const priority = skill.errors[0];
@@ -53,14 +55,14 @@
         h('p', {}, 'Tỷ lệ gặp lỗi bằng số học sinh có biểu hiện đó chia cho số học sinh có minh chứng hợp lệ ở cùng hoạt động. Bài bỏ qua hoặc chưa có minh chứng không được tính là sai. Một học sinh có thể gặp nhiều lỗi, nên các tỷ lệ không cộng thành 100%.'),
         h('p', {}, 'Điểm trung bình và trình độ B1 trở lên lấy từ kết quả kỹ năng của nhóm đang chọn. Tỷ lệ ở từng năng lực thành phần dùng bài làm mẫu riêng, không phải công thức quy đổi điểm hoặc mức CEFR.')));
   }
-  function render(h, report, { onSelect }) {
+  function render(h, report, options) {
     const active = names[report.scope.skill] ? report.scope.skill : 'L';
     const skill = report.diagnostics.skills.find(item => item.key === active);
     return h('section', { class: 'school-insights', id: 'school-insights', tabindex: '-1', 'aria-labelledby': 'school-insights-title' },
       h('div', { class: 'school-insights-heading' }, h('div', {}, h('span', { class: 'identity-kicker' }, 'TỪ HIỂU KẾT QUẢ ĐẾN CHỌN CÁCH HỖ TRỢ'), h('h2', { id: 'school-insights-title' }, 'Đi sâu vào từng kỹ năng'), h('p', {}, `Thầy cô đang xem ${report.scope.prose}. Hãy chọn một kỹ năng để cùng xem năng lực thành phần, lỗi thường gặp, phổ điểm và thứ hạng tương ứng.`)), window.ICanPeri.figure(h, 'think', { class: 'school-insights-peri', decorative: true })),
-      h('h3', { class: 'school-insight-overview-label' }, 'So sánh điểm trung bình trên thang 100'), overview(h, report, active, onSelect),
+      h('h3', { class: 'school-insight-overview-label' }, 'So sánh điểm trung bình trên thang 100'), overview(h, report, active, options.onSelect),
       h('div', { class: 'school-panel school-insight-detail' }, h('header', { class: 'school-insight-detail-heading' }, h('div', {}, h('span', { class: 'school-insight-detail-icon' }, icon(active, 24)), h('h3', {}, 'Chi tiết kỹ năng ' + names[active])), h('p', {}, `${skill.assessed}/${skill.total} học sinh có ít nhất một minh chứng ở kỹ năng này.`, skill.missing ? ` Còn ${skill.missing} học sinh chưa có minh chứng.` : '')),
-        h('div', { class: 'school-insight-detail-grid' }, criteria(h, skill), plan(h, skill)), errors(h, skill), methodology(h, report)));
+        h('div', { class: 'school-insight-detail-grid' }, criteria(h, skill), plan(h, skill)), errors(h, skill, options), methodology(h, report)));
   }
   window.ICanSchoolInsights = { render };
 })();
