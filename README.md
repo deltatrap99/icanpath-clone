@@ -12,6 +12,8 @@ npm run dev
 
 Mở http://localhost:4173. Đóng gói bản tĩnh bằng `npm run build`, kiểm tra bằng `npm run check`, và chạy bản đã đóng gói bằng `npm start`.
 
+Khi triển khai trên Vercel, cấu hình trong `vercel.json` sẽ chạy lệnh build và xuất bản thư mục `dist`. Repository GitHub dùng nhánh `main` cho bản production, còn các nhánh khác có thể tạo bản xem trước qua kết nối Git của Vercel.
+
 ## Dùng thử
 
 | Luồng | Đường dẫn / tài khoản |
