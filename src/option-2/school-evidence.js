@@ -53,7 +53,7 @@
     {
       id: 'S-develop', skill: 'S', kind: 'rubric', criterion: 'Phát triển câu trả lời', error: 'Trả lời ngắn và chưa giải thích lý do',
       prompt: 'What do you enjoy doing after school, and why?', error_example: 'I like football.', better_example: 'I enjoy playing football after school because it helps me relax and spend time with my friends.',
-      explanation: 'Câu trả lời đã nêu hoạt động yêu thích nhưng chưa trả lời phần lý do. Tiêu chí mẫu ghi nhận khả năng mở rộng ý, không yêu cầu học sinh học thuộc câu dài.',
+      explanation: 'Câu trả lời đã nêu hoạt động yêu thích nhưng chưa trả lời phần lý do. Tiêu chí ghi nhận khả năng mở rộng ý, không yêu cầu học sinh học thuộc câu dài.',
       support: 'Thầy cô dùng câu hỏi tiếp nối như Why? hoặc Can you give an example? để giúp học sinh bổ sung một ý vừa sức.',
       practice: ['Học sinh chọn một hoạt động gần gũi và nghĩ về lý do mình yêu thích hoạt động đó.', 'Các cặp học sinh luyện theo ba bước, nêu ý chính, giải thích lý do và thêm một ví dụ.', 'Thầy cô hỏi một chủ đề tương tự để quan sát học sinh có tự phát triển câu trả lời hay không.'],
     },
@@ -66,8 +66,8 @@
     },
     {
       id: 'S-ending', skill: 'S', kind: 'rubric', criterion: 'Phát âm rõ âm cuối', error: 'Âm cuối chưa rõ trong từ quen thuộc',
-      prompt: 'Read this sentence aloud: I have two cats.', error_example: 'Ghi chú quan sát mẫu: âm /s/ cuối từ cats chưa nghe rõ.', better_example: 'cats /kæts/, giữ âm /s/ ở cuối khi nói “two cats”.',
-      explanation: 'Tiêu chí mẫu chỉ ghi nhận độ rõ của âm cuối trong câu được giao. Một lần đọc chưa rõ không đủ để kết luận về toàn bộ khả năng phát âm của học sinh.',
+      prompt: 'Read this sentence aloud: I have two cats.', error_example: 'Ghi chú quan sát: âm /s/ cuối từ cats chưa nghe rõ.', better_example: 'cats /kæts/, giữ âm /s/ ở cuối khi nói “two cats”.',
+      explanation: 'Tiêu chí chỉ ghi nhận độ rõ của âm cuối trong câu được giao. Một lần đọc chưa rõ không đủ để kết luận về toàn bộ khả năng phát âm của học sinh.',
       support: 'Thầy cô làm mẫu âm cuối, cho học sinh luyện từ đến cụm từ và nghe lại bản ghi để tự nhận ra sự khác biệt.',
       practice: ['Học sinh nghe và phân biệt cat với cats, đồng thời chú ý âm xuất hiện ở cuối từ.', 'Các cặp học sinh luyện chậm từ cats, cụm two cats và câu hoàn chỉnh, rồi tăng dần tốc độ.', 'Thầy cô dùng một câu mới có âm /s/ cuối từ để quan sát độ rõ khi học sinh nói tự nhiên.'],
     },

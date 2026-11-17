@@ -7,11 +7,11 @@
     let dialog;
     const close = () => dialog.close();
     dialog = h('dialog', { class: 'school-student-dialog', 'aria-labelledby': 'school-student-title', oncancel: event => { event.preventDefault(); close(); }, onclose: () => { dialog.remove(); if (previous?.isConnected) previous.focus(); } },
-      h('div', { class: 'school-dialog-top' }, h('span', { class: 'school-data-badge' }, 'Kết quả minh họa'), h('button', { type: 'button', class: 'btn2 school-close', onclick: close, 'aria-label': 'Đóng kết quả học sinh' }, '×')),
+      h('div', { class: 'school-dialog-top' }, h('span', { class: 'school-data-badge' }, 'Kết quả học sinh'), h('button', { type: 'button', class: 'btn2 school-close', onclick: close, 'aria-label': 'Đóng kết quả học sinh' }, '×')),
       h('span', { class: 'identity-kicker' }, report.school.name), h('h2', { id: 'school-student-title' }, student.name), h('p', { class: 'school-student-meta' }, `Lớp ${student.class_name}, năm học ${report.school.year}`),
       h('div', { class: 'school-student-overall' }, h('div', {}, h('span', {}, 'Điểm tổng thể'), h('strong', {}, fmt(student.overall.score), h('small', {}, ' / 100'))), h('b', { class: 'school-cefr-badge' }, student.overall.cefr)),
       h('div', { class: 'school-student-skills' }, Object.entries(student.skills).map(([key, skill]) => h('div', {}, h('span', {}, window.ICanIdentity.icon(window.ICanIdentity.skillIcons[key], 22), window.ICanSchoolService.skills[key]), h('strong', {}, fmt(skill.score)), h('small', {}, skill.cefr), h('span', { class: 'school-skill-track', 'aria-hidden': 'true' }, h('i', { style: `width:${skill.score}%` }))))),
-      h('p', { class: 'school-student-context' }, `Học sinh có thứ hạng ${student.rank} trong ${report.summary.total} học sinh của ${report.scope.prose}, theo ${report.scope.skill === 'overall' ? 'điểm tổng thể' : 'điểm kỹ năng ' + window.ICanSchoolService.skills[report.scope.skill].toLowerCase()}. Điểm tổng thể là trung bình của bốn kỹ năng trong bộ dữ liệu minh họa.`),
+      h('p', { class: 'school-student-context' }, `Học sinh có thứ hạng ${student.rank} trong ${report.summary.total} học sinh của ${report.scope.prose}, theo ${report.scope.skill === 'overall' ? 'điểm tổng thể' : 'điểm kỹ năng ' + window.ICanSchoolService.skills[report.scope.skill].toLowerCase()}. Điểm tổng thể là trung bình của bốn kỹ năng trong báo cáo.`),
       h('a', { class: 'btn btn2 school-dialog-full-report', href: window.ICanSchoolPortal.href({ ...report.scope, student: student.id }) }, 'Mở báo cáo chi tiết', window.ICanIdentity.icon('arrow', 18)),
       h('button', { type: 'button', class: 'school-dialog-done', onclick: close }, 'Đóng kết quả'));
     document.body.append(dialog); dialog.showModal();

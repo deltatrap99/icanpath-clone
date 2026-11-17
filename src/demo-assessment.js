@@ -348,24 +348,24 @@
     const labels = { L: 'Nghe thông tin chính', R: 'Đọc hiểu nội dung', S: 'Diễn đạt bằng lời nói', W: 'Trình bày ý bằng văn bản' };
     const abilities = { L: 'Em có thể nhận biết thông tin chính và những chi tiết quen thuộc trong một hội thoại ngắn.', R: 'Em có thể hiểu ý chính của những đoạn văn viết về học tập và đời sống hằng ngày.', S: 'Em có thể trình bày ý tưởng về một chủ đề gần gũi bằng những câu tiếng Anh đơn giản.', W: 'Em có thể viết một đoạn ngắn gồm ý chính và một số chi tiết giúp người đọc hiểu rõ nội dung.' };
     const result = {
-      id: s.result_token || 'demo-result', copy_version: 2, student: copy(s.student),
-      overall: { theta: overallTheta, cefr: cefr(overallTheta), estimated: true, note_vi: 'BẢN DEMO: dữ liệu được xử lý và lưu riêng trong trình duyệt này. Điểm Nói, Viết và nhận xét phát âm chỉ minh họa giao diện, không được chấm bằng AI. Điểm trắc nghiệm được tính từ câu trả lời trong bộ câu hỏi mẫu. Kết quả không thay thế đánh giá chính thức hay chứng chỉ CEFR.' },
+      id: s.result_token || 'demo-result', copy_version: 3, student: copy(s.student),
+      overall: { theta: overallTheta, cefr: cefr(overallTheta), estimated: true, note_vi: 'Kết quả mang tính tham chiếu và không thay thế chứng chỉ CEFR. Điểm trắc nghiệm được tính từ câu trả lời. Phần Nói, Viết và phát âm chưa được chấm bằng AI. Dữ liệu được lưu trên trình duyệt của em.' },
       skills: sk, use_of_english: skillScore(s, 'U', fixture),
       confidence: { level: confidence, score: fixture ? 78 : Math.min(82, Math.round(totalAnswered / 20 * 70) + scored.length * 5) },
       scoring_issues: [],
-      abilities: ['L', 'R', 'S', 'W'].map((skill) => ({ skill, status: sk[skill].theta == null ? 'insufficient' : 'can_do', text_vi: sk[skill].theta == null ? 'Hệ thống chưa có câu trả lời để nhận xét kỹ năng này, em hãy luyện tập và hoàn thành lại phần kiểm tra để có thêm dữ liệu.' : (skill === 'S' || skill === 'W') && !fixture ? 'Hệ thống đã ghi nhận bài làm trên thiết bị của em, còn các nhận xét năng lực trong bản dùng thử chỉ mang tính minh họa.' : abilities[skill] })),
+      abilities: ['L', 'R', 'S', 'W'].map((skill) => ({ skill, status: sk[skill].theta == null ? 'insufficient' : 'can_do', text_vi: sk[skill].theta == null ? 'Hệ thống chưa có câu trả lời để nhận xét kỹ năng này, em hãy luyện tập và hoàn thành lại phần kiểm tra để có thêm dữ liệu.' : (skill === 'S' || skill === 'W') && !fixture ? 'Hệ thống đã ghi nhận bài làm trên thiết bị của em. Phần này cần thêm nhận xét của giáo viên.' : abilities[skill] })),
       next_steps: [
         { text_vi: `Em nên dành từ 10 đến 15 phút mỗi ngày để luyện kỹ năng ${SKILL[focus].toLowerCase()} với những chủ đề quen thuộc.` },
         { text_vi: 'Em hãy ghi lại năm từ mới mỗi ngày và dùng từng từ trong một câu có nghĩa để ghi nhớ cách sử dụng.' },
         { text_vi: 'Em nên hoàn thành lại đầy đủ các phần đánh giá và trao đổi với giáo viên để xác nhận trình độ của mình.' },
       ],
-      strengths: scored.slice(0, 3).map((skill) => ({ skill, label_vi: labels[skill], evidence_vi: fixture ? `Kết quả mẫu này minh họa khả năng thực hiện các nhiệm vụ ở mức ${sk[skill].cefr}.` : ['S', 'W'].includes(skill) ? 'Em đã hoàn thành thao tác nộp bài trong bản dùng thử, còn phần nhận xét hiện chưa dựa trên kết quả chấm AI thực tế.' : `Em đã trả lời đúng ${sk[skill].correct} trong tổng số ${sk[skill].answered} câu đã làm ở phần kiểm tra này.` })),
+      strengths: scored.slice(0, 3).map((skill) => ({ skill, label_vi: labels[skill], evidence_vi: fixture ? `Kết quả ghi nhận khả năng thực hiện các nhiệm vụ ở mức ${sk[skill].cefr}.` : ['S', 'W'].includes(skill) ? 'Em đã nộp bài. Phần này chưa được chấm bằng AI.' : `Em đã trả lời đúng ${sk[skill].correct} trong tổng số ${sk[skill].answered} câu đã làm ở phần kiểm tra này.` })),
       improvements: [focus, ...['W', 'S', 'R', 'L'].filter((k) => k !== focus)].slice(0, 3).map((skill) => ({ skill, label_vi: `Củng cố kỹ năng ${SKILL[skill].toLowerCase()}`, evidence_vi: sk[skill].theta == null ? 'Em cần hoàn thành phần kiểm tra này để hệ thống có đủ dữ liệu nhận xét năng lực.' : skill === 'W' ? 'Em nên luyện viết đoạn văn có câu mở ý, ví dụ cụ thể và câu kết để nội dung được liên kết rõ ràng.' : skill === 'S' ? 'Em nên nghe câu mẫu và luyện nói rõ từng cụm từ mỗi ngày để cải thiện cách diễn đạt.' : 'Em nên luyện nhận biết ý chính của bài trước khi tìm những thông tin chi tiết trong nội dung.' })),
       self_vs_actual: ['L', 'R', 'S', 'W'].map((skill) => {
         const self = s.profile?.self?.[skill] || (fixture ? 3 : null), actual = sk[skill].theta;
         const delta = actual == null || self == null ? null : actual - self;
         const verdict = delta == null ? 'unknown' : delta > 0.8 ? 'underestimate' : delta < -0.8 ? 'overestimate' : 'match';
-        return { skill, skill_vi: SKILL[skill], self_level: self, self_label_vi: self ? ['Mới bắt đầu', 'Có thể làm với trợ giúp', 'Khá tự tin', 'Rất tự tin'][clamp(self - 1, 0, 3)] : '', actual_cefr: sk[skill].cefr, verdict, verdict_vi: verdict === 'unknown' ? 'Chưa đủ dữ liệu để so sánh' : verdict === 'match' ? 'Tự đánh giá khá gần kết quả mẫu' : verdict === 'underestimate' ? 'Em đã làm tốt hơn mức tự đánh giá' : 'Em cần luyện thêm để đạt mức tự tin mong muốn' };
+        return { skill, skill_vi: SKILL[skill], self_level: self, self_label_vi: self ? ['Mới bắt đầu', 'Có thể làm với trợ giúp', 'Khá tự tin', 'Rất tự tin'][clamp(self - 1, 0, 3)] : '', actual_cefr: sk[skill].cefr, verdict, verdict_vi: verdict === 'unknown' ? 'Chưa đủ dữ liệu để so sánh' : verdict === 'match' ? 'Tự đánh giá khá gần kết quả' : verdict === 'underestimate' ? 'Em đã làm tốt hơn mức tự đánh giá' : 'Em cần luyện thêm để đạt mức tự tin mong muốn' };
       }),
       learning_path: { purpose: confidence === 'low' ? 'confirm' : 'practice', focus_skill: focus, focus_skill_vi: SKILL[focus], units: UNITS.map((u, i) => ({ step: i + 1, unit: u.code, title: u.title, level: u.level, cefr: u.cefr, focus_vi: i === 0 ? 'Em sẽ củng cố từ vựng và cách viết những câu tiếng Anh cơ bản.' : i === 1 ? 'Em sẽ luyện kể lại các sự việc theo trình tự để người nghe dễ theo dõi.' : i === 2 ? 'Em sẽ luyện viết và diễn đạt các ý một cách rõ ràng, có sự liên kết.' : 'Em sẽ luyện trình bày ý kiến và giải thích lý do cho quan điểm của mình.' })) },
       feedback: { speaking: [], writing: [] },
@@ -373,10 +373,10 @@
       sample: fixture,
     };
     if (fixture || (s.speaking || []).length) {
-      result.feedback.speaking = (fixture ? taskList(s, 'S') : taskList(s, 'S').filter((t) => s.speaking.some((x) => x.item_id === t.id))).map((t) => ({ format: t.format, prompt: t.payload.text || t.payload.question, criteria: { pronunciation: 3, fluency: 2, language: 3 }, weak_words: [], feedback_vi: 'Em có thể luyện ngắt câu theo cụm ý và nhấn trọng âm để lời nói rõ ràng hơn. Những điểm số trong báo cáo này chỉ mang tính minh họa, vì bản dùng thử chưa phân tích chất lượng giọng nói của em.' }));
+      result.feedback.speaking = (fixture ? taskList(s, 'S') : taskList(s, 'S').filter((t) => s.speaking.some((x) => x.item_id === t.id))).map((t) => ({ format: t.format, prompt: t.payload.text || t.payload.question, criteria: { pronunciation: 3, fluency: 2, language: 3 }, weak_words: [], feedback_vi: 'Em có thể luyện ngắt câu theo cụm ý và nhấn trọng âm để lời nói rõ ràng hơn. Bản ghi âm chưa được phân tích chất lượng giọng nói bằng AI.' }));
     }
     if (fixture || countWords(s.writing?.text)) {
-      result.feedback.writing = [{ word_count: fixture ? 92 : countWords(s.writing.text), criteria: { task: 3, organisation: 3, vocabulary: 2, grammar: 2 }, feedback_vi: 'Em có thể làm bài viết rõ ý hơn bằng cách sử dụng câu chủ đề, bổ sung ví dụ và kiểm tra thì của động từ. Bản dùng thử chỉ đếm số từ và hiển thị nhận xét minh họa, chưa chấm chất lượng bài viết bằng AI.', improvements_vi: ['Em nên sắp xếp bài viết theo phần mở đoạn, nội dung chính và kết đoạn để người đọc dễ theo dõi.', 'Em có thể dùng các từ nối như first, because, however và finally để liên kết những ý trong bài viết.', 'Em hãy đọc lại toàn bộ bài viết để kiểm tra chính tả và sự phù hợp giữa chủ ngữ với động từ.'], corrected_sample: '' }];
+      result.feedback.writing = [{ word_count: fixture ? 92 : countWords(s.writing.text), criteria: { task: 3, organisation: 3, vocabulary: 2, grammar: 2 }, feedback_vi: 'Em có thể làm bài viết rõ ý hơn bằng cách sử dụng câu chủ đề, bổ sung ví dụ và kiểm tra thì của động từ. Hệ thống ghi nhận số từ, bài viết chưa được chấm bằng AI.', improvements_vi: ['Em nên sắp xếp bài viết theo phần mở đoạn, nội dung chính và kết đoạn để người đọc dễ theo dõi.', 'Em có thể dùng các từ nối như first, because, however và finally để liên kết những ý trong bài viết.', 'Em hãy đọc lại toàn bộ bài viết để kiểm tra chính tả và sự phù hợp giữa chủ ngữ với động từ.'], corrected_sample: '' }];
     }
     return result;
   };
@@ -449,7 +449,7 @@
     if (path === '/api/results' && method === 'GET') {
       const token = header(options.headers, 'x-result-token');
       let result = D.db.results[token];
-      if (result && result.copy_version !== 2) {
+      if (result && result.copy_version !== 3) {
         const session = Object.values(D.db.sessions).find((s) => s.result_token === token);
         if (session) {
           const updatedCopy = D.makeResult(session);
@@ -468,7 +468,7 @@
     if ((match = path.match(/^\/api\/units\/([^/]+)$/)) && method === 'GET') {
       const code = decodeURIComponent(match[1]);
       const unit = UNITS.find((u) => u.code.toLowerCase() === code.toLowerCase());
-      if (!unit) return fail(404, 'Bài học này không có trong bộ nội dung dùng thử.', 'unit_not_found');
+      if (!unit) return fail(404, 'Bài học này không có trong nội dung học tập.', 'unit_not_found');
       const enriched = copy(unit);
       enriched.lesson.vocab = enriched.lesson.vocab.map(word => ({ ...word, dictionary_url: 'https://dictionary.cambridge.org/us/dictionary/english/' + encodeURIComponent(word.word) }));
       return response({ unit: { ...enriched, audio: D.audio || {} } });
@@ -478,7 +478,7 @@
       if (!token || (!D.db.results[token] && !Object.values(D.db.sessions).some((s) => s.result_token === token))) return fail(401, 'Em cần mở bài học từ báo cáo của mình.', 'unauthorized');
       if (!b.audio_base64) return fail(400, 'Hệ thống hiện chưa nhận được bản ghi âm, em hãy thử ghi âm và gửi lại.', 'missing_audio');
       const words = String(b.text || '').split(/\s+/).filter(Boolean).map((word) => ({ word, score: 80 }));
-      return response({ result: { overall: 80, words, weak_phonemes: [], illustrative: true, note_vi: 'Điểm 80/100 là dữ liệu minh họa, chưa phân tích phát âm bằng AI.' } });
+      return response({ result: { overall: 80, words, weak_phonemes: [], illustrative: true, note_vi: 'Bản ghi âm chưa được phân tích phát âm bằng AI.' } });
     }
     return undefined;
   };

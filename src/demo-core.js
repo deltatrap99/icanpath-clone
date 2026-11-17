@@ -6,13 +6,13 @@
   const uid = (prefix = 'id') => prefix + '-' + crypto.randomUUID().slice(0, 8);
   const schools = [
     { id: 'GE001', name: 'Galaxy Education', province_code: 'P01', province: 'Hà Nội', ward: 'Cầu Giấy', ward_name: 'Cầu Giấy', ownership: 'private', specialized: false, program: 'enhanced', verified: true, report_token: 'demo-school' },
-    { id: 'GE002', name: 'THCS Nguyễn Du (Demo)', province_code: 'P27', province: 'TP. Hồ Chí Minh', ward: 'Bến Thành', ward_name: 'Bến Thành', ownership: 'public', specialized: false, program: 'standard', verified: true, report_token: 'demo-school-2' },
-    { id: 'GE003', name: 'Tiểu học Ngôi Sao (Demo)', province_code: 'P21', province: 'Đà Nẵng', ward: 'Hải Châu', ward_name: 'Hải Châu', ownership: 'private', specialized: false, program: 'international', verified: true, report_token: 'demo-school-3' },
+    { id: 'GE002', name: 'THCS Nguyễn Du', province_code: 'P27', province: 'TP. Hồ Chí Minh', ward: 'Bến Thành', ward_name: 'Bến Thành', ownership: 'public', specialized: false, program: 'standard', verified: true, report_token: 'demo-school-2' },
+    { id: 'GE003', name: 'Tiểu học Ngôi Sao', province_code: 'P21', province: 'Đà Nẵng', ward: 'Hải Châu', ward_name: 'Hải Châu', ownership: 'private', specialized: false, program: 'international', verified: true, report_token: 'demo-school-3' },
   ];
   const campaigns = [
-    { id: 'CP001', school_id: 'GE001', school_name: schools[0].name, test_date: '2026-10-29', grades: [3, 4, 5, 6, 7, 8, 9, 10, 11], join_code: 'E8YYZD', status: 'open', teacher: 'Giáo viên GE', ge_staff: 'GE Demo', name: 'Đánh giá năng lực tiếng Anh' },
-    { id: 'CP002', school_id: 'GE002', school_name: schools[1].name, test_date: date, grades: [6, 7, 8, 9], join_code: 'DEMO01', status: 'open', teacher: 'Giáo viên mẫu', ge_staff: 'GE Demo', name: 'Kiểm tra xếp lớp' },
-    { id: 'CP003', school_id: 'GE003', school_name: schools[2].name, test_date: date, grades: [3, 4, 5], join_code: 'K7P2QX', status: 'open', teacher: 'Giáo viên mẫu', ge_staff: 'GE Demo', name: 'Khám phá tiếng Anh' },
+    { id: 'CP001', school_id: 'GE001', school_name: schools[0].name, test_date: '2026-10-29', grades: [3, 4, 5, 6, 7, 8, 9, 10, 11], join_code: 'E8YYZD', status: 'open', teacher: 'Giáo viên GE', ge_staff: 'Nhân viên GE', name: 'Đánh giá năng lực tiếng Anh' },
+    { id: 'CP002', school_id: 'GE002', school_name: schools[1].name, test_date: date, grades: [6, 7, 8, 9], join_code: 'DEMO01', status: 'open', teacher: 'Giáo viên phụ trách', ge_staff: 'Nhân viên GE', name: 'Kiểm tra xếp lớp' },
+    { id: 'CP003', school_id: 'GE003', school_name: schools[2].name, test_date: date, grades: [3, 4, 5], join_code: 'K7P2QX', status: 'open', teacher: 'Giáo viên phụ trách', ge_staff: 'Nhân viên GE', name: 'Khám phá tiếng Anh' },
   ];
   function seed() {
     const sessions = {};
@@ -21,7 +21,7 @@
       const c = campaigns[cidx];
       const token = i ? 'session-demo-' + i : 'session-demo';
       sessions[token] = {
-        token, student: { student_id: 'HS' + String(i + 1).padStart(3, '0'), full_name: name + ' (Demo)', grade, class_name: cls, school_id: c.school_id, campaign_id: c.id, school_name: c.school_name, test_date: c.test_date },
+        token, student: { student_id: 'HS' + String(i + 1).padStart(3, '0'), full_name: name, grade, class_name: cls, school_id: c.school_id, campaign_id: c.id, school_name: c.school_name, test_date: c.test_date },
         profile: { score: 7 + i % 3, self: { L: 3, R: 3, S: 2, W: 2 }, goals: ['school', 'communication'], hours_out: '1-3', consent_marketing: i % 2 === 0 },
         status: i === 7 ? 'active' : 'completed', section: i === 7 ? 'R' : 'done', result_token: i ? 'demo-result-' + i : 'demo-result', answers: [], speaking: [], sample: true,
         demo_scores: [
@@ -37,14 +37,22 @@
       };
     });
     return { version: 1, schools, campaigns, sessions, results: {}, users: [
-      { id: 'u-admin', username: 'admin', display_name: 'Quản trị viên Demo', role: 'admin', password: 'demo123', active: true, last_login_at: null },
-      { id: 'u-staff', username: 'staff', display_name: 'GE Demo', role: 'staff', password: 'demo123', active: true, last_login_at: null },
-      { id: 'u-ge', username: 'GE Demo', display_name: 'GE Demo', role: 'staff', password: 'demo123', active: true, last_login_at: null },
+      { id: 'u-admin', username: 'admin', display_name: 'Quản trị viên', role: 'admin', password: 'demo123', active: true, last_login_at: null },
+      { id: 'u-staff', username: 'staff', display_name: 'Nhân viên GE', role: 'staff', password: 'demo123', active: true, last_login_at: null },
+      { id: 'u-ge', username: 'GE Demo', display_name: 'Nhân viên GE', role: 'staff', password: 'demo123', active: true, last_login_at: null },
     ], me: null, audit: [], shared_login: false };
   }
   let db;
   try { db = JSON.parse(localStorage.getItem(KEY)); } catch { /* reset malformed browser storage */ }
   if (!db || db.version !== 1) db = seed();
+  // Refresh visible labels in existing browser data without resetting sessions or scores.
+  const cleanLabel = (value) => typeof value === 'string' ? value.replace(/ \(Demo\)/g, '').replace(/GE Demo/g, 'Nhân viên GE').replace(/Quản trị viên Demo/g, 'Quản trị viên').replace(/Giáo viên mẫu/g, 'Giáo viên phụ trách') : value;
+  for (const school of db.schools || []) school.name = cleanLabel(school.name);
+  for (const campaign of db.campaigns || []) for (const key of ['school_name', 'teacher', 'ge_staff']) campaign[key] = cleanLabel(campaign[key]);
+  for (const session of Object.values(db.sessions || {})) if (session.student) for (const key of ['full_name', 'school_name']) session.student[key] = cleanLabel(session.student[key]);
+  for (const result of Object.values(db.results || {})) if (result.student) for (const key of ['full_name', 'school_name']) result.student[key] = cleanLabel(result.student[key]);
+  for (const user of db.users || []) user.display_name = cleanLabel(user.display_name);
+  if (db.me) db.me.display_name = cleanLabel(db.me.display_name);
   const D = window.ICanDemo = {
     db, uid,
     save() { localStorage.setItem(KEY, JSON.stringify(D.db)); },
@@ -90,7 +98,7 @@
     const blob = new Blob([text], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'icanpath-bao-cao-demo.csv'; a.click();
+    a.href = url; a.download = 'icanpath-bao-cao.csv'; a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
 })();

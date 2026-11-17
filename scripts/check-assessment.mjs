@@ -64,7 +64,9 @@ for (const grade of [4, 7, 10]) {
   const result = (await D.assessmentRequest('/api/results', { headers: { 'x-result-token': resultToken } })).data.result;
   assert.equal(result.student.grade, grade);
   assert.ok(result.overall.cefr);
-  assert.ok(result.overall.note_vi.includes('DEMO'));
+  assert.ok(result.overall.note_vi.includes('không thay thế chứng chỉ CEFR'));
+  assert.ok(result.overall.note_vi.includes('chưa được chấm bằng AI'));
+  assert.equal(result.copy_version, 3);
   assert.equal(result.self_vs_actual.length, 4);
   assert.equal(result.learning_path.units.length, 4);
   assert.equal(result.feedback.speaking.length, 1);

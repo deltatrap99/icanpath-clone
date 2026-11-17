@@ -176,11 +176,11 @@
   }
   function auth(admin) {
     const me = db().me;
-    if (!me) return fail(401, 'Bạn cần đăng nhập bằng tài khoản dùng thử để tiếp tục sử dụng chức năng này.', 'unauthorized');
+    if (!me) return fail(401, 'Bạn cần đăng nhập bằng tài khoản để tiếp tục sử dụng chức năng này.', 'unauthorized');
     const user = db().users.find((u) => u.id === me.id);
     if (user && (!user.active || user.role !== me.role)) {
       db().me = null; D.save();
-      return fail(401, 'Phiên đăng nhập dùng thử của bạn đã kết thúc, bạn hãy đăng nhập lại để tiếp tục.', 'unauthorized');
+      return fail(401, 'Phiên đăng nhập của bạn đã kết thúc, bạn hãy đăng nhập lại để tiếp tục.', 'unauthorized');
     }
     if (admin && me.role !== 'admin') return fail(403, 'Chức năng này chỉ dành cho quản trị viên.', 'forbidden');
     return me;
@@ -191,7 +191,7 @@
   }
   function getSchool(id) {
     const school = db().schools.find((s) => String(s.id) === String(id));
-    if (!school) return fail(404, 'Không tìm thấy trường trong dữ liệu demo.', 'school_not_found');
+    if (!school) return fail(404, 'Không tìm thấy trường trong hệ thống.', 'school_not_found');
     return school;
   }
   function getCampaign(id) {
@@ -323,10 +323,10 @@
     return { students: ids.size, sessions, results };
   }
   function confirmId(body, id) {
-    if (text(body.confirm) !== id) return fail(400, 'Bạn hãy nhập đúng mã của mục cần xóa để xác nhận thao tác với dữ liệu dùng thử.', 'confirmation_required');
+    if (text(body.confirm) !== id) return fail(400, 'Bạn hãy nhập đúng mã của mục cần xóa để xác nhận thao tác với dữ liệu.', 'confirmation_required');
   }
   function validateDemoPassword(value) {
-    if (value != null && value !== '' && value !== 'demo123') return fail(400, 'Các tài khoản trong bản dùng thử sử dụng mật khẩu demo123 để bạn thuận tiện kiểm tra các chức năng.', 'demo_password_only');
+    if (value != null && value !== '' && value !== 'demo123') return fail(400, 'Mật khẩu chưa đáp ứng cấu hình tài khoản hiện tại.', 'demo_password_only');
     return 'demo123';
   }
   function getHeader(options, name) {
@@ -359,13 +359,13 @@
     }
     if (route === '/api/staff/login' && method === 'POST') {
       const username = text(body.username).toLowerCase();
-      if (body.password !== 'demo123') return fail(401, 'Tên đăng nhập hoặc mật khẩu demo không đúng.', 'invalid_credentials');
+      if (body.password !== 'demo123') return fail(401, 'Tên đăng nhập hoặc mật khẩu không đúng.', 'invalid_credentials');
       let user = db().users.find((u) => text(u.username).toLowerCase() === username);
-      if (!user && username === 'admin') user = { id: 'admin-root', username: 'admin', display_name: 'Quản trị viên Demo', role: 'admin', active: true, password: 'demo123' };
-      if (!user && username === 'staff') user = { id: 'staff-demo', username: 'staff', display_name: 'Nhân viên GE Demo', role: 'staff', active: true, password: 'demo123' };
+      if (!user && username === 'admin') user = { id: 'admin-root', username: 'admin', display_name: 'Quản trị viên', role: 'admin', active: true, password: 'demo123' };
+      if (!user && username === 'staff') user = { id: 'staff-demo', username: 'staff', display_name: 'Nhân viên GE', role: 'staff', active: true, password: 'demo123' };
       const shared = username === 'ge demo' && db().shared_login === true;
-      if (shared) user = { id: 'ge-shared-demo', username: 'GE Demo', display_name: 'GE Demo', role: 'staff', active: true, shared: true };
-      if (!user || !user.active || (user.password && user.password !== 'demo123')) return fail(401, 'Tên đăng nhập hoặc mật khẩu demo không đúng, hoặc tài khoản đã khóa.', 'invalid_credentials');
+      if (shared) user = { id: 'ge-shared-demo', username: 'GE Demo', display_name: 'Nhân viên GE', role: 'staff', active: true, shared: true };
+      if (!user || !user.active || (user.password && user.password !== 'demo123')) return fail(401, 'Tên đăng nhập hoặc mật khẩu không đúng, hoặc tài khoản đã khóa.', 'invalid_credentials');
       user.last_login_at = stamp();
       db().me = { ...meView(user), shared: !!user.shared };
       audit('staff_login', user.id, { role: user.role }); D.save();
@@ -375,7 +375,7 @@
     if (route === '/api/school-report' && method === 'GET') {
       const token = getHeader(options, 'x-report-token');
       const school = token && db().schools.find((s) => s.report_token === token);
-      if (!school) return fail(404, 'Link báo cáo demo không hợp lệ hoặc đã được cấp lại.', 'report_not_found');
+      if (!school) return fail(404, 'Link báo cáo không hợp lệ hoặc đã được cấp lại.', 'report_not_found');
       const items = rows().filter((r) => r.school_id === school.id);
       const weak = new Map();
       for (const row of uniqueStudents(items).filter((r) => r.status === 'completed')) {
@@ -387,7 +387,7 @@
         labels.forEach((label) => weak.set(label, (weak.get(label) || 0) + 1));
       }
       const denominator = summarize(items).completed || 1;
-      return D.ok({ school: { id: school.id, name: school.name }, summary: summarize(items), by_grade: groups(items, (r) => r.grade), by_class: groups(items, (r) => r.class_name), by_campaign: groups(items, (r) => { const c = db().campaigns.find((x) => x.id === r.campaign_id); return c ? c.name || c.test_date : r.test_date; }), weak_competencies: [...weak].map(([label_vi, students]) => ({ label_vi, students, share: students / denominator })).sort((a, b) => b.students - a.students), note_vi: 'Dữ liệu demo được tổng hợp trên thiết bị này; không phải dữ liệu học sinh thật. Điểm CEFR chỉ minh họa giao diện, chưa được hiệu chuẩn.' });
+      return D.ok({ school: { id: school.id, name: school.name }, summary: summarize(items), by_grade: groups(items, (r) => r.grade), by_class: groups(items, (r) => r.class_name), by_campaign: groups(items, (r) => { const c = db().campaigns.find((x) => x.id === r.campaign_id); return c ? c.name || c.test_date : r.test_date; }), weak_competencies: [...weak].map(([label_vi, students]) => ({ label_vi, students, share: students / denominator })).sort((a, b) => b.students - a.students), note_vi: 'Báo cáo được tổng hợp từ dữ liệu trên thiết bị này. Mức CEFR mang tính tham chiếu và chưa được hiệu chuẩn.' });
     }
     if (!route.startsWith('/api/staff/') && !route.startsWith('/api/admin/')) return undefined;
     const me = auth(route.startsWith('/api/admin/'));
@@ -399,7 +399,7 @@
       if (name.length < 2 || name.length > 160 || ward.length < 2 || ward.length > 160 || !province) return fail(400, 'Vui lòng chọn tỉnh/thành, nhập xã/phường và tên trường hợp lệ.', 'invalid_school');
       if (!['public', 'private'].includes(body.ownership || 'public') || (body.program && !PROGRAMS.includes(body.program))) return fail(400, 'Loại hình hoặc chương trình không hợp lệ.', 'invalid_school');
       const duplicate = db().schools.find((s) => norm(s.name) === norm(name) && (s.province_code === province.code || s.province === province.name) && norm(s.ward || s.ward_name) === norm(ward));
-      if (duplicate) { try { return fail(409, 'Trường đã có trong dữ liệu demo.', 'school_exists'); } catch (e) { e.data = { ...(e.data || {}), school_id: duplicate.id }; throw e; } }
+      if (duplicate) { try { return fail(409, 'Trường đã có trong hệ thống.', 'school_exists'); } catch (e) { e.data = { ...(e.data || {}), school_id: duplicate.id }; throw e; } }
       const school = { id: D.uid('sch'), name, ward, ward_name: ward, province_code: province.code, province: province.name, ownership: body.ownership || 'public', specialized: body.specialized === true, program: body.program || null, verified: body.verified !== false, created_at: stamp() };
       db().schools.push(school); audit('school_create', school.id); D.save(); return D.ok({ school: schoolView(school, []) }, 201);
     }
@@ -428,14 +428,14 @@
     parts = match(/^\/api\/staff\/sessions\/([^/]+)\/result-link$/);
     if (parts && method === 'POST') {
       const session = sessionFor(decodeURIComponent(parts[1]));
-      if (!session) return fail(404, 'Không tìm thấy bài làm demo.', 'session_not_found');
+      if (!session) return fail(404, 'Không tìm thấy bài làm.', 'session_not_found');
       if (session.status !== 'completed') return fail(409, 'Học sinh chưa hoàn thành bài kiểm tra.', 'session_not_completed');
       if (!session.result_token || !db().results[session.result_token]) {
         if (!session.result_token) session.result_token = D.uid('result');
         const made = await D.makeResult(session);
         const result = made?.result || made;
         if (result && !db().results[session.result_token]) db().results[session.result_token] = result;
-        if (!db().results[session.result_token]) return fail(409, 'Chưa tạo được báo cáo demo.', 'result_not_ready');
+        if (!db().results[session.result_token]) return fail(409, 'Chưa tạo được báo cáo.', 'result_not_ready');
         D.save();
       }
       return D.ok({ result_token: session.result_token });
@@ -464,7 +464,7 @@
     parts = match(/^\/api\/admin\/users\/([^/]+)$/);
     if (parts && method === 'PATCH') {
       const user = db().users.find((u) => u.id === decodeURIComponent(parts[1]));
-      if (!user) return fail(404, 'Không tìm thấy tài khoản demo.', 'user_not_found');
+      if (!user) return fail(404, 'Không tìm thấy tài khoản.', 'user_not_found');
       if (user.username === 'admin' || (user.id === me.id && (body.active === false || body.role === 'staff'))) return fail(409, 'Bạn không thể khóa hoặc hạ quyền của tài khoản quản trị đang sử dụng để tránh gián đoạn phiên làm việc.', 'admin_protected');
       if (body.role != null && !['staff', 'admin'].includes(body.role)) return fail(400, 'Vai trò không hợp lệ.', 'invalid_role');
       if (body.active != null && typeof body.active !== 'boolean') return fail(400, 'Trạng thái tài khoản không hợp lệ.', 'invalid_active');
@@ -482,7 +482,7 @@
     parts = match(/^\/api\/admin\/students\/([^/]+)$/);
     if (parts && method === 'DELETE') {
       const id = decodeURIComponent(parts[1]); confirmId(body, id);
-      if (!rows().some((r) => r.student_id === id)) return fail(404, 'Không tìm thấy học sinh demo.', 'student_not_found');
+      if (!rows().some((r) => r.student_id === id)) return fail(404, 'Không tìm thấy học sinh.', 'student_not_found');
       const deleted = deleteSessions((s) => s.student?.student_id === id); audit('student_delete', id, deleted); D.save(); return D.ok({ deleted });
     }
     parts = match(/^\/api\/admin\/campaigns\/([^/]+)$/);

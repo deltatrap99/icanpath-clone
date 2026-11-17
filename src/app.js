@@ -432,21 +432,21 @@ function consentBlock(f) {
       h('span', {}, 'Tôi đồng ý nhận thông tin về các chương trình học tập, sản phẩm mới và ưu đãi từ GE/ICAN qua email hoặc số điện thoại đã đăng ký.')),
     h('p', { class: 'small muted' }, h('em', {}, 'Việc nhận thông tin là lựa chọn không bắt buộc, em vẫn có thể tham gia đánh giá và nhận kết quả khi không chọn mục này.')));
 }
-const LEGAL_NOTE = 'Nội dung này mô tả cách bản dùng thử ICan Path hoạt động và xử lý thông tin trên thiết bị của bạn, giúp bạn hiểu rõ phạm vi sử dụng trước khi tham gia.';
+const LEGAL_NOTE = 'Nội dung này mô tả cách ICANPath hoạt động và xử lý thông tin trên thiết bị của bạn, giúp bạn hiểu rõ phạm vi sử dụng trước khi tham gia.';
 const LEGAL = {
   'dieu-khoan': ['Điều khoản sử dụng', [
     ['Dịch vụ', 'ICan Path là bài đánh giá tiếng Anh khoảng 30 phút (Khởi động, Nghe, Đọc, Nói, Viết) do GE/ICAN tổ chức cùng nhà trường, kèm báo cáo năng lực và gợi ý lộ trình luyện tập.'],
     ['Kết quả mang tính tham chiếu', 'Mức CEFR trong báo cáo là tham chiếu từ một bài kiểm tra ngắn, ngân hàng câu hỏi chưa được hiệu chuẩn; không thay thế chứng chỉ hay điểm số chính thức của nhà trường. Khi bài làm chưa đủ dữ liệu tin cậy, hệ thống không kết luận trình độ và đề nghị làm bổ sung.'],
-    ['Chấm điểm tự động', 'Trong bản dùng thử, phần Nói và Viết hiển thị điểm cùng nhận xét minh họa để giới thiệu cách trình bày báo cáo, chưa sử dụng dịch vụ chấm AI thực tế.'],
+    ['Chấm điểm tự động', 'Phần trắc nghiệm được tính từ câu trả lời của học sinh. Phần Nói và Viết chưa được chấm bằng AI, học sinh cần thêm nhận xét của giáo viên để đánh giá đầy đủ.'],
     ['Trách nhiệm của người làm bài', 'Em tự làm bài, không nhờ người khác làm thay, không sao chép hay phát tán đề. Link kết quả là link cá nhân, chỉ chia sẻ cho phụ huynh/người được phép.'],
     ['Liên hệ', 'Bạn có thể liên hệ thầy cô phụ trách hoặc nhân viên GE của đợt kiểm tra để được hướng dẫn tra cứu kết quả, cấp lại đường dẫn hoặc xử lý yêu cầu về dữ liệu.']]],
   'chinh-sach-du-lieu': ['Chính sách xử lý dữ liệu cá nhân', [
-    ['Dữ liệu thu thập', 'Thông tin của bài làm gồm họ tên, lớp, trường, quá trình học tiếng Anh, mức tự đánh giá bốn kỹ năng và mục tiêu học tập của học sinh. Bản dùng thử lưu câu trả lời, bài viết và thông tin về lượt ghi âm trong trình duyệt, còn nội dung âm thanh chỉ được xử lý trên thiết bị.'],
+    ['Dữ liệu thu thập', 'Thông tin của bài làm gồm họ tên, lớp, trường, quá trình học tiếng Anh, mức tự đánh giá bốn kỹ năng và mục tiêu học tập của học sinh. Hệ thống lưu câu trả lời, bài viết và thông tin về lượt ghi âm trong trình duyệt, còn nội dung âm thanh chỉ được xử lý trên thiết bị.'],
     ['Mục đích', 'Thông tin được sử dụng để tính kết quả trắc nghiệm, trình bày báo cáo năng lực và gợi ý lộ trình luyện tập cho học sinh. Các báo cáo dành cho nhà trường chỉ hiển thị số liệu tổng hợp và không hiển thị họ tên cá nhân.'],
-    ['Chấm Nói/Viết bằng dịch vụ bên ngoài', 'Bản dùng thử xử lý bản ghi âm và bài viết trên thiết bị, không gửi nội dung tới dịch vụ chấm phát âm hoặc mô hình AI bên ngoài. Điểm số và nhận xét ở những phần này chỉ được dùng để minh họa giao diện báo cáo.'],
-    ['Ai được xem', 'Học sinh và phụ huynh có thể mở đường dẫn kết quả trên trình duyệt đang lưu bài làm, còn nhân viên dùng tài khoản demo để xem các màn hình quản lý. Báo cáo nhà trường chỉ trình bày số liệu tổng hợp và không hiển thị họ tên học sinh.'],
+    ['Chấm Nói/Viết bằng dịch vụ bên ngoài', 'Hệ thống xử lý bản ghi âm và bài viết trên thiết bị, không gửi nội dung tới dịch vụ chấm phát âm hoặc mô hình AI bên ngoài. Phần Nói và Viết chưa được chấm bằng AI.'],
+    ['Ai được xem', 'Học sinh và phụ huynh có thể mở đường dẫn kết quả trên trình duyệt đang lưu bài làm, còn nhân viên dùng tài khoản được cấp để xem các màn hình quản lý. Báo cáo nhà trường chỉ trình bày số liệu tổng hợp và không hiển thị họ tên học sinh.'],
     ['Nhận thông tin quảng bá', 'Học sinh hoặc phụ huynh có thể chủ động chọn đồng ý nhận thông tin khi có nhu cầu. Đây là lựa chọn không bắt buộc và không ảnh hưởng đến quyền tham gia đánh giá hay nhận kết quả.'],
-    ['Quyền của học sinh và phụ huynh', 'Học sinh và phụ huynh có thể nhờ thầy cô hoặc nhân viên GE hướng dẫn việc xem, chỉnh sửa, cấp lại đường dẫn hoặc xóa dữ liệu bài làm. Trong bản dùng thử, quản trị viên có thể xóa những dữ liệu đang lưu trong trình duyệt.'],
+    ['Quyền của học sinh và phụ huynh', 'Học sinh và phụ huynh có thể nhờ thầy cô hoặc nhân viên GE hướng dẫn việc xem, chỉnh sửa, cấp lại đường dẫn hoặc xóa dữ liệu bài làm. Quản trị viên có thể xóa những dữ liệu đang lưu trong trình duyệt.'],
     ['Đồng ý của phụ huynh/người giám hộ', 'Với học sinh chưa đủ tuổi theo quy định, việc tham gia cần có sự đồng ý hợp lệ của phụ huynh/người giám hộ (thường được nhà trường thu thập khi tổ chức đợt kiểm tra).']]],
 };
 function legalPage(key) {
@@ -678,7 +678,7 @@ function renderSpeaking() {
   });
   if (!pickMime() || !navigator.mediaDevices) cards.unshift(h('div', { class: 'card tint-red' }, h('span', { class: 'badge bad' }, 'Trình duyệt không hỗ trợ ghi âm. Em hãy dùng Chrome/Safari bản mới hoặc bấm "Sang phần Viết".')));
   mount(lesson([h('div', { class: 'qmeta' }, '🎤 Nói'), h('div', { class: 'instr' }, 'Ghi âm câu trả lời của em'), IDENTITY?.activityGuide(h, 'S'), ...cards],
-    footBar(h('span', { class: 'muted small' }, 'Bản ghi âm được xử lý trên thiết bị của em, còn các nhận xét trong bản dùng thử chỉ mang tính minh họa.'),
+    footBar(h('span', { class: 'muted small' }, 'Bản ghi âm được xử lý trên thiết bị của em. Phần Nói chưa được chấm bằng AI.'),
       h('button', { class: 'btn-lg btn-block', onclick: () => { stopRecorder(false); advanceSection(); } }, 'Sang phần Viết →'))));
   tick();
 }
@@ -943,7 +943,7 @@ async function learnPage(code, query = new URLSearchParams()) {
         try {
           const b64 = await blobToB64(new Blob(chunks, { type: mr.mimeType || mime }));
           const r = (await api('/api/practice/pronounce', { method: 'POST', body: { text: sentence, audio_base64: b64, audio_format: fmtOf(mr.mimeType || mime) }, headers: { 'x-result-token': tok } })).data.result;
-          out.replaceChildren(h('div', {}, h('span', { class: 'badge ' + ((r.overall ?? 0) >= 80 ? 'ok' : (r.overall ?? 0) >= 60 ? 'warn' : 'bad'), style: 'font-size:15px' }, `Điểm phát âm: ${r.overall ?? 'Chưa có dữ liệu'}/100${r.illustrative ? ' (minh họa)' : ''}`), ' ', (r.weak_phonemes || []).length ? h('span', { class: 'muted' }, `Âm cần luyện: /${r.weak_phonemes.join('/, /')}/`) : null),
+          out.replaceChildren(h('div', {}, h('span', { class: 'badge ' + ((r.overall ?? 0) >= 80 ? 'ok' : (r.overall ?? 0) >= 60 ? 'warn' : 'bad'), style: 'font-size:15px' }, r.illustrative ? 'Đã nhận bản ghi âm' : `Điểm phát âm: ${r.overall ?? 'Chưa có dữ liệu'}/100`), ' ', (r.weak_phonemes || []).length ? h('span', { class: 'muted' }, `Âm cần luyện: /${r.weak_phonemes.join('/, /')}/`) : null),
             h('div', {}, (r.words || []).map((w) => h('span', { class: 'word ' + (w.score == null ? '' : w.score >= 80 ? 'w-good' : w.score >= 60 ? 'w-mid' : 'w-bad'), title: w.score == null ? '' : `${w.score}` }, w.word))));
         } catch (e) { out.replaceChildren(h('span', { class: 'badge bad' }, e.message)); }
       };
@@ -964,7 +964,7 @@ async function learnPage(code, query = new URLSearchParams()) {
         h('div', { class: 'card', style: 'margin:0' }, h('h2', {}, '🎯 Sau bài học em có thể'), h('ul', { class: 'list' }, (L.can_do_vi || u.can_do || []).map((x) => h('li', {}, x)))))),
     h('div', { class: 'card' }, h('h2', {}, '🎤 Luyện nói và phát âm'),
       IDENTITY?.activityGuide(h, 'learn'),
-      h('p', { class: 'small muted' }, tok ? 'Em hãy nghe câu mẫu, chọn Ghi âm rồi đọc lại câu và chọn Dừng khi hoàn tất. Điểm phát âm trong bản dùng thử chỉ mang tính minh họa.' : 'Em hãy mở bài học từ trang báo cáo kết quả của mình để sử dụng tính năng luyện phát âm.'),
+      h('p', { class: 'small muted' }, tok ? 'Em hãy nghe câu mẫu, chọn Ghi âm rồi đọc lại câu và chọn Dừng khi hoàn tất. Bản ghi âm chưa được phân tích phát âm bằng AI.' : 'Em hãy mở bài học từ trang báo cáo kết quả của mình để sử dụng tính năng luyện phát âm.'),
       (L.speaking_practice || []).map(practiceRow)),
     IDENTITY?.journey.lessonFooter(h, { token: tok, unit: u, path: learningPath, toast }),
   );
@@ -1047,7 +1047,7 @@ function staffLogin() {
     h('h2', { class: 'center' }, 'Đăng nhập nhân viên GE'),
     h('label', {}, 'Tên đăng nhập hoặc họ tên'), h('input', { type: 'text', autocomplete: 'username', placeholder: 'VD: lan.nv hoặc Nguyễn Thị Lan', oninput: (e) => (f.username = e.target.value) }),
     h('label', {}, 'Mật khẩu'), h('input', { type: 'password', autocomplete: 'current-password', oninput: (e) => (f.password = e.target.value) }),
-    h('p', { class: 'small muted' }, 'Nhân viên có thể đăng nhập bằng tên GE Demo hoặc staff với mật khẩu demo123. Quản trị viên sử dụng tên đăng nhập admin và cùng mật khẩu dùng thử để truy cập các chức năng quản lý.'),
+    h('p', { class: 'small muted' }, 'Nhân viên và quản trị viên đăng nhập bằng tài khoản được cấp để truy cập các chức năng quản lý.'),
     h('p', {}, h('button', { type: 'submit', class: 'btn-lg btn-block' }, 'Đăng nhập'))));
 }
 async function staffSchools(body, me) {
@@ -1131,7 +1131,7 @@ async function staffCampaign(body, id, me) {
   const toggle = async () => { await api('/api/staff/campaigns/' + id, { method: 'PATCH', body: { status: c.status === 'open' ? 'closed' : 'open' } }); staffPage('campaigns', id); };
   const remove = async () => {
     const v = prompt(`XÓA đợt ${c.id} cùng ${data.students.length} học sinh và kết quả (không khôi phục được).\nNhập đúng mã ${c.id} để xác nhận:`); if (v == null) return;
-    try { await api('/api/admin/campaigns/' + c.id, { method: 'DELETE', body: { confirm: v.trim() } }); toast('Đợt kiểm tra cùng dữ liệu liên quan đã được xóa khỏi bản dùng thử.'); location.hash = '#/staff/campaigns'; } catch (e) { toast(e.message); }
+    try { await api('/api/admin/campaigns/' + c.id, { method: 'DELETE', body: { confirm: v.trim() } }); toast('Đợt kiểm tra cùng dữ liệu liên quan đã được xóa khỏi hệ thống.'); location.hash = '#/staff/campaigns'; } catch (e) { toast(e.message); }
   };
   body.replaceChildren(
     h('div', { class: 'card' }, h('div', { class: 'row spread' }, h('div', {}, h('h2', { style: 'margin:0' }, `${c.school_name}, ${c.test_date}`), h('div', { class: 'muted small' }, `Khối ${c.grades.join(', ')}, GV: ${c.teacher || 'Chưa có dữ liệu'}, NV GE: ${c.ge_staff || 'Chưa có dữ liệu'}, ${c.id}`)),
@@ -1216,7 +1216,7 @@ async function adminUsers(box, me, secret) {
   const f = { username: '', display_name: '', role: 'staff', password: '' };
   const secretBox = h('div');
   const showSecret = (title, username, pw) => { secretBox.replaceChildren(h('div', { class: 'card tint-yellow' }, h('h3', {}, title), h('p', {}, 'Tên đăng nhập: ', h('code', {}, username)), h('div', { class: 'secret' }, pw),
-    h('p', { class: 'small' }, 'Mật khẩu của tài khoản dùng thử được hiển thị tại đây để bạn gửi cho người được cấp tài khoản.'), h('button', { class: 'btn2 small', onclick: () => navigator.clipboard.writeText(pw).then(() => toast('Mật khẩu của tài khoản đã được sao chép để bạn chuyển cho người sử dụng.')) }, 'Sao chép mật khẩu'))); window.scrollTo(0, 0); };
+    h('p', { class: 'small' }, 'Mật khẩu của tài khoản được hiển thị tại đây để bạn gửi cho người được cấp tài khoản.'), h('button', { class: 'btn2 small', onclick: () => navigator.clipboard.writeText(pw).then(() => toast('Mật khẩu của tài khoản đã được sao chép để bạn chuyển cho người sử dụng.')) }, 'Sao chép mật khẩu'))); window.scrollTo(0, 0); };
   const create = async () => {
     try {
       const r = (await api('/api/admin/users', { method: 'POST', body: { ...f, password: f.password || undefined } })).data;
@@ -1237,7 +1237,7 @@ async function adminUsers(box, me, secret) {
       h('p', { style: 'margin-top:16px' }, h('button', { id: 'nu-create', onclick: create }, '＋ Tạo tài khoản'))),
     h('div', { class: 'card' }, h('h2', {}, `Tài khoản (${data.users.length} + admin gốc)`),
       tbl(['Tên đăng nhập', 'Tên hiển thị', 'Vai trò', 'Trạng thái', 'Đăng nhập gần nhất', ''],
-        [[h('code', {}, 'admin'), 'Quản trị viên (gốc)', h('span', { class: 'role-badge' }, 'Quản trị viên'), h('span', { class: 'badge ok' }, 'Hoạt động'), 'Chưa có dữ liệu', h('span', { class: 'small muted' }, 'Tài khoản quản trị dùng thử sử dụng mật khẩu demo123.')],
+        [[h('code', {}, 'admin'), 'Quản trị viên (gốc)', h('span', { class: 'role-badge' }, 'Quản trị viên'), h('span', { class: 'badge ok' }, 'Hoạt động'), 'Chưa có dữ liệu', h('span', { class: 'small muted' }, 'Tài khoản quản trị hệ thống.')],
           ...data.users.map((u) => [h('code', {}, u.username), u.display_name, h('span', { class: 'role-badge' }, ROLE_VI[u.role]), u.active ? h('span', { class: 'badge ok' }, 'Hoạt động') : h('span', { class: 'badge bad' }, 'Đã khóa'), h('span', { class: 'small' }, fmtTime(u.last_login_at)),
             h('div', { class: 'row', style: 'justify-content:flex-end' },
               h('button', { class: 'btn-ghost small', onclick: () => { if (confirm(`Đặt lại mật khẩu cho ${u.username}? Phiên đăng nhập hiện tại của người này sẽ bị đăng xuất.`)) patch(u, { reset_password: true }); } }, 'Đặt lại MK'),
@@ -1254,7 +1254,7 @@ async function adminStudents(box) {
       const { data } = await api('/api/admin/students?q=' + encodeURIComponent(q.value.trim()));
       const del = async (s) => {
         const v = prompt(`XÓA học sinh "${s.full_name}" và toàn bộ bài làm/kết quả (không khôi phục được).\nNhập đúng mã ${s.student_id} để xác nhận:`); if (v == null) return;
-        try { await api('/api/admin/students/' + s.student_id, { method: 'DELETE', body: { confirm: v.trim() } }); toast('Dữ liệu bài làm của học sinh đã được xóa khỏi bản dùng thử.'); run(); } catch (e) { toast(e.message); }
+        try { await api('/api/admin/students/' + s.student_id, { method: 'DELETE', body: { confirm: v.trim() } }); toast('Dữ liệu bài làm của học sinh đã được xóa khỏi hệ thống.'); run(); } catch (e) { toast(e.message); }
       };
       const link = async (s, cell) => {
         try { const r = (await api(`/api/staff/sessions/${s.session_id}/result-link`, { method: 'POST', body: {} })).data; cell.replaceChildren(h('a', { class: 'btn btn2 small', href: '#/r/' + r.result_token }, 'Mở kết quả')); } catch (e) { toast(e.message); }
@@ -1277,5 +1277,5 @@ async function adminAudit(box) {
   const { data } = await api('/api/admin/audit');
   const ACT = { user_create: 'Tạo tài khoản', user_update: 'Sửa tài khoản', settings_update: 'Đổi cài đặt', student_delete: 'Xóa học sinh', campaign_delete: 'Xóa đợt', school_delete: 'Xóa trường', school_update: 'Đổi tên trường' };
   box.replaceChildren(h('div', { class: 'card' }, h('h2', {}, '📜 Nhật ký quản trị (200 gần nhất)'),
-    data.events.length ? tbl(['Thời gian', 'Người thực hiện', 'Hành động', 'Đối tượng', 'Chi tiết'], data.events.map((e) => [h('span', { class: 'small' }, fmtTime(e.at)), h('code', {}, e.actor), h('b', {}, ACT[e.action] || e.action), h('code', {}, e.target), h('span', { class: 'small muted break' }, e.detail ? JSON.stringify(e.detail) : '')])) : emptyState('Nhật ký hiện chưa ghi nhận thao tác quản trị nào trên bản dùng thử.')));
+    data.events.length ? tbl(['Thời gian', 'Người thực hiện', 'Hành động', 'Đối tượng', 'Chi tiết'], data.events.map((e) => [h('span', { class: 'small' }, fmtTime(e.at)), h('code', {}, e.actor), h('b', {}, ACT[e.action] || e.action), h('code', {}, e.target), h('span', { class: 'small muted break' }, e.detail ? JSON.stringify(e.detail) : '')])) : emptyState('Nhật ký hiện chưa ghi nhận thao tác quản trị nào trên hệ thống.')));
 }

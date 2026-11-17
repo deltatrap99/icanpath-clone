@@ -76,7 +76,7 @@ assert.equal(report.summary.completed, 2);
 assert.equal(report.by_grade[0].key, '8');
 assert.equal(report.weak_competencies[0].students, 2);
 assert.equal(report.weak_competencies[0].share, 1);
-assert.match(report.note_vi, /demo/);
+assert.match(report.note_vi, /CEFR mang tính tham chiếu/);
 await req(`/api/staff/schools/${school.id}/report-link`, 'POST', {});
 await assert.rejects(() => req('/api/school-report', 'GET', undefined, { 'x-report-token': reportToken }), e => e.status === 404);
 D.makeResult = session => ({ student: session.student, overall: { theta: 2.1, cefr: 'A2' }, skills: {}, confidence: { level: 'medium' } });
