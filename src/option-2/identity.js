@@ -36,7 +36,7 @@
   }
   const skillIcons = { U: 'puzzle', L: 'headphones', S: 'chat', R: 'book', W: 'pen' };
   function brand(h) {
-    return h('a', { class: 'brand', href: '#/', 'aria-label': 'ICANPath, trang chủ' }, h('img', { src: assets + 'icanpath-logo-pink.svg', alt: 'ICANPath', width: 200, height: 48 }));
+    return h('a', { class: 'brand', href: '#/', 'aria-label': 'ICANPath, trang chủ' }, h('img', { src: assets + 'icanpath-logo-option-1.svg', alt: 'ICANPath', width: 200, height: 47 }));
   }
   function decorate(el) {
     if (/^H[123]$/.test(el.tagName) && el.firstChild?.nodeType === Node.TEXT_NODE) {
@@ -111,7 +111,7 @@
           h('a', { class: 'identity-text-link', href: '#/r/demo-result' }, 'Khám phá báo cáo', arrow())),
         h('div', { class: 'identity-report-visual' },
           h('div', { class: 'identity-sample-card' },
-            h('div', { class: 'identity-sample-top' }, h('img', { src: assets + 'icanpath-logo-pink.svg', alt: 'ICANPath', width: 130, height: 31, loading: 'lazy' }), h('span', {}, 'Báo cáo năng lực')),
+            h('div', { class: 'identity-sample-top' }, h('img', { src: assets + 'icanpath-logo-option-1.svg', alt: 'ICANPath', width: 130, height: 30, loading: 'lazy' }), h('span', {}, 'Báo cáo năng lực')),
             h('h3', {}, 'Hiểu hơn về năng lực của em'),
             h('div', { class: 'identity-sample-level' }, h('b', {}, 'A2'), h('div', {}, h('strong', {}, 'Mức tham chiếu'), h('span', {}, 'Theo khung năng lực CEFR'))),
             h('div', { class: 'identity-sample-bars' }, sampleBars.map(([key, label, value]) => h('div', { class: 'identity-sample-bar' }, icon(skillIcons[key], 21), h('span', {}, label), h('div', { class: 'identity-track', 'aria-hidden': 'true' }, h('i', { style: `width:${value}%;${key === 'S' ? 'background:var(--identity-coral)' : ''}` }))))),

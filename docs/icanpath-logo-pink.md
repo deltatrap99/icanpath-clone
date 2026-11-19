@@ -1,5 +1,7 @@
 # Logo ICANPath với chữ a màu hồng
 
+Bản màu hồng này được lưu lại để tham khảo lịch sử. Logo đang dùng đã được thay bằng option 1 trong PDF người dùng cung cấp, theo [nguồn logo hiện hành](icanpath-logo-pdf.md).
+
 Người dùng chốt bản chữ Path mềm mại với chữ a màu hồng ICAN, ngôi sao trắng và đường cong nối P tới a ngày 19/11/2026, đồng thời yêu cầu áp dụng cho website option 2 và xuất bản lên Vercel.
 
 ## Tài nguyên dùng trên website
