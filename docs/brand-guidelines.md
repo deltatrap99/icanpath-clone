@@ -4,7 +4,7 @@ Phương án 2 được triển khai từ bảng nhận diện do người dùng
 
 ## Logo và hình ảnh
 
-Logo chính là `src/option-2/assets/icanpath-logo.svg`, gồm biểu tượng con người, chữ CAN với tam giác ba màu, chữ Path màu xanh và nét cong san hô. Logo dùng đường nét vector độc lập với font trên thiết bị. Giữ đúng tỷ lệ và khoảng trống ít nhất bằng chiều cao chữ i quanh logo, không kéo méo hoặc thêm hiệu ứng lên logo.
+Logo chính là `src/option-2/assets/icanpath-logo-pink.svg`, dùng bản chữ Path mềm mại được người dùng chốt ngày 19/11/2026. Phần ICAN giữ biểu tượng con người và tam giác ba màu, còn chữ Path có P, t, h màu xanh dương ICAN, chữ a màu hồng ICAN và ngôi sao trắng. Đường cong nối P tới a chuyển từ xanh sang hồng, gợi hành trình tiến tới mục tiêu. Ảnh nền trong suốt được nhúng bằng định dạng WebP không mất dữ liệu trong khung SVG, không phụ thuộc font trên thiết bị và không phải bản vector vẽ lại. Khung hiển thị chỉ thu gọn lề trong suốt, giữ đúng tỷ lệ của hình đã duyệt. Nguồn và prompt được ghi tại [icanpath-logo-pink.md](icanpath-logo-pink.md). Không kéo méo hoặc thêm hiệu ứng lên logo.
 
 Biểu tượng ứng dụng nằm trong `learning-path-mark.svg`, dùng một con đường sáng uốn lên cột mốc san hô trên nền xanh thương hiệu. Hình `learning-journey-hero.webp` được tạo riêng cho trang chủ, đặt Peri bước trên con đường và hướng về phía trước. Sách và bút, tai nghe và hội thoại, cây lớn dần cùng điểm đến học tập thể hiện quá trình tích lũy kiến thức, rèn kỹ năng và trưởng thành. Peri đã được tích hợp vào cảnh với hướng nhìn và bóng đổ phù hợp, không đặt thêm một hình Peri rời ở góc ảnh. Ba nhãn Hiểu mình, Rèn kỹ năng và Mở tương lai diễn tả ý tưởng hành trình, không phải trạng thái hoàn thành của học sinh.
 
