@@ -80,6 +80,18 @@ independent.evidence[0].options.A = 'Changed externally';
 assert.equal(service.errorReport(scope, 'W-agreement').students.length, 17);
 assert.notEqual(service.studentReport(scope, lastStudent.id).student.skills.L.score, 0);
 assert.notEqual(service.studentReport(scope, lastStudent.id).evidence[0].options.A, 'Changed externally');
+
+const [teacher] = service.teacherAccounts();
+service.login(teacher.username, teacher.password);
+const teacherScope = { skill: 'W' };
+const teacherGroup = service.errorReport(teacherScope, 'W-agreement');
+assert.equal(teacherGroup.report.scope.class_name, scope.class_name);
+assert.deepEqual(teacherGroup.students.map(student => student.id), group.students.map(student => student.id));
+assert.equal(service.studentReport(teacherScope, lastStudent.id, 'W-agreement').student.id, lastStudent.id);
+assert.throws(() => service.studentReport(teacherScope, outsider.id), error => error.code === 'student_not_found');
+assert.throws(() => service.studentReport({ class_name: outsider.class_name }, outsider.id), error => error.code === 'forbidden');
+assert.throws(() => service.errorReport({ class_name: outsider.class_name, skill: 'W' }, 'W-agreement'), error => error.code === 'forbidden');
+
 service.logout();
 assert.throws(() => service.errorReport(scope, 'W-agreement'), error => error.code === 'unauthorized');
 assert.throws(() => service.studentReport(scope, lastStudent.id, 'W-agreement'), error => error.code === 'unauthorized');

@@ -145,3 +145,75 @@
   .identity-option2 .school-dashboard-header{display:block}.identity-option2 .school-dashboard-account{flex-direction:row;align-items:center;justify-content:space-between;margin-top:16px}.identity-option2 .school-dashboard-account .school-data-badge{font-size:10px}.identity-option2 .school-dashboard-account button{min-height:44px;font-size:11px}.identity-option2 .school-dashboard-header h1{font-size:27px}.identity-option2 .school-metric{padding:17px 13px}.identity-option2 .school-metric > strong{font-size:29px}.identity-option2 .school-metric > small{font-size:9px}.identity-option2 .school-metric-label{font-size:10px}.identity-option2 .school-panel{padding:20px 15px}.identity-option2 .school-rank-table tr{grid-template-columns:24px minmax(0,1fr) 41px;gap:8px;padding:14px 9px}.identity-option2 .school-rank-position > span{width:24px}.identity-option2 .school-student-name{font-size:12px}.identity-option2 .school-rank-score strong{font-size:16px}
 }
 @media print{.identity-option2 .school-dashboard-account,.identity-option2 .school-filter-panel,.identity-option2 .school-search-field,.identity-option2 .school-pager,.identity-option2 .school-context-line a{display:none}.identity-option2 .school-panel,.identity-option2 .school-metric{break-inside:avoid;box-shadow:none}.identity-option2 .school-level-option{border:0;box-shadow:none}.identity-option2 .school-student-dialog{position:static;max-height:none;box-shadow:none}}
+
+.identity-option2 .school-filter-panel.school-teacher-filter {
+  grid-template-columns: minmax(0, 1fr) minmax(13rem, 20rem);
+  align-items: center;
+}
+.identity-option2 .school-teacher-results-heading h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.35;
+}
+.identity-option2 .school-directory-back { margin-bottom: 1rem; }
+.identity-option2 .school-directory-back a,
+.identity-option2 .school-teacher-table a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--identity-primary);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.identity-option2 .school-teacher-table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  color: var(--ink-strong);
+  font-size: .9rem;
+  text-align: left;
+}
+.identity-option2 .school-teacher-table th,
+.identity-option2 .school-teacher-table td {
+  padding: .5rem 1rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.identity-option2 .school-teacher-table thead th {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  background: var(--identity-powder);
+  font-weight: 800;
+}
+.identity-option2 .school-teacher-table tbody th,
+.identity-option2 .school-teacher-table tbody td:nth-child(2) { padding-top: 1.15rem; }
+.identity-option2 .school-teacher-table tbody tr:last-child > * { border-bottom: 0; }
+.identity-option2 .school-teacher-table code {
+  display: inline-block;
+  background: #eff5fd;
+  border-radius: 6px;
+  padding: .15rem .35rem;
+  overflow-wrap: anywhere;
+}
+.identity-option2 .school-teacher-password summary {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  min-height: 44px;
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--identity-primary);
+}
+.identity-option2 .school-teacher-password summary::-webkit-details-marker { display: none; }
+.identity-option2 .school-teacher-password[open] summary > svg { transform: rotate(180deg); }
+.identity-option2 .school-teacher-password code { display: table; margin-bottom: .4rem; }
+@media (max-width: 600px) {
+  .identity-option2 .school-filter-panel.school-teacher-filter { grid-template-columns: minmax(0, 1fr); }
+  .identity-option2 .school-teacher-results-heading h2 { font-size: 1.2rem; }
+  .identity-option2 .school-teacher-table { font-size: .8rem; }
+  .identity-option2 .school-teacher-table th,
+  .identity-option2 .school-teacher-table td { padding-left: .35rem; padding-right: .35rem; }
+  .identity-option2 .school-teacher-password summary > svg { display: none; }
+}
