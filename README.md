@@ -16,7 +16,7 @@ Khi triển khai trên Vercel, cấu hình trong `vercel.json` sẽ chạy lện
 
 ## Phương án nhận diện thứ hai
 
-Mở `/option-2/` để xem phương án ICANPath Open Horizons theo bảng nhận diện được cung cấp. Hệ hình ảnh dùng con đường đi lên qua các cột mốc, với Peri đồng hành qua ba giai đoạn Hiểu mình, Rèn kỹ năng và Mở tương lai. Logo hiện dùng option 1 từ file `Logo - ICANPATH.pdf`, với chữ a xanh lá và chữ Path nét thanh. Tệp `src/option-2/assets/icanpath-logo-option-1.svg` giữ nguyên 18 đường vector xuất từ trang 1 của PDF, còn biểu tượng ứng dụng dùng cùng hình con người và tia sáng trong logo. Màu giao diện là `#3155D9`, đi cùng điểm nhấn san hô và nền xanh nhạt. Trang chủ, khai báo thông tin, bài đánh giá, báo cáo, bài học và khu GE dùng chung bộ nhận diện mới.
+Mở `/option-2/` để xem phương án ICANPath Open Horizons theo bảng nhận diện được cung cấp. Hệ hình ảnh dùng con đường đi lên qua các cột mốc, với Peri đồng hành qua ba giai đoạn Hiểu mình, Rèn kỹ năng và Mở tương lai. Nền tảng hiện dùng logo ICAN gốc trong `src/option-2/assets/ican-logo.png`, giữ nguyên hình dáng, màu sắc và tỷ lệ của thương hiệu. Biểu tượng ứng dụng trong `ican-icon.svg` dùng hình con người và tia sáng của ICAN. Màu giao diện là `#3155D9`, đi cùng điểm nhấn san hô và nền xanh nhạt. Logo ICAN được dùng trên cả hai phương án, gồm trang chủ, khai báo thông tin, bài đánh giá, báo cáo, bài học và khu GE.
 
 Phương án đầu tiên vẫn ở `/`. Hai phương án dùng chung dịch vụ demo và dữ liệu đã lưu trên cùng trình duyệt. Đường dẫn chia sẻ và mã QR giữ đúng phương án đang sử dụng. Mã học sinh dùng thử là `E8YYZD`, áp dụng cho khối 3 đến khối 11.
 

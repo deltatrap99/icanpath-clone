@@ -33,7 +33,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 .topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.4) blur(6px);border-bottom:2px solid var(--line)}
 .topbar-in{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px}
 .brand{display:flex;align-items:center;gap:8px;color:var(--green);font-size:26px;font-weight:900;letter-spacing:-.02em;text-decoration:none!important;white-space:nowrap}
-.brand img{width:40px;height:44px;object-fit:contain}
+.brand img{width:101px;height:44px;object-fit:contain}
 .brand b{color:var(--ink-strong);font-weight:900}
 .topnav{display:flex;align-items:center;gap:10px}
 .topnav a.plain{color:var(--muted);text-transform:uppercase;font-size:14px;letter-spacing:.6px;font-weight:800;padding:10px 8px}
@@ -271,7 +271,7 @@ body.band-911 .instr{font-size:24px}
   .console{grid-template-columns:1fr}
   .sidenav{display:none}
   .console-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;border-bottom:2px solid var(--line);position:sticky;top:0;background:#fff;z-index:10}
-  .console-top .brand{font-size:22px}.console-top .brand img{width:34px;height:38px}
+  .console-top .brand{font-size:22px}.console-top .brand img{width:87px;height:38px}
   .console-top .row{flex-wrap:nowrap;flex:none}
   .console-main{padding:18px 16px 110px}
   .bottomnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:2px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
@@ -286,7 +286,7 @@ body.band-911 .instr{font-size:24px}
   h1{font-size:26px}h2{font-size:20px}
   main{padding:16px 14px 64px}
   .topbar-in{padding:8px 14px}
-  .brand{font-size:22px}.brand img{width:34px;height:38px}
+  .brand{font-size:22px}.brand img{width:87px;height:38px}
   .console-top .role-badge{display:none}
   .topnav a.plain{display:none}
   .home-hero h1{font-size:32px}.hero h1{font-size:30px}

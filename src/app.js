@@ -49,7 +49,7 @@ function setMode(mode) { document.body.classList.remove('mode-site', 'mode-focus
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const fox = (kind, cls, attrs = {}) => IDENTITY?.mascot ? IDENTITY.mascot(h, kind, { ...attrs, class: cls }) : h('img', { src: `/img/fox-${kind}.webp`, alt: '', width: 402, height: 440, class: cls || null, decoding: 'async', ...attrs });
 const loading = () => h('div', { class: 'loading' }, h('div', { class: 'spinner', role: 'status', 'aria-label': 'Đang tải' }));
-const brandLink = () => IDENTITY ? IDENTITY.brand(h) : h('a', { class: 'brand', href: '#/', 'aria-label': 'ICan Path, trang chủ' }, h('img', { src: '/img/fox-hello.webp', alt: '', width: 40, height: 44 }), h('span', {}, 'ican', h('b', {}, 'path')));
+const brandLink = () => IDENTITY ? IDENTITY.brand(h) : h('a', { class: 'brand', href: '#/', 'aria-label': 'ICAN, trang chủ' }, h('img', { src: '/option-2/assets/ican-logo.png', alt: 'ICAN', width: 101, height: 44 }));
 const skillLabel = (k) => IDENTITY ? h('span', { class: 'row', style: 'gap:6px;flex-wrap:nowrap' }, IDENTITY.icon(IDENTITY.skillIcons[k], 22), SK[k].vi) : `${SK[k].icon} ${SK[k].vi}`;
 const publicLink = (path) => new URL('#' + path, location.href).href;
 /** Responsive table: header labels are copied to data-label so rows stack into cards on phones. */
